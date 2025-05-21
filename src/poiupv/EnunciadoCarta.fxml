@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.EnunciadoCartaController">
+   <children>
+      <ToolBar fx:id="options_toolbar" orientation="VERTICAL" prefHeight="651.0" prefWidth="103.0" HBox.hgrow="ALWAYS">
+         <items>
+            <Region minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="80.0" />
+            <VBox alignment="CENTER" prefHeight="330.0" prefWidth="80.0" spacing="10.0">
+               <children>
+                  <ToggleButton mnemonicParsing="false" onAction="#puntoPressed" text="Punto">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="options" />
+                     </toggleGroup></ToggleButton>
+                  <ToggleButton mnemonicParsing="false" text="Linea" toggleGroup="$options" />
+                  <ToggleButton mnemonicParsing="false" text="Arco" toggleGroup="$options" />
+                  <ToggleButton mnemonicParsing="false" text="Texto" toggleGroup="$options" />
+                  <ToggleButton mnemonicParsing="false" text="Limpiar" toggleGroup="$options" />
+                  <ToggleButton mnemonicParsing="false" text="Transportador" toggleGroup="$options" />
+                  <ToggleButton mnemonicParsing="false" text="Distancia" toggleGroup="$options" />
+                  <ToggleButton mnemonicParsing="false" text="Latitud" toggleGroup="$options" />
+                  <ToggleButton mnemonicParsing="false" text="Mano" toggleGroup="$options" />
+                  <HBox alignment="CENTER" prefHeight="30.0" prefWidth="53.0" spacing="10.0">
+                     <children>
+                        <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" mnemonicParsing="false" onAction="#zoomIn" text="+">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <padding>
+                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                           </padding>
+                        </Button>
+                        <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" mnemonicParsing="false" onAction="#zoomOut" text="-">
+                           <padding>
+                              <Insets bottom="5.0" left="12.0" right="12.0" top="5.0" />
+                           </padding>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Region minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="80.0" />
+         </items>
+      </ToolBar>
+      <Separator orientation="VERTICAL" prefHeight="400.0" prefWidth="0.0" />
+      <VBox prefHeight="800.0" prefWidth="1000.0" HBox.hgrow="SOMETIMES">
+         <children>
+            <HBox fillHeight="false" prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="NEVER">
+               <children>
+                  <TitledPane alignment="CENTER" animated="false" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" minWidth="400.0" prefHeight="104.0" prefWidth="400.0" text="Enunciado" HBox.hgrow="ALWAYS">
+                     <content>
+                        <AnchorPane minWidth="100.0" prefHeight="96.0" prefWidth="1018.0">
+                           <children>
+                              <VBox fillWidth="false" minWidth="400.0" prefHeight="57.0" prefWidth="400.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="¿Cuanta distancia hay ?" wrappingWidth="276.53670501708984" />
+                                    <VBox prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <HBox prefHeight="41.0" prefWidth="458.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="A. 10km" wrappingWidth="114.13671112060547" />
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="A. 10km" wrappingWidth="114.13671112060547" />
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="A. 10km" wrappingWidth="114.13671112060547" />
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="A. 10km" wrappingWidth="114.13671112060547" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </TitledPane>
+                  <Button minWidth="80.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="70.0" text="Entregar" HBox.hgrow="NEVER">
+                     <HBox.margin>
+                        <Insets right="10.0" top="5.0" />
+                     </HBox.margin></Button>
+               </children>
+            </HBox>
+            <ScrollPane fx:id="map_scrollpane" fitToHeight="true" fitToWidth="true" prefHeight="678.0" prefWidth="1079.0" VBox.vgrow="ALWAYS">
+              <content>
+                <AnchorPane fx:id="mapPane" minHeight="0.0" minWidth="0.0" prefHeight="773.0" prefWidth="1089.0">
+                     <children>
+                        <Group fx:id="zoomGroup">
+                           <children>
+                              <ImageView fx:id="mapImageView" fitHeight="1120.0" fitWidth="1712.0" layoutX="4.0" layoutY="-90.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../resources/upv.jpg" />
+                                 </image>
+                                 <viewport>
+                                    <Rectangle2D />
+                                 </viewport>
+                              </ImageView>
+                           </children>
+                        </Group>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="MOVE" />
+                     </cursor>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </children>
+</HBox>
