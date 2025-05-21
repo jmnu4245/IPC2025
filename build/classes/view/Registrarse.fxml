@@ -13,11 +13,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="400.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.IniciarSesionController">
+
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="poiupv.RegistrarseController">
    <children>
-      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" spacing="35.0">
+      <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" spacing="35.0">
          <children>
-            <Label alignment="CENTER" text="Iniciar Sesión">
+            <Label alignment="CENTER" text="Registrarse">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
@@ -51,7 +52,7 @@
                               </HBox>
                            </children>
                         </HBox>
-                        <TextField fx:id="introducirUsuario" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="325.0" />
+                        <TextField fx:id="introducirUsuario" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="325.0" promptText="Introduce un nombre de usuario válido" />
                      </children>
                   </VBox>
                   <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="400.0" spacing="5.0">

@@ -13,20 +13,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
-import java.io.IOException;
+
 /**
  * FXML Controller class
  *
  * @author kolir
  */
-public class IniciarSesionController implements Initializable {
+public class RegistrarseController implements Initializable {
 
     @FXML
     private Label notRegUser;
@@ -48,29 +41,11 @@ public class IniciarSesionController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //deshabilitar boton de continuar si los campos usuario y contraseña no están rellenos
-        notRegUser.setVisible(false);
-        noValidFormat.setVisible(false);
-        continuarIni.setDisable(true);
-        continuarIni.disableProperty().bind(introducirUsuario.textProperty().isEmpty().or(introducirContraseña.textProperty().isEmpty()));
-
+        // TODO
     }    
 
     @FXML
     private void registrateAction(ActionEvent event) {
-        try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Registrarse.fxml"));
-        Parent root = loader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setResizable(false);
-        stage.show();
-        Stage actualStage = (Stage) botonRegistrate.getScene().getWindow();
-        actualStage.close();
-
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
     }
 
     @FXML
