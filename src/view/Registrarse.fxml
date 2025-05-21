@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="450.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="poiupv.RegistrarseController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="450.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegistrarseController">
    <children>
       <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" spacing="10.0">
          <children>
@@ -44,14 +44,14 @@
                                  </font>
                               </Label>
                               <Region HBox.hgrow="ALWAYS" />
-                              <Label fx:id="notRegUser" alignment="CENTER" text="Usuario no válido" textFill="RED" />
+                              <Label fx:id="noValidUser" alignment="CENTER" text="Usuario no válido" textFill="RED" />
                            </children>
                            <VBox.margin>
                               <Insets left="37.5" right="37.5" />
                            </VBox.margin>
                         </HBox>
-                        <TextField fx:id="introducirUsuario" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="325.0" promptText="Introduce un nombre de usuario válido" />
-                        <Label text="Entre 6 y 15 caracteres, letras, números, guiones y guiones bajos. sin espacios. " textFill="RED">
+                        <TextField fx:id="userField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="325.0" promptText="Introduce un nombre de usuario válido" />
+                        <Label fx:id="userFormat" text="Entre 6 y 15 caracteres, letras, números, guiones y guiones bajos. sin espacios. " textFill="RED">
                            <font>
                               <Font size="10.0" />
                            </font>
@@ -71,7 +71,7 @@
                                  </font>
                               </Label>
                               <Region HBox.hgrow="ALWAYS" />
-                              <Label fx:id="notRegUser2" alignment="CENTER" text="Correo no válido" textFill="RED" />
+                              <Label fx:id="noValidMail" alignment="CENTER" text="Correo no válido" textFill="RED" />
                            </children>
                            <VBox.margin>
                               <Insets left="37.5" right="37.5" />
@@ -79,7 +79,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="9.0" prefWidth="400.0">
                            <children>
-                              <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="325.0" promptText="Introduce una dirección de correo válida" />
+                              <TextField fx:id="mailField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="325.0" promptText="Introduce una dirección de correo válida" />
                            </children>
                         </HBox>
                      </children>
@@ -97,7 +97,7 @@
                                  </HBox.margin>
                               </Label>
                               <Region HBox.hgrow="ALWAYS" />
-                              <Label fx:id="noValidFormat1" alignment="BOTTOM_RIGHT" prefHeight="18.0" prefWidth="107.0" text="Contraseña inválida" textFill="RED" />
+                              <Label fx:id="noValidPass" alignment="BOTTOM_RIGHT" prefHeight="18.0" prefWidth="107.0" text="Contraseña inválida" textFill="RED" />
                            </children>
                            <VBox.margin>
                               <Insets left="37.5" right="37.5" />
@@ -105,18 +105,27 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="30.0" prefWidth="314.0" spacing="7.0">
                            <children>
-                              <PasswordField fx:id="introducirContraseña1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="300.0" promptText="Introduce una contraseña válida" />
-                              <ImageView fitHeight="17.0" fitWidth="21.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../resources/eye.png" />
-                                 </image>
-                              </ImageView>
+                              <StackPane fx:id="passContainer" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="282.0">
+                                 <children>
+                                    <TextField fx:id="plainPasswordField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="282.0" />
+                                    <PasswordField fx:id="passField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="282.0" promptText="Introduce una contraseña válida" />
+                                 </children>
+                              </StackPane>
+                              <Button fx:id="verButton" mnemonicParsing="false" onAction="#verAction" style="-fx-background-color: transparent;">
+                                 <graphic>
+                                    <ImageView fitHeight="17.0" fitWidth="21.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../resources/eye.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
                            </children>
                            <VBox.margin>
                               <Insets left="37.5" right="37.5" />
                            </VBox.margin>
                         </HBox>
-                        <Label alignment="CENTER" text="8–20 caracteres. Debe incluir mayúsculas, minúsculas, un número y un símbolo." textFill="RED">
+                        <Label fx:id="passFormat" alignment="CENTER" text="8–20 caracteres. Debe incluir mayúsculas, minúsculas, un número y un símbolo." textFill="RED">
                            <font>
                               <Font size="10.0" />
                            </font>
@@ -141,8 +150,8 @@
                               <Insets left="37.5" right="37.5" />
                            </VBox.margin>
                         </HBox>
-                        <DatePicker maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="325.0" promptText="Introduce una fecha de nacimiento" />
-                        <Label text="Debes ser mayor de 16 años." textFill="RED">
+                        <DatePicker fx:id="dateField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="325.0" promptText="Introduce una fecha de nacimiento" />
+                        <Label fx:id="ageFormat" text="Debes ser mayor de 16 años." textFill="RED">
                            <font>
                               <Font size="10.0" />
                            </font>
@@ -159,16 +168,16 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="87.0" prefWidth="87.0">
+                        <Button fx:id="avatarButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#avatarAction" prefHeight="87.0" prefWidth="87.0">
                            <graphic>
                               <ImageView fitHeight="85.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic>
                         </Button>
                         <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="325.0">
                            <children>
-                              <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="75.0" text="Cancelar" />
+                              <Button fx:id="cancelarButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancelarAction" prefHeight="35.0" prefWidth="75.0" text="Cancelar" />
                               <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                              <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="75.0" text="Registrarse" />
+                              <Button fx:id="registrarButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#registrarAction" prefHeight="35.0" prefWidth="75.0" text="Registrarse" />
                            </children>
                         </HBox>
                      </children>
