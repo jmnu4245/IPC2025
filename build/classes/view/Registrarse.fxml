@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="poiupv.RegistrarseController">
+   <children>
+      <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" spacing="35.0">
+         <children>
+            <Label alignment="CENTER" text="Registrarse">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </Label>
+            <Separator prefWidth="200.0" />
+            <VBox alignment="TOP_CENTER" prefHeight="315.0" prefWidth="400.0">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="150.0" prefWidth="400.0" spacing="5.0">
+                     <children>
+                        <HBox prefHeight="33.0" prefWidth="400.0">
+                           <children>
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="98.0" text="Usuario">
+                                 <font>
+                                    <Font name="Berlin Sans FB Demi Bold" size="18.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="37.5" />
+                                 </padding>
+                              </Label>
+                              <HBox alignment="BOTTOM_RIGHT" prefHeight="34.0" prefWidth="261.0">
+                                 <children>
+                                    <Label fx:id="notRegUser" alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="138.0" text="Usuario no registrado" textFill="RED">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <TextField fx:id="introducirUsuario" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="325.0" promptText="Introduce un nombre de usuario válido" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="400.0" spacing="5.0">
+                     <children>
+                        <HBox prefHeight="33.0" prefWidth="400.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="30.0" prefWidth="138.0" text="Contraseña">
+                                 <font>
+                                    <Font name="Berlin Sans FB Demi Bold" size="18.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="27.0" />
+                                 </padding>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="222.0">
+                                 <children>
+                                    <Label fx:id="noValidFormat" alignment="BOTTOM_RIGHT" text="Contraseña incorrecta" textFill="RED">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="9.0" prefWidth="400.0">
+                           <children>
+                              <PasswordField fx:id="introducirContraseña" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="325.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="338.0">
+                           <children>
+                              <Button fx:id="verPass" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                                 <graphic>
+                                    <ImageView fitHeight="17.0" fitWidth="21.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../resources/eye.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <HBox prefHeight="178.0" prefWidth="400.0" spacing="5.0">
+                     <children>
+                        <VBox prefHeight="94.0" prefWidth="176.0">
+                           <children>
+                              <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="170.0" text="¿Todavía no tienes usuario?">
+                                 <padding>
+                                    <Insets left="12.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="botonRegistrate" alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#registrateAction" prefHeight="22.0" prefWidth="80.0" style="-fx-border-color: transparent;" text="Regístrate" textAlignment="JUSTIFY">
+                                 <VBox.margin>
+                                    <Insets left="43.0" top="7.5" />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets top="1.0" />
+                                 </padding>
+                              </Button>
+                           </children>
+                        </VBox>
+                        <Button fx:id="continuarIni" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#continuarIni" prefHeight="22.0" prefWidth="80.0" text="Continuar">
+                           <HBox.margin>
+                              <Insets left="75.5" top="26.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets top="1.0" />
+                           </padding>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets left="25.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -30,14 +30,14 @@
                      <toggleGroup>
                         <ToggleGroup fx:id="options" />
                      </toggleGroup></ToggleButton>
-                  <ToggleButton mnemonicParsing="false" text="Linea" toggleGroup="$options" />
-                  <ToggleButton mnemonicParsing="false" text="Arco" toggleGroup="$options" />
-                  <ToggleButton mnemonicParsing="false" text="Texto" toggleGroup="$options" />
-                  <ToggleButton mnemonicParsing="false" text="Limpiar" toggleGroup="$options" />
-                  <ToggleButton mnemonicParsing="false" text="Transportador" toggleGroup="$options" />
-                  <ToggleButton mnemonicParsing="false" text="Distancia" toggleGroup="$options" />
-                  <ToggleButton mnemonicParsing="false" text="Latitud" toggleGroup="$options" />
-                  <ToggleButton mnemonicParsing="false" text="Mano" toggleGroup="$options" />
+                  <ToggleButton mnemonicParsing="false" onAction="#lineaPressed" text="Linea" toggleGroup="$options" />
+                  <ToggleButton mnemonicParsing="false" onAction="#arcoPressed" text="Arco" toggleGroup="$options" />
+                  <ToggleButton mnemonicParsing="false" onAction="#textoPressed" text="Texto" toggleGroup="$options" />
+                  <ToggleButton mnemonicParsing="false" onAction="#limpiarPressed" text="Limpiar" toggleGroup="$options" />
+                  <ToggleButton mnemonicParsing="false" onAction="#transportadorPressed" text="Transportador" toggleGroup="$options" />
+                  <ToggleButton mnemonicParsing="false" onAction="#distanciaPressed" text="Distancia" toggleGroup="$options" />
+                  <ToggleButton mnemonicParsing="false" onAction="#latitudPressed" text="Latitud" toggleGroup="$options" />
+                  <ToggleButton mnemonicParsing="false" onAction="#manoPressed" text="Mano" toggleGroup="$options" />
                   <HBox alignment="CENTER" prefHeight="30.0" prefWidth="53.0" spacing="10.0">
                      <children>
                         <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" mnemonicParsing="false" onAction="#zoomIn" text="+">
