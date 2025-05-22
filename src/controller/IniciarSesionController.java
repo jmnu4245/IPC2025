@@ -21,6 +21,10 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
+import model.Navigation;
+import model.User;
+
+
 /**
  * FXML Controller class
  *
@@ -84,6 +88,40 @@ public class IniciarSesionController implements Initializable {
 
     @FXML
     private void continuarIni(ActionEvent event) {
+        try {
+            notRegUser.setVisible(false);
+            noValidFormat.setVisible(false);
+            String nick = introducirUsuario.getText().trim();
+            String pass = passField.getText();
+            Navigation nav = Navigation.getInstance();
+         
+            if (!nav.exitsNickName(nick)) {
+                notRegUser.setVisible(true);
+                return;}
+
+            User u = nav.authenticate(nick, pass);
+            if (u == null) {
+                noValidFormat.setVisible(true);
+                return;}
+            
+       
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Menu.fxml"));
+                Parent root = loader.load();
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setResizable(false);
+                stage.show();
+                Stage loginStage = (Stage) continuarIni.getScene().getWindow();
+                loginStage.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
