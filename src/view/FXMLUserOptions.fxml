@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" spacing="10.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FXMLUserOptionsController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" spacing="10.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FXMLUserOptionsController">
    <children>
       <Label alignment="CENTER" prefHeight="58.0" prefWidth="450.0" styleClass="label-title" text="Ajustes" textAlignment="CENTER">
          <font>
@@ -43,24 +43,27 @@
             <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <VBox maxHeight="-Infinity" GridPane.columnSpan="2147483647">
+            <VBox maxHeight="-Infinity" spacing="3.0" GridPane.columnSpan="2147483647">
                <children>
                   <Label alignment="BASELINE_LEFT" styleClass="label-field" text="Usuario">
                      <VBox.margin>
-                        <Insets bottom="3.0" left="37.5" />
+                        <Insets bottom="3.0" />
                      </VBox.margin>
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <TextField disable="true">
+                  <TextField disable="true" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity">
                      <VBox.margin>
-                        <Insets left="37.5" right="37.5" />
+                        <Insets />
                      </VBox.margin>
                   </TextField>
                </children>
+               <GridPane.margin>
+                  <Insets left="60.0" right="60.0" />
+               </GridPane.margin>
             </VBox>
-            <VBox GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+            <VBox spacing="3.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
                <children>
                   <HBox alignment="BASELINE_LEFT">
                      <children>
@@ -71,21 +74,21 @@
                         <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
                         <Label alignment="CENTER_RIGHT" text="correo inválido" textFill="RED" visible="false" />
                      </children>
-                     <padding>
-                        <Insets left="37.5" right="37.5" />
-                     </padding>
                      <VBox.margin>
                         <Insets bottom="3.0" />
                      </VBox.margin>
                   </HBox>
-                  <TextField>
+                  <TextField minHeight="-Infinity" promptText="Introduce una dirección de correo válida">
                      <VBox.margin>
-                        <Insets left="37.5" right="37.5" />
+                        <Insets />
                      </VBox.margin>
                   </TextField>
                </children>
+               <GridPane.margin>
+                  <Insets left="60.0" right="60.0" />
+               </GridPane.margin>
             </VBox>
-            <VBox GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+            <VBox spacing="3.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
                <children>
                   <HBox prefWidth="200.0">
                      <children>
@@ -96,18 +99,18 @@
                         <Region HBox.hgrow="ALWAYS" />
                         <Label text="el usuario debe ser mayor de 16" textFill="RED" visible="false" />
                      </children>
-                     <padding>
-                        <Insets bottom="3.0" left="37.5" right="37.5" />
-                     </padding>
                   </HBox>
-                  <DatePicker maxWidth="1.7976931348623157E308">
+                  <DatePicker maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" promptText="Introduce una fecha de nacimiento">
                      <VBox.margin>
-                        <Insets left="37.5" right="37.5" />
+                        <Insets />
                      </VBox.margin>
                   </DatePicker>
                </children>
+               <padding>
+                  <Insets left="60.0" right="60.0" />
+               </padding>
             </VBox>
-            <VBox alignment="CENTER" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
+            <VBox alignment="CENTER" spacing="3.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
                <children>
                   <HBox prefWidth="200.0">
                      <children>
@@ -118,29 +121,29 @@
                         <Region HBox.hgrow="ALWAYS" />
                      </children>
                      <padding>
-                        <Insets bottom="3.0" left="37.5" right="37.5" />
+                        <Insets bottom="3.0" />
                      </padding>
                   </HBox>
-                  <PasswordField>
+                  <PasswordField maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" promptText="Crea una contraseña válida">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
-                     <VBox.margin>
-                        <Insets left="37.5" right="37.5" />
-                     </VBox.margin>
                   </PasswordField>
-                  <Label styleClass="label-error" text="La contraseña debe tener 8-20 caracteres, incluir mayúsculas, minúsculas, un número y un carácter especial (!@#$%&amp;*()-+=)." textAlignment="CENTER" textFill="RED" wrapText="true">
-                     <padding>
-                        <Insets left="37.5" right="37.5" />
-                     </padding>
-                     <font>
-                        <Font size="10.0" />
-                     </font>
-                  </Label>
                </children>
+               <GridPane.margin>
+                  <Insets left="60.0" right="60.0" />
+               </GridPane.margin>
             </VBox>
          </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
       </GridPane>
+      <Label alignment="TOP_CENTER" styleClass="label-error" text="8–20 caracteres. Debe incluir mayúsculas, minúsculas, un número y un símbolo." textAlignment="CENTER" textFill="RED" visible="false">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
       <VBox alignment="CENTER">
          <children>
             <Label styleClass="label-field" text="Avatar">
@@ -165,7 +168,7 @@
             <Button alignment="CENTER" mnemonicParsing="false" prefHeight="35.0" prefWidth="75.0" text="Guardar" />
          </children>
          <padding>
-            <Insets left="37.5" right="37.5" />
+            <Insets left="60.0" right="60.0" />
          </padding>
       </HBox>
    </children>
