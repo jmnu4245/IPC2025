@@ -17,9 +17,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" spacing="10.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" spacing="10.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FXMLUserOptionsController">
    <children>
-      <Label alignment="CENTER" prefHeight="58.0" prefWidth="450.0" text="Ajustes" textAlignment="CENTER">
+      <Label alignment="CENTER" prefHeight="58.0" prefWidth="450.0" styleClass="label-title" text="Ajustes" textAlignment="CENTER">
          <font>
             <Font size="31.0" />
          </font>
@@ -45,7 +45,7 @@
          <children>
             <VBox maxHeight="-Infinity" GridPane.columnSpan="2147483647">
                <children>
-                  <Label alignment="BASELINE_LEFT" text="Usuario">
+                  <Label alignment="BASELINE_LEFT" styleClass="label-field" text="Usuario">
                      <VBox.margin>
                         <Insets bottom="3.0" left="37.5" />
                      </VBox.margin>
@@ -64,7 +64,7 @@
                <children>
                   <HBox alignment="BASELINE_LEFT">
                      <children>
-                        <Label text="Correo electrónico">
+                        <Label styleClass="label-field" text="Correo electrónico">
                            <font>
                               <Font size="16.0" />
                            </font></Label>
@@ -89,7 +89,7 @@
                <children>
                   <HBox prefWidth="200.0">
                      <children>
-                        <Label text="Fecha nacimiento">
+                        <Label styleClass="label-field" text="Fecha nacimiento">
                            <font>
                               <Font size="16.0" />
                            </font></Label>
@@ -111,7 +111,7 @@
                <children>
                   <HBox prefWidth="200.0">
                      <children>
-                        <Label text="Nueva contraseña">
+                        <Label styleClass="label-field" text="Nueva contraseña">
                            <font>
                               <Font size="16.0" />
                            </font></Label>
@@ -129,7 +129,7 @@
                         <Insets left="37.5" right="37.5" />
                      </VBox.margin>
                   </PasswordField>
-                  <Label text="La contraseña debe tener 8-20 caracteres, incluir mayúsculas, minúsculas, un número y un carácter especial (!@#$%&amp;*()-+=).&quot;" textAlignment="CENTER" textFill="RED" visible="false" wrapText="true">
+                  <Label styleClass="label-error" text="La contraseña debe tener 8-20 caracteres, incluir mayúsculas, minúsculas, un número y un carácter especial (!@#$%&amp;*()-+=)." textAlignment="CENTER" textFill="RED" wrapText="true">
                      <padding>
                         <Insets left="37.5" right="37.5" />
                      </padding>
@@ -143,13 +143,13 @@
       </GridPane>
       <VBox alignment="CENTER">
          <children>
-            <Label text="Avatar">
+            <Label styleClass="label-field" text="Avatar">
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="88.0" prefWidth="88.0">
+            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="88.0" prefWidth="88.0" styleClass="button-avatar">
                <graphic>
-                  <ImageView fitHeight="85.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="avatarIV" fitHeight="85.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../resources/avatar_defecto.jpg" />
                      </image>

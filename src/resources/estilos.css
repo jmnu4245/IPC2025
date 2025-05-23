@@ -66,7 +66,266 @@ S17.642,20.762,13.558,20.762z";
 .map-pin .arrow-button .arrow {
     -fx-padding: 0;
 }
+
+/* === MODO OSCURO, MODERNO, RESPETANDO LAYOUT Y DIMENSIONES ORIGINALES === */
+
+/* Fondo general gris oscuro */
+/* === MODO OSCURO ELEGANTE Y MODERNO PARA JAVAFX === */
+
+/* Fondo general gris oscuro */
+.root, .vbox {
+    -fx-background-color: #171b22;
+}
+
+/* ======== CLASES PERSONALIZADAS PARA TEXTOS ========= */
+
+/* Título principal */
+.label-title {
+    -fx-font-size: 32px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: bold;
+    -fx-text-fill: #eaf1fb;
+    -fx-effect: dropshadow(gaussian, #10141b88, 4, 0.0, 0, 2);
+    
+    -fx-alignment: center;
+    -fx-letter-spacing: 1.2px;
+}
+
+/* Subtítulo o nombre de sección */
+.label-section {
+    -fx-font-size: 19px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: 600;
+    -fx-text-fill: #b7c2d1;
+    -fx-padding: 8 0 4 0;
+}
+
+/* Etiqueta de campo */
+.label-field {
+    -fx-font-size: 15px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: 500;
+    -fx-text-fill: #c2cad7;
+    -fx-padding: 0 0 2 0;
+}
+
+/* Mensaje de error */
+.label-error {
+    -fx-font-size: 13px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: 600;
+    -fx-text-fill: #ff6b6b;
+   
+}
+
+/* Texto auxiliar o de ayuda */
+.label-helper {
+    -fx-font-size: 12px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: normal;
+    -fx-text-fill: #6c7a8a;
+    
+}
+
+/* ======== CAMPOS DE TEXTO Y PASSWORD ========= */
+.text-field, .password-field {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-background-color: #232935;
+    -fx-border-color: #363e4d;
+    -fx-border-width: 1.2;
+    -fx-padding: 7 12 7 12;
+    -fx-font-size: 15px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-text-fill: #eaf1fb;
+    
+}
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #53b9ff;
+    -fx-effect: dropshadow(gaussian, #53b9ff22, 8, 0.0, 0, 2);
+}
+.text-field:disabled, .password-field:disabled {
+    -fx-background-color: #232935;
+    -fx-border-color: #2a3140;
+    -fx-text-fill: #6c7a8a;
+}
+
+/* ======== DATEPICKER OSCURO ========= */
+.date-picker,
+.date-field {
+    -fx-background-color: transparent;
+    -fx-pref-height: 30;
+}
+
+.date-picker > .text-field,
+.date-field > .text-field {
+    -fx-background-color: #232935;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #363e4d;
+    -fx-border-width: 1.2;
+    
+    -fx-font-size: 15px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-text-fill: #eaf1fb;
+    
+    
+}
+
+.date-picker:focused > .text-field,
+.date-field:focused > .text-field {
+    -fx-border-color: #53b9ff;
+}
+
+.date-picker:disabled > .text-field,
+.date-field:disabled > .text-field {
+    -fx-background-color: #232935;
+    -fx-border-color: #2a3140;
+    -fx-text-fill: #6c7a8a;
+}
+
+/* Botón de calendario minimalista */
+.date-picker > .arrow-button,
+.date-field > .arrow-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 8 0 8;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #363e4d
+}
+
+.date-picker > .arrow-button:hover,
+.date-field > .arrow-button:hover {
+    -fx-background-color: #25304b;
+}
+
+/* Icono del botón (la flechita) */
+.date-picker > .arrow-button > .arrow,
+.date-field > .arrow-button > .arrow {
+    -fx-background-color: #53b9ff;
+}
+
+.date-picker-popup {
+    -fx-background-color: #232935;
+    -fx-border-color: #53b9ff;
+    -fx-border-width: 1;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+}
+
+.date-picker-popup .month-year-pane {
+    -fx-background-color: #232935;
+    -fx-padding: 8;
+}
+
+.date-picker-popup .label {
+    -fx-text-fill: #b7c2d1;      /* Texto del mes y año */
+    -fx-font-size: 16px;
+    -fx-font-weight: 600;
+}
+
+.date-picker-popup .spinner {
+    -fx-background-color: transparent;
+}
+
+.date-picker-popup .spinner .button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #53b9ff;
+}
+
+.date-picker-popup .arrow-button {
+    -fx-background-color: transparent;
+}
+
+/* --- Días del calendario --- */
+.date-picker-popup .calendar-pane {
+    -fx-background-color: #232935;
+}
+
+.date-picker-popup .day-cell {
+    -fx-background-color: #232935;
+    -fx-text-fill: #eaf1fb;
+    -fx-font-size: 16px;
+    -fx-border-radius: 6;
+}
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: #223356;
+    -fx-text-fill: #53b9ff;
+}
+.date-picker-popup .day-cell:selected {
+    -fx-background-color: #53b9ff;
+    -fx-text-fill: #232935;
+}
+
+/* --- Día fuera de mes --- */
+.date-picker-popup .day-cell:empty,
+.date-picker-popup .day-cell:disabled {
+    -fx-text-fill: #363e4d;
+}
+
+
+/* ======== BOTONES ========= */
 .button {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #164c7e 0%, #53b9ff 100%);
+    -fx-background-radius: 8;
+    -fx-text-fill: #f9fafc;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: 600;
+    -fx-font-size: 15px;
+    -fx-border-radius: 8;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, #53b9ff11, 3, 0.0, 0, 2);
     -fx-cursor: hand;
-    /* ...otros estilos... */
+    -fx-padding: 7 0 7 0;
+    -fx-pref-width: 100px;
+    -fx-pref-height: 38px;
+}
+.button:pressed {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #12375a 0%, #3595d7 100%);
+}
+.button:hover {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #53b9ff 0%, #164c7e 100%);
+    -fx-effect: dropshadow(gaussian, #53b9ff33, 8, 0.0, 0, 4);
+}
+
+/* Botón de avatar redondo (aplica la clase en SceneBuilder: button-avatar) */
+.button-avatar {
+    -fx-background-color: transparent;
+    -fx-border-color: #31465c;
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+    -fx-min-width: 88;
+    -fx-min-height: 88;
+    -fx-pref-width: 88;
+    -fx-pref-height: 88;
+    -fx-effect: dropshadow(gaussian, #00000022, 8, 0.0, 0, 4);
+}
+.button-avatar:hover {
+    -fx-border-color: #53b9ff;
+    -fx-effect: dropshadow(gaussian, #53b9ff44, 14, 0.0, 0, 7);
+}
+
+
+/* ======== OTROS COMPONENTES ========= */
+
+/* Separador */
+.separator {
+    -fx-background-color: transparent;
+    -fx-border-color: #2a3140;
+    -fx-border-width: 0 0 1.5 0;
+    -fx-padding: 0 0 12 0;
+}
+
+/* General para GridPane y espaciados */
+.grid-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 12 0 0 0;
+}
+.hbox, .vbox {
+    -fx-spacing: 12;
+}
+
+/* Región transparente para separar */
+.region {
+    -fx-background-color: transparent;
 }
