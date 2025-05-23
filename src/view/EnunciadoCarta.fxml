@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.geometry.Rectangle2D?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
@@ -19,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.EnunciadoCartaController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EnunciadoCartaController">
    <children>
       <ToolBar fx:id="options_toolbar" orientation="VERTICAL" prefHeight="651.0" prefWidth="103.0" HBox.hgrow="ALWAYS">
          <items>
@@ -37,7 +35,7 @@
                   <ToggleButton mnemonicParsing="false" onAction="#transportadorPressed" text="Transportador" toggleGroup="$options" />
                   <ToggleButton mnemonicParsing="false" onAction="#distanciaPressed" text="Distancia" toggleGroup="$options" />
                   <ToggleButton mnemonicParsing="false" onAction="#latitudPressed" text="Latitud" toggleGroup="$options" />
-                  <ToggleButton mnemonicParsing="false" onAction="#manoPressed" text="Mano" toggleGroup="$options" />
+                  <ToggleButton fx:id="manoBtn" mnemonicParsing="false" onAction="#manoPressed" text="Mano" toggleGroup="$options" />
                   <HBox alignment="CENTER" prefHeight="30.0" prefWidth="53.0" spacing="10.0">
                      <children>
                         <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" mnemonicParsing="false" onAction="#zoomIn" text="+">
@@ -61,7 +59,7 @@
          </items>
       </ToolBar>
       <Separator orientation="VERTICAL" prefHeight="400.0" prefWidth="0.0" />
-      <VBox prefHeight="800.0" prefWidth="1000.0" HBox.hgrow="SOMETIMES">
+      <VBox prefHeight="800.0" prefWidth="1000.0" HBox.hgrow="ALWAYS">
          <children>
             <HBox fillHeight="false" prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="NEVER">
                <children>
@@ -87,6 +85,9 @@
                                  </children>
                               </VBox>
                            </children>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
                         </AnchorPane>
                      </content>
                   </TitledPane>
@@ -96,28 +97,18 @@
                      </HBox.margin></Button>
                </children>
             </HBox>
-            <ScrollPane fx:id="map_scrollpane" fitToHeight="true" fitToWidth="true" prefHeight="678.0" prefWidth="1079.0" VBox.vgrow="ALWAYS">
-              <content>
-                <AnchorPane fx:id="mapPane" minHeight="0.0" minWidth="0.0" prefHeight="773.0" prefWidth="1089.0">
+            <ScrollPane fx:id="map_scrollpane" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+               <content>
+                  <Group fx:id="mapZoomGroup">
                      <children>
-                        <Group fx:id="zoomGroup">
-                           <children>
-                              <ImageView fx:id="mapImageView" fitHeight="1120.0" fitWidth="1712.0" layoutX="4.0" layoutY="-90.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../resources/upv.jpg" />
-                                 </image>
-                                 <viewport>
-                                    <Rectangle2D />
-                                 </viewport>
-                              </ImageView>
-                           </children>
-                        </Group>
+                        <ImageView fx:id="mapImageView" layoutX="-7.0" layoutY="-109.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/upv.jpg" />
+                           </image>
+                        </ImageView>
                      </children>
-                     <cursor>
-                        <Cursor fx:constant="MOVE" />
-                     </cursor>
-                  </AnchorPane>
-              </content>
+                  </Group>
+               </content>
             </ScrollPane>
          </children>
       </VBox>
