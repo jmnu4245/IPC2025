@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="450.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegistrarseController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegistrarseController">
    <children>
       <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" spacing="10.0">
          <children>
@@ -29,11 +29,11 @@
                </VBox.margin>
             </Label>
             <Separator prefWidth="200.0" />
-            <VBox alignment="TOP_CENTER" prefHeight="399.0" prefWidth="410.0">
+            <VBox alignment="TOP_CENTER" prefHeight="399.0" prefWidth="410.0" styleClass="vbox">
                <children>
                   <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="400.0" spacing="3.0">
                      <children>
-                        <HBox alignment="BASELINE_LEFT">
+                        <HBox alignment="BASELINE_LEFT" styleClass="hbox">
                            <children>
                               <Label alignment="BOTTOM_LEFT" text="Usuario">
                                  <HBox.margin>
@@ -43,14 +43,14 @@
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Region HBox.hgrow="ALWAYS" />
-                              <Label fx:id="noValidUser" alignment="CENTER" text="Usuario no válido" textFill="RED" />
+                              <Region styleClass="region" HBox.hgrow="ALWAYS" />
+                              <Label fx:id="noValidUser" alignment="CENTER" text="Usuario ya registrado" textFill="RED" />
                            </children>
                            <VBox.margin>
                               <Insets left="37.5" right="37.5" />
                            </VBox.margin>
                         </HBox>
-                        <TextField fx:id="userField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="325.0" promptText="Introduce un nombre de usuario válido" />
+                        <TextField fx:id="userField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="325.0" promptText="Introduce un nombre de usuario válido" styleClass="text-field" />
                         <Label fx:id="userFormat" text="Entre 6 y 15 caracteres, letras, números, guiones y guiones bajos. sin espacios. " textFill="RED">
                            <font>
                               <Font size="10.0" />
@@ -168,9 +168,13 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Button fx:id="avatarButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#avatarAction" prefHeight="87.0" prefWidth="87.0">
+                        <Button fx:id="avatarButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#avatarAction" prefHeight="88.0" prefWidth="88.0" styleClass="button-avatar">
                            <graphic>
-                              <ImageView fitHeight="85.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="avatarIm" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../resources/avatar_defecto.jpg" />
+                                 </image>
+                              </ImageView>
                            </graphic>
                         </Button>
                         <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="325.0">
