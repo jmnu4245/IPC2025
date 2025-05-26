@@ -53,7 +53,7 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <TextField disable="true" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity">
+                  <TextField fx:id="userField" disable="true" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -65,7 +65,7 @@
             </VBox>
             <VBox spacing="3.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
                <children>
-                  <HBox alignment="BASELINE_LEFT">
+                  <HBox fx:id="emailError" alignment="BASELINE_LEFT">
                      <children>
                         <Label styleClass="label-field" text="Correo electrónico">
                            <font>
@@ -78,7 +78,7 @@
                         <Insets bottom="3.0" />
                      </VBox.margin>
                   </HBox>
-                  <TextField minHeight="-Infinity" promptText="Introduce una dirección de correo válida">
+                  <TextField fx:id="emailField" minHeight="-Infinity" promptText="Introduce una dirección de correo válida">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -97,10 +97,10 @@
                               <Font size="16.0" />
                            </font></Label>
                         <Region HBox.hgrow="ALWAYS" />
-                        <Label text="el usuario debe ser mayor de 16" textFill="RED" visible="false" />
+                        <Label fx:id="dateError" text="el usuario debe ser mayor de 16" textFill="RED" visible="false" />
                      </children>
                   </HBox>
-                  <DatePicker maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" promptText="Introduce una fecha de nacimiento">
+                  <DatePicker fx:id="dateField" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" promptText="Introduce una fecha de nacimiento">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -124,7 +124,7 @@
                         <Insets bottom="3.0" />
                      </padding>
                   </HBox>
-                  <PasswordField maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" promptText="Crea una contraseña válida">
+                  <PasswordField fx:id="passField" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" promptText="Crea una contraseña válida">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -139,7 +139,7 @@
             <Insets />
          </VBox.margin>
       </GridPane>
-      <Label alignment="TOP_CENTER" styleClass="label-error" text="8–20 caracteres. Debe incluir mayúsculas, minúsculas, un número y un símbolo." textAlignment="CENTER" textFill="RED" visible="false">
+      <Label fx:id="passError" alignment="TOP_CENTER" styleClass="label-error" text="8–20 caracteres. Debe incluir mayúsculas, minúsculas, un número y un símbolo." textAlignment="CENTER" textFill="RED" visible="false">
          <font>
             <Font size="10.0" />
          </font>
@@ -150,11 +150,11 @@
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="88.0" prefWidth="88.0" styleClass="button-avatar">
+            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionAvatar" prefHeight="88.0" prefWidth="88.0" styleClass="button-avatar">
                <graphic>
-                  <ImageView fx:id="avatarIV" fitHeight="85.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="avatarIV" fitHeight="85.0" fitWidth="85.0" pickOnBounds="true">
                      <image>
-                        <Image url="@../resources/avatar_defecto.jpg" />
+                        <Image url="@../resources/500_333.jpeg" />
                      </image>
                   </ImageView>
                </graphic>
@@ -163,9 +163,9 @@
       </VBox>
       <HBox prefHeight="10.0" prefWidth="400.0">
          <children>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="75.0" text="Cancelar" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionCancell" prefHeight="35.0" prefWidth="75.0" text="Cancelar" />
             <Region HBox.hgrow="ALWAYS" />
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="35.0" prefWidth="75.0" text="Guardar" />
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#onActionSave" prefHeight="35.0" prefWidth="75.0" text="Guardar" />
          </children>
          <padding>
             <Insets left="60.0" right="60.0" />
