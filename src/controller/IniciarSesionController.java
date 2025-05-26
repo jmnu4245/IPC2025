@@ -67,6 +67,20 @@ public class IniciarSesionController implements Initializable {
         plainPassField.textProperty().bindBidirectional(passField.textProperty());
         plainPassField.styleProperty().bind(passField.styleProperty());
         plainPassField.getStyleClass().add("text-input");
+        
+        introducirUsuario.textProperty().addListener((obs, oldText, newText) -> {
+        if (!newText.trim().isEmpty()) {
+            notRegUser.setVisible(false);
+            introducirUsuario.setStyle(""); // Quitar borde rojo si lo tenía
+        }
+        });
+        
+        passField.textProperty().addListener((obs, oldText, newText) -> {
+        if (!newText.trim().isEmpty()) {
+            noValidFormat.setVisible(false);
+            passField.setStyle(""); // Quitar borde rojo si lo tenía
+        }
+        });
     }}
 
     @FXML
@@ -97,11 +111,13 @@ public class IniciarSesionController implements Initializable {
          
             if (!nav.exitsNickName(nick)) {
                 notRegUser.setVisible(true);
+                introducirUsuario.setStyle("-fx-border-color: red;");
                 return;}
 
             User u = nav.authenticate(nick, pass);
             if (u == null) {
                 noValidFormat.setVisible(true);
+                passField.setStyle("-fx-border-color: red;");
                 return;}
             
        
