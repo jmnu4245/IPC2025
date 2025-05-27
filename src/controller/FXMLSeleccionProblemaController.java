@@ -23,10 +23,10 @@ public class FXMLSeleccionProblemaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // DEBUG: marcar alguna pregunta como hecha
-        PreguntasHechas.getInstance().agregarPregunta(18);
-        PreguntasHechas.getInstance().agregarPregunta(6);
-        PreguntasHechas.getInstance().agregarPregunta(2);
+//        // DEBUG: marcar alguna pregunta como hecha
+//        PreguntasHechas.getInstance().agregarPregunta(18);
+//        PreguntasHechas.getInstance().agregarPregunta(6);
+//        PreguntasHechas.getInstance().agregarPregunta(2);
 
         // Agrupa los botones en arrays de página
         botonesPagina1 = new Button[]{b1, b2, b3, b4, b5, b6, b7, b8, b9};
