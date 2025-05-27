@@ -121,7 +121,11 @@ public class FXMLSeleccionProblemaController implements Initializable {
        
         EnunciadoCartaController controlador = loader.getController();
        
+<<<<<<< HEAD
 //        controlador.setMapData(usuario,numPregunta);
+=======
+        controlador.setMapData(usuario,numPregunta);
+>>>>>>> 9359c2d (ALPHA-P)
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
