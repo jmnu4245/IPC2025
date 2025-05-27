@@ -21,6 +21,10 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
+import model.Navigation;
+import model.User;
+import ourModel.PreguntasHechas;
+
 /**
  * FXML Controller class
  *
@@ -63,6 +67,20 @@ public class IniciarSesionController implements Initializable {
         plainPassField.textProperty().bindBidirectional(passField.textProperty());
         plainPassField.styleProperty().bind(passField.styleProperty());
         plainPassField.getStyleClass().add("text-input");
+        
+        introducirUsuario.textProperty().addListener((obs, oldText, newText) -> {
+        if (!newText.trim().isEmpty()) {
+            notRegUser.setVisible(false);
+            introducirUsuario.setStyle(""); // Quitar borde rojo si lo tenía
+        }
+        });
+        
+        passField.textProperty().addListener((obs, oldText, newText) -> {
+        if (!newText.trim().isEmpty()) {
+            noValidFormat.setVisible(false);
+            passField.setStyle(""); // Quitar borde rojo si lo tenía
+        }
+        });
     }}
 
     @FXML
@@ -84,6 +102,42 @@ public class IniciarSesionController implements Initializable {
 
     @FXML
     private void continuarIni(ActionEvent event) {
+        try {
+            notRegUser.setVisible(false);
+            noValidFormat.setVisible(false);
+            String nick = introducirUsuario.getText().trim();
+            String pass = passField.getText();
+            Navigation nav = Navigation.getInstance();
+         
+            if (!nav.exitsNickName(nick)) {
+                notRegUser.setVisible(true);
+                introducirUsuario.setStyle("-fx-border-color: red;");
+                return;}
+
+            User u = nav.authenticate(nick, pass);
+            if (u == null) {
+                noValidFormat.setVisible(true);
+                passField.setStyle("-fx-border-color: red;");
+                return;}
+            PreguntasHechas.getInstance().resetear();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Menu.fxml"));
+                Parent root = loader.load();
+                MenuController controller = loader.getController();
+                controller.setUsuario(u);
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setResizable(false);
+                stage.show();
+                Stage loginStage = (Stage) continuarIni.getScene().getWindow();
+                loginStage.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

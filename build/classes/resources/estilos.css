@@ -66,7 +66,1248 @@ S17.642,20.762,13.558,20.762z";
 .map-pin .arrow-button .arrow {
     -fx-padding: 0;
 }
-.button {
+
+/* === MODO OSCURO, MODERNO, RESPETANDO LAYOUT Y DIMENSIONES ORIGINALES === */
+
+/* Fondo general gris oscuro */
+/* === MODO OSCURO ELEGANTE Y MODERNO PARA JAVAFX === */
+
+/* Fondo general gris oscuro */
+.root, .vbox {
+    -fx-background-color: #171b22;
+<<<<<<< HEAD
+=======
+}
+
+/* ======== CLASES PERSONALIZADAS PARA TEXTOS ========= */
+
+/* Título principal */
+.label-title {
+    -fx-font-size: 32px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: bold;
+    -fx-text-fill: #eaf1fb;
+    -fx-effect: dropshadow(gaussian, #10141b88, 4, 0.0, 0, 2);
+    
+    -fx-alignment: center;
+    -fx-letter-spacing: 1.2px;
+}
+
+/* Subtítulo o nombre de sección */
+.label-section {
+    -fx-font-size: 19px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: 600;
+    -fx-text-fill: #b7c2d1;
+    -fx-padding: 8 0 4 0;
+}
+
+/* Etiqueta de campo */
+.label-field {
+    -fx-font-size: 15px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: 500;
+    -fx-text-fill: #c2cad7;
+}
+
+/* Mensaje de error */
+.label-error {
+    -fx-font-size: 10px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: 600;
+    -fx-text-fill: #ff6b6b;
+   
+}
+
+/* Texto auxiliar o de ayuda */
+.label-helper {
+    -fx-font-size: 12px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: normal;
+    -fx-text-fill: #6c7a8a;
+    
+}
+
+/* ======== CAMPOS DE TEXTO Y PASSWORD ========= */
+.text-field, .password-field {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-background-color: #232935;
+    -fx-border-color: #363e4d;
+    -fx-border-width: 1.2;
+    -fx-font-size: 12px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-text-fill: #eaf1fb;
+    -fx-pref-height: 28;
+    
+}
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #53b9ff;
+    -fx-effect: dropshadow(gaussian, #53b9ff22, 8, 0.0, 0, 2);
+}
+.text-field:disabled, .password-field:disabled {
+    -fx-background-color: #232935;
+    -fx-border-color: #2a3140;
+    -fx-text-fill: #6c7a8a;
+}
+
+/* ======== DATEPICKER OSCURO ========= */
+.date-picker,
+.date-field {
+    -fx-background-color: transparent;
+    -fx-pref-height: 28;
+}
+
+.date-picker > .text-field,
+.date-field > .text-field {
+    -fx-background-color: #232935;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #363e4d;
+    -fx-border-width: 1.2;
+    
+    -fx-font-size: 12px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-text-fill: #eaf1fb;
+    
+    
+}
+
+.date-picker:focused > .text-field,
+.date-field:focused > .text-field {
+    -fx-border-color: #53b9ff;
+}
+
+.date-picker:disabled > .text-field,
+.date-field:disabled > .text-field {
+    -fx-background-color: #232935;
+    -fx-border-color: #2a3140;
+    -fx-text-fill: #6c7a8a;
+}
+
+/* Botón de calendario minimalista */
+.date-picker > .arrow-button,
+.date-field > .arrow-button {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #164c7e 0%, #53b9ff 100%);
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: transparent;
     -fx-cursor: hand;
-    /* ...otros estilos... */
+    -fx-padding: 0 8 0 8;
+}
+.date-picker > .arrow-button:hover,
+.date-field > .arrow-button:hover {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #53b9ff 0%, #164c7e 100%);
+}
+
+/* Icono del botón (la flechita) */
+.date-picker > .arrow-button > .arrow,
+.date-field > .arrow-button > .arrow {
+    -fx-scale-x: 1.5;   /* ancho: 1 = normal, 1.5 = 50% más grande */
+    -fx-scale-y: 1.5;   /* alto */
+    -fx-background-color: #181a1b;
+}
+
+.date-picker-popup {
+    -fx-background-color: #232935;
+    -fx-border-color: #53b9ff;
+    -fx-border-width: 1;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+}
+
+.date-picker-popup .month-year-pane {
+    -fx-background-color: #232935;
+    -fx-padding: 8;
+}
+
+.date-picker-popup .label {
+    -fx-text-fill: #b7c2d1;      /* Texto del mes y año */
+    -fx-font-size: 16px;
+    -fx-font-weight: 600;
+}
+
+.date-picker-popup .spinner {
+    -fx-background-color: transparent;
+}
+
+.date-picker-popup .spinner .button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #53b9ff;
+}
+
+.date-picker-popup .arrow-button {
+    -fx-background-color: transparent;
+}
+
+
+/* --- Días del calendario --- */
+.date-picker-popup .calendar-pane {
+    -fx-background-color: #232935;
+}
+
+.date-picker-popup .day-cell {
+    -fx-background-color: #232935;
+    -fx-text-fill: #eaf1fb;
+    -fx-font-size: 16px;
+    -fx-border-radius: 6;
+}
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: #223356;
+    -fx-text-fill: #53b9ff;
+}
+.date-picker-popup .day-cell:selected {
+    -fx-background-color: #53b9ff;
+    -fx-text-fill: #232935;
+}
+
+/* --- Día fuera de mes --- */
+.date-picker-popup .day-cell:empty,
+.date-picker-popup .day-cell:disabled {
+    -fx-text-fill: #363e4d;
+}
+
+
+/* ======== BOTONES ========= */
+.button {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #164c7e 0%, #53b9ff 100%);
+    -fx-background-radius: 8;
+    -fx-text-fill: #f9fafc;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: 600;
+    -fx-font-size: 12px;
+    -fx-border-radius: 8;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, #53b9ff11, 3, 0.0, 0, 2);
+    -fx-cursor: hand;
+    -fx-pref-width: 75px;
+    -fx-pref-height: 35px;
+}
+.button:pressed {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #12375a 0%, #3595d7 100%);
+}
+.button:hover {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #53b9ff 0%, #164c7e 100%);
+    -fx-effect: dropshadow(gaussian, #53b9ff33, 8, 0.0, 0, 4);
+}
+
+/* Botón de avatar redondo (aplica la clase en SceneBuilder: button-avatar) */
+.button-avatar {
+    -fx-background-color: transparent;
+    -fx-border-color: #31465c;
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+    -fx-min-width: 88;
+    -fx-min-height: 88;
+    -fx-pref-width: 88;
+    -fx-pref-height: 88;
+    -fx-effect: dropshadow(gaussian, #00000022, 8, 0.0, 0, 4);
+}
+.button-avatar:hover {
+    -fx-border-color: #53b9ff;
+    -fx-effect: dropshadow(gaussian, #53b9ff44, 14, 0.0, 0, 7);
+}
+.button-eye{
+    -fx-pref-width: 28px;
+    -fx-pref-height: 28px;
+}
+
+/* ======== OTROS COMPONENTES ========= */
+
+/* Separador */
+.separator {
+    -fx-background-color: transparent;
+    -fx-border-color: #2a3140;
+    -fx-border-width: 0 0 1.5 0;
+    -fx-padding: 0 0 12 0;
+}
+
+/* General para GridPane y espaciados */
+.grid-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 12 0 0 0;
+}
+.hbox, .vbox {
+    -fx-spacing: 12;
+}
+
+/* Región transparente para separar */
+.region {
+    -fx-background-color: transparent;
+}
+
+.textfield-error {
+    -fx-border-color: red;
+    -fx-border-width: 2;
+}
+.textfield-success {
+    -fx-border-color: green;
+    -fx-border-width: 2;
+}
+.toggle-button {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #164c7e 0%, #53b9ff 100%);
+    -fx-background-radius: 8;
+    -fx-text-fill: #f9fafc;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: 600;
+    -fx-font-size: 10px;
+    -fx-border-radius: 8;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, #53b9ff11, 3, 0.0, 0, 2);
+    -fx-cursor: hand;
+    -fx-pref-width: 75px;
+    -fx-pref-height: 35px;
+    -fx-padding: 0 16 0 16;
+    -fx-transition: all 0.2s;
+}
+
+/* --- Hover --- */
+.toggle-button:hover {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #53b9ff 0%, #164c7e 100%);
+    -fx-effect: dropshadow(gaussian, #53b9ff33, 8, 0.0, 0, 4);
+}
+
+/* --- Seleccionado (activado) --- */
+.toggle-button:selected {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #10141b 0%, #223356 100%);
+    -fx-border-color: white;
+    -fx-border-width: 2;
+    -fx-text-fill: #eaf1fb;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, #ffffff44, 10, 0.0, 0, 4);
+}
+
+/* --- Seleccionado y hover --- */
+.toggle-button:selected:hover {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #172030 0%, #246097 100%);
+    -fx-border-color: white;
+    -fx-effect: dropshadow(gaussian, #ffffff44, 16, 0.0, 0, 7);
+}
+
+/* --- Estado presionado (armed) --- */
+.toggle-button:armed, 
+.toggle-button:selected:armed {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #080a0e 0%, #19202b 100%);
+    -fx-border-color: white;
+    -fx-effect: dropshadow(gaussian, #ffffff66, 14, 0.0, 0, 7);
+}
+
+/* --- Deshabilitado --- */
+.toggle-button:disabled {
+    -fx-background-color: #232935;
+    -fx-text-fill: #6c7a8a;
+    -fx-effect: none;
+    -fx-border-color: #2a3140;
+}
+
+.button-grande {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #164c7e 0%, #53b9ff 100%);
+    -fx-background-radius: 8;
+    -fx-text-fill: #f9fafc;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: 600;
+    -fx-font-size: 20px;
+    -fx-border-radius: 8;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, #53b9ff11, 3, 0.0, 0, 2);
+    -fx-cursor: hand;
+
+    /* Tamaño aumentado */
+    -fx-pref-width: 250px;
+    -fx-pref-height: 50px;
+}
+.button-grande:hover {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #53b9ff 0%, #164c7e 100%);
+    -fx-effect: dropshadow(gaussian, #53b9ff33, 8, 0.0, 0, 4);
+}
+.button-grande:pressed {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #12375a 0%, #3595d7 100%);
+}
+
+.menu-button-custom {
+    -fx-background-color: transparent;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+}
+
+.menu-button-custom .label {
+    -fx-text-fill: #eaf1fb;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+}
+
+.menu-button-custom .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.menu-button-custom .arrow-button .arrow {
+    -fx-background-color: #53b9ff;
+    -fx-shape: "M0,0 L5,5 L10,0 Z"; /* triángulo moderno */
+    -fx-scale-x: 1.5;
+    -fx-scale-y: 1.5;
+}
+
+/* Estilo del menú desplegado */
+.menu-item {
+    -fx-background-color: #232935;
+    -fx-text-fill: #eaf1fb;
+    -fx-font-size: 13px;
+    -fx-padding: 6 12 6 12;
+}
+
+.menu-item:focused {
+    -fx-background-color: #2c3b4f;
+}
+.menu-button .menu-item {
+    -fx-background-color: #232935;
+    -fx-text-fill: #eaf1fb;
+    -fx-font-size: 13px;
+    -fx-background-radius: 6;
+}
+
+.menu-button .menu-item:focused {
+    -fx-background-color: #1c90e6;   
+    -fx-text-fill: #ffffff;          
+}
+
+
+.menu-button .context-menu {
+    -fx-background-color: #232935;
+    -fx-border-color: #53b9ff;
+    -fx-border-width: 1.5;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-effect: dropshadow(gaussian, #53b9ff33, 10, 0.0, 0, 4);
+}
+
+.dialog-pane-dark {
+    -fx-background-color: #232935;
+    -fx-border-width: 1.5;
+}
+
+.dialog-pane-dark .content {
+    -fx-text-fill: #eaf1fb;
+    -fx-font-size: 13px;
+}
+
+.dialog-pane-dark .header-panel {
+    -fx-background-color: transparent;
+}
+
+.dialog-pane-dark .label {
+    -fx-text-fill: #eaf1fb;
+    -fx-font-size: 13px;
+}
+
+.dialog-pane-dark .button {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #164c7e 0%, #53b9ff 100%);
+    -fx-background-radius: 6;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+    -fx-padding: 6 16;
+}
+
+.dialog-pane-dark .button:hover {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #53b9ff 0%, #164c7e 100%);
+}
+
+/* Ocultar el icono predeterminado del diálogo */
+.dialog-pane .graphic-container {
+    -fx-padding: 0;
+    -fx-opacity: 0;
+}
+
+
+
+
+
+/* --- Hover --- */
+.toggle-button:hover {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #53b9ff 0%, #164c7e 100%);
+    -fx-effect: dropshadow(gaussian, #53b9ff33, 8, 0.0, 0, 4);
+}
+
+/* --- Seleccionado (activado) --- */
+.toggle-button:selected {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #10141b 0%, #223356 100%);
+    -fx-border-color: white;
+    -fx-border-width: 2;
+    -fx-text-fill: #eaf1fb;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, #ffffff44, 10, 0.0, 0, 4);
+}
+
+/* --- Seleccionado y hover --- */
+.toggle-button:selected:hover {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #172030 0%, #246097 100%);
+    -fx-border-color: white;
+    -fx-effect: dropshadow(gaussian, #ffffff44, 16, 0.0, 0, 7);
+}
+
+/* --- Estado presionado (armed) --- */
+.toggle-button:armed, 
+.toggle-button:selected:armed {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #080a0e 0%, #19202b 100%);
+    -fx-border-color: white;
+    -fx-effect: dropshadow(gaussian, #ffffff66, 14, 0.0, 0, 7);
+}
+
+/* --- Deshabilitado --- */
+.toggle-button:disabled {
+    -fx-background-color: #232935;
+    -fx-text-fill: #6c7a8a;
+    -fx-effect: none;
+    -fx-border-color: #2a3140;
+}
+.boton-pregunta {
+    /* Degradado naranja cálido hacia violeta suave, elegante y moderno */
+    -fx-background-color: linear-gradient(
+        from 0% 0% to 100% 100%,
+        #ffb347 0%,
+        #ff9900 55%,
+        #a385e0 100%
+    );
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-text-fill: #fff;
+    -fx-font-size: 20px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: bold;
+    -fx-padding: 10 36 10 36;
+    -fx-effect: dropshadow(gaussian, #a385e088, 8, 0.15, 0, 2);
+    -fx-cursor: hand;
+    -fx-border-color: linear-gradient(from 0% 0% to 100% 100%, #ffb347 60%, #a385e0 100%);
+    -fx-border-width: 1.2;
+    -fx-transition: all 0.2s;
+    -fx-pref-height: 45px;
+    -fx-pref-width: 190px;
+    -fx-background-insets: 0, 1;
+    -fx-background-blend-mode: src-over, multiply;
+}
+
+.boton-pregunta:hover, .boton-pregunta:selected {
+    -fx-background-color: linear-gradient(
+        from 0% 0% to 100% 100%,
+        #ffd580 0%,
+        #ffb347 40%,
+        #a385e0 100%
+    );
+    -fx-effect: dropshadow(gaussian, #a385e099, 16, 0.23, 0, 5);
+    -fx-text-fill: #fff;
+    -fx-border-color: #a385e0;
+}
+.boton-pregunta:disabled {
+    /* Degradado violeta-naranja desaturado, integración elegante en modo inactivo */
+    -fx-background-color: linear-gradient(
+        from 0% 0% to 100% 100%,
+        #bfae99 0%,
+        #cbb6e0 100%
+    );
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 20px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: bold;
+    -fx-padding: 10 36 10 36;
+    -fx-cursor: default;
+    -fx-border-color: #cbb6e0;
+    -fx-border-width: 1.2;
+    -fx-opacity: 0.65;
+    -fx-pref-height: 45px;
+    -fx-pref-width: 190px;
+}
+/* ======== TABLEVIEW OSCURO MODERNO Y ELEGANTE ======== */
+
+/* Fondo general y bordes del TableView */
+.table-view {
+    -fx-background-color: #232935;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #363e4d;
+    -fx-border-width: 1.5;
+    -fx-table-cell-border-color: transparent;
+    -fx-padding: 8;
+    -fx-effect: dropshadow(gaussian, #00000022, 8, 0.0, 0, 2);
+}
+
+/* Encabezado de columna */
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #1d2230 0%, #293047 100%);
+    -fx-background-radius: 10 10 0 0;
+    -fx-padding: 0 0 8 0;
+    -fx-border-radius: 10 10 0 0;
+    -fx-border-color: #2a3140;
+    -fx-border-width: 0 0 2 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-view .column-header .label {
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #b7c2d1;
+    -fx-padding: 6 12 6 12;
+    -fx-effect: dropshadow(gaussian, #10141b66, 2, 0.0, 0, 1);
+    -fx-alignment: center-left;
+    -fx-letter-spacing: 0.3px;
+}
+
+/* Filas */
+.table-row-cell {
+    -fx-background-color: #232935;
+    -fx-border-color: transparent transparent #2a3140 transparent;
+    -fx-border-width: 0 0 1 0;
+    /* NO CAMBIAMOS -fx-cell-size NI font-size */
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-text-fill: #eaf1fb;
+    -fx-padding: 0 4 0 4;
+    -fx-background-insets: 0;
+    -fx-table-cell-border-color: transparent;
+    -fx-transition: background-color 0.2s;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #232935;
+}
+.table-row-cell:even {
+    -fx-background-color: #20242e;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #223356;
+    -fx-text-fill: #53b9ff;
+    -fx-cursor: hand;
+}
+.table-row-cell:selected {
+    -fx-background-color: #53b9ff;
+    -fx-text-fill: #232935;
+}
+.table-row-cell:selected .table-cell {
+    -fx-text-fill: #232935;
+}
+
+/* Celdas */
+.table-cell {
+    -fx-padding: 6 12 6 12;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    /* NO CAMBIAMOS font-size */
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-text-fill: #eaf1fb;
+    -fx-alignment: center-left;
+    -fx-border-radius: 8;
+}
+
+/* Celdas deshabilitadas */
+.table-cell:disabled {
+    -fx-text-fill: #6c7a8a;
+}
+
+/* Scrollbar elegante y consistente */
+.table-view .scroll-bar:vertical, .table-view .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10;
+    -fx-pref-height: 10;
+}
+
+.table-view .scroll-bar .thumb {
+    -fx-background-color: #293047;
+    -fx-background-radius: 6;
+}
+.table-view .scroll-bar .thumb:hover {
+    -fx-background-color: #53b9ff;
+}
+
+.table-view .scroll-bar .track {
+    -fx-background-color: #171b22;
+    -fx-background-radius: 6;
+}
+
+/* Foco */
+.table-view:focused {
+    -fx-border-color: #53b9ff;
+    -fx-border-width: 2;
+}
+
+/* Placeholder (cuando no hay datos) */
+.table-view .placeholder .label {
+    -fx-text-fill: #6c7a8a;
+    -fx-font-size: 14px;
+    -fx-font-style: italic;
+}
+
+/* --- Opcional: Botón de ordenación en el encabezado --- */
+.table-view .column-header .arrow {
+    -fx-background-color: #53b9ff;
+    -fx-padding: 0 0 0 4;
+    -fx-shape: "M0,0 L4,4 L8,0 Z";
+}
+
+/* --- Opcional: Resaltar columnas seleccionadas (cuando aplicable) --- */
+.table-view .table-column:selected,
+.table-view .table-cell:selected {
+    -fx-background-color: #223356;
+    -fx-text-fill: #53b9ff;
+}
+/* --- Flecha de ordenación visible, blanca e iluminada --- */
+.table-view .column-header .arrow,
+.table-view .column-header .sort-arrow {
+    -fx-background-color: white;
+    -fx-shape: "M0,0 L6,8 L12,0 Z";
+    -fx-min-width: 12px;
+    -fx-min-height: 8px;
+    -fx-max-width: 12px;
+    -fx-max-height: 8px;
+    -fx-effect: dropshadow(gaussian, #53b9ff, 8, 0.4, 0, 1);
+    /* Para centrar verticalmente */
+    -fx-translate-y: 2;
+}
+.table-view .column-header .label {
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    /* Puedes ajustar el padding si lo necesitas */
+    /* -fx-padding: 6 0 6 0; */
+>>>>>>> 610deaf7b7c2ed677778c47fe4553db4f4a520a9
+}
+
+/* ======== CLASES PERSONALIZADAS PARA TEXTOS ========= */
+
+/* Título principal */
+.label-title {
+    -fx-font-size: 32px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: bold;
+    -fx-text-fill: #eaf1fb;
+    -fx-effect: dropshadow(gaussian, #10141b88, 4, 0.0, 0, 2);
+    
+    -fx-alignment: center;
+    -fx-letter-spacing: 1.2px;
+}
+
+/* Subtítulo o nombre de sección */
+.label-section {
+    -fx-font-size: 19px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: 600;
+    -fx-text-fill: #b7c2d1;
+    -fx-padding: 8 0 4 0;
+}
+
+/* Etiqueta de campo */
+.label-field {
+    -fx-font-size: 15px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: 500;
+    -fx-text-fill: #c2cad7;
+}
+
+/* Mensaje de error */
+.label-error {
+    -fx-font-size: 10px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: 600;
+    -fx-text-fill: #ff6b6b;
+   
+}
+
+/* Texto auxiliar o de ayuda */
+.label-helper {
+    -fx-font-size: 12px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: normal;
+    -fx-text-fill: #6c7a8a;
+    
+}
+
+/* ======== CAMPOS DE TEXTO Y PASSWORD ========= */
+.text-field, .password-field {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-background-color: #232935;
+    -fx-border-color: #363e4d;
+    -fx-border-width: 1.2;
+    -fx-font-size: 12px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-text-fill: #eaf1fb;
+    -fx-pref-height: 28;
+    
+}
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #53b9ff;
+    -fx-effect: dropshadow(gaussian, #53b9ff22, 8, 0.0, 0, 2);
+}
+.text-field:disabled, .password-field:disabled {
+    -fx-background-color: #232935;
+    -fx-border-color: #2a3140;
+    -fx-text-fill: #6c7a8a;
+}
+
+/* ======== DATEPICKER OSCURO ========= */
+.date-picker,
+.date-field {
+    -fx-background-color: transparent;
+    -fx-pref-height: 28;
+}
+
+.date-picker > .text-field,
+.date-field > .text-field {
+    -fx-background-color: #232935;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #363e4d;
+    -fx-border-width: 1.2;
+    
+    -fx-font-size: 12px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-text-fill: #eaf1fb;
+    
+    
+}
+
+.date-picker:focused > .text-field,
+.date-field:focused > .text-field {
+    -fx-border-color: #53b9ff;
+}
+
+.date-picker:disabled > .text-field,
+.date-field:disabled > .text-field {
+    -fx-background-color: #232935;
+    -fx-border-color: #2a3140;
+    -fx-text-fill: #6c7a8a;
+}
+
+/* Botón de calendario minimalista */
+.date-picker > .arrow-button,
+.date-field > .arrow-button {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #164c7e 0%, #53b9ff 100%);
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 0 8 0 8;
+}
+.date-picker > .arrow-button:hover,
+.date-field > .arrow-button:hover {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #53b9ff 0%, #164c7e 100%);
+}
+
+/* Icono del botón (la flechita) */
+.date-picker > .arrow-button > .arrow,
+.date-field > .arrow-button > .arrow {
+    -fx-scale-x: 1.5;   /* ancho: 1 = normal, 1.5 = 50% más grande */
+    -fx-scale-y: 1.5;   /* alto */
+    -fx-background-color: #181a1b;
+}
+
+.date-picker-popup {
+    -fx-background-color: #232935;
+    -fx-border-color: #53b9ff;
+    -fx-border-width: 1;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+}
+
+.date-picker-popup .month-year-pane {
+    -fx-background-color: #232935;
+    -fx-padding: 8;
+}
+
+.date-picker-popup .label {
+    -fx-text-fill: #b7c2d1;      /* Texto del mes y año */
+    -fx-font-size: 16px;
+    -fx-font-weight: 600;
+}
+
+.date-picker-popup .spinner {
+    -fx-background-color: transparent;
+}
+
+.date-picker-popup .spinner .button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #53b9ff;
+}
+
+.date-picker-popup .arrow-button {
+    -fx-background-color: transparent;
+}
+
+
+/* --- Días del calendario --- */
+.date-picker-popup .calendar-pane {
+    -fx-background-color: #232935;
+}
+
+.date-picker-popup .day-cell {
+    -fx-background-color: #232935;
+    -fx-text-fill: #eaf1fb;
+    -fx-font-size: 16px;
+    -fx-border-radius: 6;
+}
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: #223356;
+    -fx-text-fill: #53b9ff;
+}
+.date-picker-popup .day-cell:selected {
+    -fx-background-color: #53b9ff;
+    -fx-text-fill: #232935;
+}
+
+/* --- Día fuera de mes --- */
+.date-picker-popup .day-cell:empty,
+.date-picker-popup .day-cell:disabled {
+    -fx-text-fill: #363e4d;
+}
+
+
+/* ======== BOTONES ========= */
+.button {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #164c7e 0%, #53b9ff 100%);
+    -fx-background-radius: 8;
+    -fx-text-fill: #f9fafc;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: 600;
+    -fx-font-size: 12px;
+    -fx-border-radius: 8;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, #53b9ff11, 3, 0.0, 0, 2);
+    -fx-cursor: hand;
+    -fx-pref-width: 75px;
+    -fx-pref-height: 35px;
+}
+.button:pressed {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #12375a 0%, #3595d7 100%);
+}
+.button:hover {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #53b9ff 0%, #164c7e 100%);
+    -fx-effect: dropshadow(gaussian, #53b9ff33, 8, 0.0, 0, 4);
+}
+
+/* Botón de avatar redondo (aplica la clase en SceneBuilder: button-avatar) */
+.button-avatar {
+    -fx-background-color: transparent;
+    -fx-border-color: #31465c;
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+    -fx-min-width: 88;
+    -fx-min-height: 88;
+    -fx-pref-width: 88;
+    -fx-pref-height: 88;
+    -fx-effect: dropshadow(gaussian, #00000022, 8, 0.0, 0, 4);
+}
+.button-avatar:hover {
+    -fx-border-color: #53b9ff;
+    -fx-effect: dropshadow(gaussian, #53b9ff44, 14, 0.0, 0, 7);
+}
+.button-eye{
+    -fx-pref-width: 28px;
+    -fx-pref-height: 28px;
+}
+
+/* ======== OTROS COMPONENTES ========= */
+
+/* Separador */
+.separator {
+    -fx-background-color: transparent;
+    -fx-border-color: #2a3140;
+    -fx-border-width: 0 0 1.5 0;
+    -fx-padding: 0 0 12 0;
+}
+
+/* General para GridPane y espaciados */
+.grid-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 12 0 0 0;
+}
+.hbox, .vbox {
+    -fx-spacing: 12;
+}
+
+/* Región transparente para separar */
+.region {
+    -fx-background-color: transparent;
+}
+
+.textfield-error {
+    -fx-border-color: red;
+    -fx-border-width: 2;
+}
+.textfield-success {
+    -fx-border-color: green;
+    -fx-border-width: 2;
+}
+.toggle-button {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #164c7e 0%, #53b9ff 100%);
+    -fx-background-radius: 8;
+    -fx-text-fill: #f9fafc;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: 600;
+    -fx-font-size: 10px;
+    -fx-border-radius: 8;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, #53b9ff11, 3, 0.0, 0, 2);
+    -fx-cursor: hand;
+    -fx-pref-width: 75px;
+    -fx-pref-height: 35px;
+    -fx-padding: 0 16 0 16;
+    -fx-transition: all 0.2s;
+}
+
+/* --- Hover --- */
+.toggle-button:hover {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #53b9ff 0%, #164c7e 100%);
+    -fx-effect: dropshadow(gaussian, #53b9ff33, 8, 0.0, 0, 4);
+}
+
+/* --- Seleccionado (activado) --- */
+.toggle-button:selected {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #10141b 0%, #223356 100%);
+    -fx-border-color: white;
+    -fx-border-width: 2;
+    -fx-text-fill: #eaf1fb;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, #ffffff44, 10, 0.0, 0, 4);
+}
+
+/* --- Seleccionado y hover --- */
+.toggle-button:selected:hover {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #172030 0%, #246097 100%);
+    -fx-border-color: white;
+    -fx-effect: dropshadow(gaussian, #ffffff44, 16, 0.0, 0, 7);
+}
+
+/* --- Estado presionado (armed) --- */
+.toggle-button:armed, 
+.toggle-button:selected:armed {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #080a0e 0%, #19202b 100%);
+    -fx-border-color: white;
+    -fx-effect: dropshadow(gaussian, #ffffff66, 14, 0.0, 0, 7);
+}
+
+/* --- Deshabilitado --- */
+.toggle-button:disabled {
+    -fx-background-color: #232935;
+    -fx-text-fill: #6c7a8a;
+    -fx-effect: none;
+    -fx-border-color: #2a3140;
+}
+.boton-pregunta {
+    /* Degradado naranja cálido hacia violeta suave, elegante y moderno */
+    -fx-background-color: linear-gradient(
+        from 0% 0% to 100% 100%,
+        #ffb347 0%,
+        #ff9900 55%,
+        #a385e0 100%
+    );
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-text-fill: #fff;
+    -fx-font-size: 20px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: bold;
+    -fx-padding: 10 36 10 36;
+    -fx-effect: dropshadow(gaussian, #a385e088, 8, 0.15, 0, 2);
+    -fx-cursor: hand;
+    -fx-border-color: linear-gradient(from 0% 0% to 100% 100%, #ffb347 60%, #a385e0 100%);
+    -fx-border-width: 1.2;
+    -fx-transition: all 0.2s;
+    -fx-pref-height: 45px;
+    -fx-pref-width: 190px;
+    -fx-background-insets: 0, 1;
+    -fx-background-blend-mode: src-over, multiply;
+}
+
+.boton-pregunta:hover, .boton-pregunta:selected {
+    -fx-background-color: linear-gradient(
+        from 0% 0% to 100% 100%,
+        #ffd580 0%,
+        #ffb347 40%,
+        #a385e0 100%
+    );
+    -fx-effect: dropshadow(gaussian, #a385e099, 16, 0.23, 0, 5);
+    -fx-text-fill: #fff;
+    -fx-border-color: #a385e0;
+}
+.boton-pregunta:disabled {
+    /* Degradado violeta-naranja desaturado, integración elegante en modo inactivo */
+    -fx-background-color: linear-gradient(
+        from 0% 0% to 100% 100%,
+        #bfae99 0%,
+        #cbb6e0 100%
+    );
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 20px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: bold;
+    -fx-padding: 10 36 10 36;
+    -fx-cursor: default;
+    -fx-border-color: #cbb6e0;
+    -fx-border-width: 1.2;
+    -fx-opacity: 0.65;
+    -fx-pref-height: 45px;
+    -fx-pref-width: 190px;
+}
+/* ======== TABLEVIEW OSCURO MODERNO Y ELEGANTE ======== */
+
+/* Fondo general y bordes del TableView */
+.table-view {
+    -fx-background-color: #232935;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #363e4d;
+    -fx-border-width: 1.5;
+    -fx-table-cell-border-color: transparent;
+    -fx-padding: 8;
+    -fx-effect: dropshadow(gaussian, #00000022, 8, 0.0, 0, 2);
+}
+
+/* Encabezado de columna */
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #1d2230 0%, #293047 100%);
+    -fx-background-radius: 10 10 0 0;
+    -fx-padding: 0 0 8 0;
+    -fx-border-radius: 10 10 0 0;
+    -fx-border-color: #2a3140;
+    -fx-border-width: 0 0 2 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-view .column-header .label {
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #b7c2d1;
+    -fx-padding: 6 12 6 12;
+    -fx-effect: dropshadow(gaussian, #10141b66, 2, 0.0, 0, 1);
+    -fx-alignment: center-left;
+    -fx-letter-spacing: 0.3px;
+}
+
+/* Filas */
+.table-row-cell {
+    -fx-background-color: #232935;
+    -fx-border-color: transparent transparent #2a3140 transparent;
+    -fx-border-width: 0 0 1 0;
+    /* NO CAMBIAMOS -fx-cell-size NI font-size */
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-text-fill: #eaf1fb;
+    -fx-padding: 0 4 0 4;
+    -fx-background-insets: 0;
+    -fx-table-cell-border-color: transparent;
+    -fx-transition: background-color 0.2s;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #232935;
+}
+.table-row-cell:even {
+    -fx-background-color: #20242e;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #223356;
+    -fx-text-fill: #53b9ff;
+    -fx-cursor: hand;
+}
+.table-row-cell:selected {
+    -fx-background-color: #53b9ff;
+    -fx-text-fill: #232935;
+}
+.table-row-cell:selected .table-cell {
+    -fx-text-fill: #232935;
+}
+
+/* Celdas */
+.table-cell {
+    -fx-padding: 6 12 6 12;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    /* NO CAMBIAMOS font-size */
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-text-fill: #eaf1fb;
+    -fx-alignment: center-left;
+    -fx-border-radius: 8;
+}
+
+/* Celdas deshabilitadas */
+.table-cell:disabled {
+    -fx-text-fill: #6c7a8a;
+}
+
+/* Scrollbar elegante y consistente */
+.table-view .scroll-bar:vertical, .table-view .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10;
+    -fx-pref-height: 10;
+}
+
+.table-view .scroll-bar .thumb {
+    -fx-background-color: #293047;
+    -fx-background-radius: 6;
+}
+.table-view .scroll-bar .thumb:hover {
+    -fx-background-color: #53b9ff;
+}
+
+.table-view .scroll-bar .track {
+    -fx-background-color: #171b22;
+    -fx-background-radius: 6;
+}
+
+/* Foco */
+.table-view:focused {
+    -fx-border-color: #53b9ff;
+    -fx-border-width: 2;
+}
+
+/* Placeholder (cuando no hay datos) */
+.table-view .placeholder .label {
+    -fx-text-fill: #6c7a8a;
+    -fx-font-size: 14px;
+    -fx-font-style: italic;
+}
+
+/* --- Opcional: Botón de ordenación en el encabezado --- */
+.table-view .column-header .arrow {
+    -fx-background-color: #53b9ff;
+    -fx-padding: 0 0 0 4;
+    -fx-shape: "M0,0 L4,4 L8,0 Z";
+}
+
+/* --- Opcional: Resaltar columnas seleccionadas (cuando aplicable) --- */
+.table-view .table-column:selected,
+.table-view .table-cell:selected {
+    -fx-background-color: #223356;
+    -fx-text-fill: #53b9ff;
+}
+/* --- Flecha de ordenación visible, blanca e iluminada --- */
+.table-view .column-header .arrow,
+.table-view .column-header .sort-arrow {
+    -fx-background-color: white;
+    -fx-shape: "M0,0 L6,8 L12,0 Z";
+    -fx-min-width: 12px;
+    -fx-min-height: 8px;
+    -fx-max-width: 12px;
+    -fx-max-height: 8px;
+    -fx-effect: dropshadow(gaussian, #53b9ff, 8, 0.4, 0, 1);
+    /* Para centrar verticalmente */
+    -fx-translate-y: 2;
+}
+.table-view .column-header .label {
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    /* Puedes ajustar el padding si lo necesitas */
+    /* -fx-padding: 6 0 6 0; */
 }

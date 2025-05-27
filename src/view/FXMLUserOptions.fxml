@@ -14,12 +14,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" spacing="10.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" spacing="10.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FXMLUserOptionsController">
    <children>
-      <Label alignment="CENTER" prefHeight="58.0" prefWidth="450.0" text="Ajustes" textAlignment="CENTER">
+      <Label alignment="CENTER" prefHeight="58.0" prefWidth="450.0" styleClass="label-title" text="Ajustes" textAlignment="CENTER">
          <font>
             <Font size="31.0" />
          </font>
@@ -43,115 +44,136 @@
             <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <VBox maxHeight="-Infinity" GridPane.columnSpan="2147483647">
+            <VBox maxHeight="-Infinity" spacing="3.0" GridPane.columnSpan="2147483647">
                <children>
-                  <Label alignment="BASELINE_LEFT" text="Usuario">
+                  <Label alignment="BASELINE_LEFT" styleClass="label-field" text="Usuario">
                      <VBox.margin>
-                        <Insets bottom="3.0" left="37.5" />
+                        <Insets bottom="3.0" />
                      </VBox.margin>
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <TextField disable="true">
+                  <TextField fx:id="userField" disable="true" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity">
                      <VBox.margin>
-                        <Insets left="37.5" right="37.5" />
+                        <Insets />
                      </VBox.margin>
                   </TextField>
                </children>
+               <GridPane.margin>
+                  <Insets left="60.0" right="60.0" />
+               </GridPane.margin>
             </VBox>
-            <VBox GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+            <VBox spacing="3.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
                <children>
                   <HBox alignment="BASELINE_LEFT">
                      <children>
-                        <Label text="Correo electrónico">
+                        <Label styleClass="label-field" text="Correo electrónico">
                            <font>
                               <Font size="16.0" />
                            </font></Label>
                         <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
-                        <Label alignment="CENTER_RIGHT" text="correo inválido" textFill="RED" visible="false" />
+                        <Label fx:id="emailError" alignment="CENTER_RIGHT" styleClass="label-error" text="correo inválido" textFill="RED" visible="false" />
                      </children>
-                     <padding>
-                        <Insets left="37.5" right="37.5" />
-                     </padding>
                      <VBox.margin>
                         <Insets bottom="3.0" />
                      </VBox.margin>
                   </HBox>
-                  <TextField>
+                  <TextField fx:id="emailField" minHeight="-Infinity" promptText="Introduce una dirección de correo válida">
                      <VBox.margin>
-                        <Insets left="37.5" right="37.5" />
+                        <Insets />
                      </VBox.margin>
                   </TextField>
                </children>
+               <GridPane.margin>
+                  <Insets left="60.0" right="60.0" />
+               </GridPane.margin>
             </VBox>
-            <VBox GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+            <VBox spacing="3.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
                <children>
                   <HBox prefWidth="200.0">
                      <children>
-                        <Label text="Fecha nacimiento">
+                        <Label styleClass="label-field" text="Fecha nacimiento">
                            <font>
                               <Font size="16.0" />
                            </font></Label>
                         <Region HBox.hgrow="ALWAYS" />
-                        <Label text="el usuario debe ser mayor de 16" textFill="RED" visible="false" />
+                        <Label fx:id="dateError" styleClass="label-error" text="el usuario debe ser mayor de 16" textFill="RED" visible="false" />
                      </children>
-                     <padding>
-                        <Insets bottom="3.0" left="37.5" right="37.5" />
-                     </padding>
                   </HBox>
-                  <DatePicker maxWidth="1.7976931348623157E308">
+                  <DatePicker fx:id="dateField" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" promptText="Introduce una fecha de nacimiento">
                      <VBox.margin>
-                        <Insets left="37.5" right="37.5" />
+                        <Insets />
                      </VBox.margin>
                   </DatePicker>
                </children>
+               <padding>
+                  <Insets left="60.0" right="60.0" />
+               </padding>
             </VBox>
-            <VBox alignment="CENTER" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
+            <VBox alignment="CENTER" spacing="3.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
                <children>
                   <HBox prefWidth="200.0">
                      <children>
-                        <Label text="Nueva contraseña">
+                        <Label styleClass="label-field" text="Nueva contraseña">
                            <font>
                               <Font size="16.0" />
                            </font></Label>
                         <Region HBox.hgrow="ALWAYS" />
                      </children>
                      <padding>
-                        <Insets bottom="3.0" left="37.5" right="37.5" />
+                        <Insets bottom="3.0" />
                      </padding>
                   </HBox>
-                  <PasswordField>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <VBox.margin>
-                        <Insets left="37.5" right="37.5" />
-                     </VBox.margin>
-                  </PasswordField>
-                  <Label text="La contraseña debe tener 8-20 caracteres, incluir mayúsculas, minúsculas, un número y un carácter especial (!@#$%&amp;*()-+=).&quot;" textAlignment="CENTER" textFill="RED" visible="false" wrapText="true">
-                     <padding>
-                        <Insets left="37.5" right="37.5" />
-                     </padding>
-                     <font>
-                        <Font size="10.0" />
-                     </font>
-                  </Label>
+                  <HBox prefHeight="16.0" prefWidth="266.0">
+                     <children>
+                        <StackPane prefHeight="28.0" prefWidth="314.0">
+                           <children>
+                              <TextField fx:id="plainPasswordField" maxHeight="-Infinity" minHeight="-Infinity" styleClass="text-field" />
+                              <PasswordField fx:id="passField" maxWidth="1.7976931348623157E308" minHeight="-Infinity" promptText="Crea una contraseña válida">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </PasswordField>
+                           </children>
+                        </StackPane>
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verAction" prefHeight="13.0" prefWidth="28.0" styleClass="button-eye">
+                           <graphic>
+                              <ImageView fitHeight="17.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../resources/eye.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
+               <GridPane.margin>
+                  <Insets left="60.0" right="60.0" />
+               </GridPane.margin>
             </VBox>
          </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
       </GridPane>
+      <Label fx:id="passError" alignment="TOP_CENTER" styleClass="label-error" text="8–20 caracteres. Debe incluir mayúsculas, minúsculas, un número y un símbolo." textAlignment="CENTER" textFill="RED" visible="false">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
       <VBox alignment="CENTER">
          <children>
-            <Label text="Avatar">
+            <Label styleClass="label-field" text="Avatar">
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="88.0" prefWidth="88.0">
+            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionAvatar" prefHeight="88.0" prefWidth="88.0" styleClass="button-avatar">
                <graphic>
-                  <ImageView fitHeight="85.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="avatarIV" fitHeight="85.0" fitWidth="85.0" pickOnBounds="true">
                      <image>
-                        <Image url="@../resources/avatar_defecto.jpg" />
+                        <Image url="@../resources/500_333.jpeg" />
                      </image>
                   </ImageView>
                </graphic>
@@ -160,12 +182,12 @@
       </VBox>
       <HBox prefHeight="10.0" prefWidth="400.0">
          <children>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="75.0" text="Cancelar" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionCancell" prefHeight="35.0" prefWidth="75.0" text="Cancelar" />
             <Region HBox.hgrow="ALWAYS" />
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="35.0" prefWidth="75.0" text="Guardar" />
+            <Button fx:id="saveButton" alignment="CENTER" mnemonicParsing="false" onAction="#onActionSave" prefHeight="35.0" prefWidth="75.0" text="Guardar" />
          </children>
          <padding>
-            <Insets left="37.5" right="37.5" />
+            <Insets left="60.0" right="60.0" />
          </padding>
       </HBox>
    </children>
