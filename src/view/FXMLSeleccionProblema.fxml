@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.FXMLSeleccionProblemaController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FXMLSeleccionProblemaController">
    <children>
       <GridPane alignment="CENTER" hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="600.0" prefWidth="450.0" vgap="10.0">
         <columnConstraints>
@@ -16,36 +16,38 @@
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="100.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="-Infinity" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="-Infinity" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="-Infinity" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="-Infinity" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="-Infinity" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="-Infinity" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="-Infinity" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" prefWidth="96.0" text="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="3" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="5" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="6" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="7" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="75.0" text="Regresar" GridPane.rowIndex="6" />
-            <ToggleButton maxHeight="35.0" maxWidth="75.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="75.0" text="Sin hacer" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-            <Button disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="75.0" text="Página &gt;" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" text="Button" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" text="Button" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" text="Button" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Button fx:id="b1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSeleccionarPregunta" prefHeight="30.0" prefWidth="96.0" styleClass="boton-pregunta" text="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+            <Button fx:id="b2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSeleccionarPregunta" styleClass="boton-pregunta" text="2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <Button fx:id="b3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSeleccionarPregunta" styleClass="boton-pregunta" text="3" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+            <Button fx:id="b4" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSeleccionarPregunta" styleClass="boton-pregunta" text="4" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <Button fx:id="b5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSeleccionarPregunta" styleClass="boton-pregunta" text="5" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <Button fx:id="b6" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSeleccionarPregunta" styleClass="boton-pregunta" text="6" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <Button fx:id="b7" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSeleccionarPregunta" styleClass="boton-pregunta" text="7" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <Button mnemonicParsing="false" onAction="#onCancelar" prefHeight="35.0" prefWidth="75.0" text="Cancelar" GridPane.rowIndex="7" />
+            <ToggleButton fx:id="mostrarHechas" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#onToggleMostrarHechas" prefHeight="56.0" text="Ocultar Hechos" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+            <Button fx:id="siguientePagina" mnemonicParsing="false" onAction="#onSiguientePagina" prefHeight="35.0" prefWidth="124.0" text="Página &gt;" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
+            <Button fx:id="b8" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSeleccionarPregunta" styleClass="boton-pregunta" text="8" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Button fx:id="b9" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSeleccionarPregunta" styleClass="boton-pregunta" text="9" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Button fx:id="b10" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSeleccionarPregunta" styleClass="boton-pregunta" text="10" GridPane.rowIndex="3" />
+            <Button fx:id="b11" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSeleccionarPregunta" styleClass="boton-pregunta" text="11" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Button fx:id="b12" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSeleccionarPregunta" styleClass="boton-pregunta" text="12" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Button fx:id="b13" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSeleccionarPregunta" styleClass="boton-pregunta" text="13" GridPane.rowIndex="4" />
+            <Button fx:id="b14" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSeleccionarPregunta" styleClass="boton-pregunta" text="14" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Button fx:id="b15" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSeleccionarPregunta" styleClass="boton-pregunta" text="15" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Button fx:id="b16" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSeleccionarPregunta" styleClass="boton-pregunta" text="16" GridPane.rowIndex="5" />
+            <Button fx:id="b17" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSeleccionarPregunta" styleClass="boton-pregunta" text="17" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Button fx:id="b18" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSeleccionarPregunta" styleClass="boton-pregunta" text="18" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Button fx:id="anteriorPagina" mnemonicParsing="false" onAction="#onAnteriorPagina" text="&lt; Página" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
          </children>
       </GridPane>
    </children>
