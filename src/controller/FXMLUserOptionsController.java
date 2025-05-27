@@ -157,7 +157,9 @@ public class FXMLUserOptionsController implements Initializable {
         usuarioSesion.setAvatar(avatarIV.getImage());
         usuarioSesion.setEmail(emailField.getText());
         usuarioSesion.setBirthdate(dateField.getValue());
-        usuarioSesion.setPassword(passField.getText());
+        if(!passField.getText().equals("")){
+            usuarioSesion.setPassword(passField.getText());
+        }
         emailField.getScene().getWindow().hide();
         if (menuController != null) {
             menuController.actualizarAvatar(usuarioSesion.getAvatar());

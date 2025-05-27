@@ -120,7 +120,7 @@
                                        </font></PasswordField>
                                  </children>
                               </StackPane>
-                              <Button fx:id="verButton" mnemonicParsing="false" onAction="#verAction" style="-fx-background-color: transparent;">
+                              <Button fx:id="verButton" mnemonicParsing="false" onAction="#verAction" styleClass="button-eye">
                                  <graphic>
                                     <ImageView fitHeight="17.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                                        <image>

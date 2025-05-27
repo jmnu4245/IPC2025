@@ -225,6 +225,9 @@ public class RegistrarseController implements Initializable {
         String mail = mailField.getText().trim();
         String pass = passField.getText();
         LocalDate birthdate = dateField.getValue();
+        if(birthdate.getYear() > LocalDate.now().getYear()){
+                birthdate = birthdate.minusYears(100);
+            }
 
         noValidUser.setVisible(false);
         userFormat.setVisible(false);
