@@ -201,8 +201,6 @@ public class SelectionMenuManager {
                     sharedColorPicker,
                     new Label("Grosor:"),
                     new HBox(5, lineThicknessSliderDynamic, lineThicknessInputFieldDynamic),
-                    new Label("Tipo de arco:"),
-                    open, chord, round,
                     new Label("Radio (px, opcional):"),
                     arcRadiusInputDynamic
                 );

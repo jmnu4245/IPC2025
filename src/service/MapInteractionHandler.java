@@ -153,7 +153,8 @@ public class MapInteractionHandler {
         lastScrollH = newHvalue;
         lastScrollV = newVvalue;
 
-    } else if (event.isPrimaryButtonDown() &&
+    } else if 
+            (event.isPrimaryButtonDown() &&
                stateManager.getCurrentTool() != MapStateManager.Tool.HAND &&
                stateManager.getCurrentTool() != MapStateManager.Tool.SELECTION) {
         toolDragHandler.accept(event);

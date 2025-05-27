@@ -67,28 +67,36 @@ public class LineTool implements MapDrawingTool {
 
     @Override
     public void onMouseDragged(MouseEvent event, Point2D mapCoords) {
-        if(pressStart == null){
-            pressStart = mapCoords;
-            }
-        dragged = true;
-        handleViewportAutoScroll(event);
-
-        if (!isDrawing) {
-            
-            System.out.println("dragged working");
-            // Comienza línea si no está en progreso
-            currentLine = new Line();
-            currentLine.setStartX(mapCoords.getX());
-            currentLine.setStartY(mapCoords.getY());
-            currentLine.setStroke(menuManager.getColorPickerValue());
-            currentLine.setStrokeWidth(menuManager.getLineThickness());
-            mapZoomGroup.getChildren().add(currentLine);
-            isDrawing = true;
-        }
-
-        currentLine.setEndX(mapCoords.getX());
-        currentLine.setEndY(mapCoords.getY());
+    if (pressStart == null) {
+        pressStart = mapCoords;
     }
+    dragged = true;
+
+    handleViewportAutoScroll(event);
+
+    // Verifica que esté dentro de los límites visibles del panel
+    double x = event.getX();
+    double y = event.getY();
+    if (x < 0 || x > mapScrollPane.getWidth() || y < 0 || y > mapScrollPane.getHeight()) {
+        return; // Salir si el cursor está fuera del panel
+    }
+
+    if (!isDrawing) {
+        System.out.println("dragged working");
+        // Comienza línea si no está en progreso
+        currentLine = new Line();
+        currentLine.setStartX(mapCoords.getX());
+        currentLine.setStartY(mapCoords.getY());
+        currentLine.setStroke(menuManager.getColorPickerValue());
+        currentLine.setStrokeWidth(menuManager.getLineThickness());
+        mapZoomGroup.getChildren().add(currentLine);
+        isDrawing = true;
+    }
+
+    currentLine.setEndX(mapCoords.getX());
+    currentLine.setEndY(mapCoords.getY());
+}
+
 
     @Override
     public void onMouseReleased(MouseEvent event, Point2D mapCoords) {
@@ -156,10 +164,6 @@ private void handleViewportAutoScroll(MouseEvent event) {
         mapScrollPane.setHvalue(newHvalue);
         mapScrollPane.setVvalue(newVvalue);
 
-        // Opcional: Actualizar lastScrollH y lastScrollV si los usas para el zoom/pan
-        // Esto es importante para que el movimiento del scroll afecte también al pan manual
-        // lastScrollH = newHvalue;
-        // lastScrollV = newVvalue;
     }
 }
     private double clamp(double value, double min, double max) {

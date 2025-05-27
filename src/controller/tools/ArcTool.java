@@ -88,56 +88,78 @@ public class ArcTool implements MapDrawingTool {
     }
     @Override
     public void onMouseClick(MouseEvent event, Point2D mapCoords) {}
-        @Override
-    public void onMouseDragged(MouseEvent event, Point2D mapCoords) {
-        if (event.getButton() == MouseButton.PRIMARY) {
-            if (definingRadius) {
-                // Lógica de definición del radio (sin cambios significativos aquí para el ángulo)
-                previewRadiusLine.setEndX(mapCoords.getX());
-                previewRadiusLine.setEndY(mapCoords.getY());
-                currentRadius = centerPoint.distance(mapCoords);
-                
-                // Actualizar posición y tamaño del texto del radio
-                radiusValueText.setText(String.format("%.1f px", currentRadius));
-                // Mover el texto ligeramente por encima y a la derecha de la punta de la flecha
-                radiusValueText.setX(mapCoords.getX() + 5);
-                radiusValueText.setY(mapCoords.getY() - 5);
-                // Ajustar el tamaño de fuente del texto del radio según el grosor de línea
-                radiusValueText.setFont(new javafx.scene.text.Font(4 * menuManager.getLineThickness())); // Escala con grosor
-                radiusValueText.setFill(menuManager.getColorPickerValue());
-                
-                event.consume();
-            } else if (definingAngle) {
-                // Lógica de definición del ángulo
+@Override
+public void onMouseDragged(MouseEvent event, Point2D mapCoords) {
+    if (event.getButton() == MouseButton.PRIMARY) {
+        // En la fase de definición del radio, no hay restricción de salida del viewport.
+        if (definingRadius) {
+            double proposedRadius = centerPoint.distance(mapCoords);
 
-                // Asegúrate de que stateManager.getArcStart() contenga el punto de inicio del arrastre de ángulo.
-                // Este punto ya se estableció en onMousePressed o onMouseReleased.
+            previewRadiusLine.setEndX(mapCoords.getX());
+            previewRadiusLine.setEndY(mapCoords.getY());
+            currentRadius = proposedRadius;
 
-                double currentMouseAngle = calculateAngle(centerPoint, mapCoords); // Ángulo actual del ratón
-                double initialArcStartAngle = calculateAngle(centerPoint, stateManager.getArcStart()); // Ángulo del punto donde se inició el arrastre del ángulo
-                System.out.println("Current Mouse Angle: " + currentMouseAngle);
-                System.out.println("Initial Arc Start Angle: " + initialArcStartAngle);
-                // Se usa initialArcStartAngle como el punto de inicio del arco
-                previewArc.setStartAngle( (initialArcStartAngle + 180)%360 );
+            radiusValueText.setText(String.format("%.1f px", currentRadius));
+            radiusValueText.setX(mapCoords.getX() + 5);
+            radiusValueText.setY(mapCoords.getY() - 5);
+            radiusValueText.setFont(new javafx.scene.text.Font(4 * menuManager.getLineThickness()));
+            radiusValueText.setFill(menuManager.getColorPickerValue());
 
-                // Calcular la longitud de barrido
-                double sweep = currentMouseAngle - initialArcStartAngle;
-                
-                System.out.println("Sweep before adjustment: " + sweep+"current: "+currentMouseAngle+ "initial: "+ initialArcStartAngle );
-                
-                if (sweep > 180) {
-                    sweep -= 360;
-                } else if (sweep < -180) {
-                    sweep += 360;
-                }
-                previewArc.setLength(sweep);
-                previewArc.setStroke(menuManager.getColorPickerValue());
-                previewArc.setStrokeWidth(menuManager.getLineThickness());
-                
-                event.consume();
+            System.out.println("--- Definición de Radio (Drag) ---");
+            System.out.println("  Radio propuesto: " + proposedRadius);
+            System.out.println("  Centro: " + centerPoint);
+            System.out.println("  Coordenadas del ratón: " + mapCoords);
+
+            event.consume();
+        } 
+        // En la fase de definición del ángulo, sí aplicamos la restricción del viewport.
+        else if (definingAngle) {
+            double currentMouseAngle = calculateAngle(centerPoint, mapCoords);
+            double initialArcStartAngle = calculateAngle(centerPoint, stateManager.getArcStart());
+
+            double sweep = currentMouseAngle - initialArcStartAngle;
+            if (sweep > 180) sweep -= 360;
+            else if (sweep < -180) sweep += 360;
+
+            // Para la comprobación de límites, usamos el radio actual
+            double radius = previewArc.getRadiusX(); 
+            double minX = centerPoint.getX() - radius;
+            double maxX = centerPoint.getX() + radius;
+            double minY = centerPoint.getY() - radius;
+            double maxY = centerPoint.getY() + radius;
+
+            // Obtener los límites visibles del ScrollPane en coordenadas de contenido
+            Bounds viewportBounds = mapScrollPane.getViewportBounds();
+            double contentScale = mapZoomGroup.getScaleX();
+
+            double visibleMinX_content = mapScrollPane.getHvalue() * (mapZoomGroup.getBoundsInLocal().getWidth() - viewportBounds.getWidth() / contentScale);
+            double visibleMaxX_content = visibleMinX_content + viewportBounds.getWidth() / contentScale;
+            double visibleMinY_content = mapScrollPane.getVvalue() * (mapZoomGroup.getBoundsInLocal().getHeight() - viewportBounds.getHeight() / contentScale);
+            double visibleMaxY_content = visibleMinY_content + viewportBounds.getHeight() / contentScale;
+
+            System.out.println("--- Definición de Ángulo (Drag) ---");
+            System.out.println("  Valores actuales del arco (minX, maxX, minY, maxY): " + minX + ", " + maxX + ", " + minY + ", " + maxY);
+            System.out.println("  Límites VISIBLES del ScrollPane en coordenadas de contenido (minX, maxX, minY, maxY): " + visibleMinX_content + ", " + visibleMaxX_content + ", " + visibleMinY_content + ", " + visibleMaxY_content);
+            System.out.println("  Ángulo actual del ratón: " + currentMouseAngle);
+            System.out.println("  Ángulo inicial del arco: " + initialArcStartAngle);
+            System.out.println("  Barrido del ángulo: " + sweep);
+
+            // Comprobación de límites: Si el arco se sale del viewport visible, se cancela la operación de arrastre.
+            if (minX < visibleMinX_content || maxX > visibleMaxX_content || minY < visibleMinY_content || maxY > visibleMaxY_content) {
+                System.out.println("❌ Ángulo cancelado: el arco se saldría del viewport");
+                // No se actualizan las propiedades del arco, deteniendo visualmente el arrastre
+                return; 
             }
+
+            previewArc.setStartAngle((initialArcStartAngle + 180) % 360);
+            previewArc.setLength(sweep);
+            previewArc.setStroke(menuManager.getColorPickerValue());
+            previewArc.setStrokeWidth(menuManager.getLineThickness());
+
+            event.consume();
         }
     }
+}
     
     @Override
     public void onMousePressed(MouseEvent event, Point2D mapCoords) {
