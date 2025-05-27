@@ -121,7 +121,7 @@ public class FXMLSeleccionProblemaController implements Initializable {
        
         EnunciadoCartaController controlador = loader.getController();
        
-        controlador.setMapData(usuario,numPregunta);
+//        controlador.setMapData(usuario,numPregunta);
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
