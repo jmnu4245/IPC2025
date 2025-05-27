@@ -146,6 +146,11 @@ public class RegistrarseController implements Initializable {
             if (esValido) setValid(plainPasswordField);
             else setInvalid(plainPasswordField);
         });
+        
+        if (selectedAvatar == null) {
+            selectedAvatar = new Image(getClass().getResource("/resources/avatar_defecto.jpg").toExternalForm());
+            avatarIm.setImage(selectedAvatar);
+        }
     }
 
     @FXML
@@ -167,7 +172,7 @@ public class RegistrarseController implements Initializable {
 
     @FXML
     private void avatarAction(ActionEvent event) {
-         FileChooser fileChooser = new FileChooser();
+        FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Selecciona una imagen de avatar");
 
         fileChooser.getExtensionFilters().addAll(
@@ -183,7 +188,7 @@ public class RegistrarseController implements Initializable {
 
         if (selectedFile != null) {
             try {
-                // ✅ Carga imagen ajustada al tamaño del botón y SIN preserveRatio
+                
                 selectedAvatar = new Image(
                     selectedFile.toURI().toString(),
                     avatarButton.getWidth(),

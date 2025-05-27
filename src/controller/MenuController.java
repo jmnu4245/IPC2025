@@ -20,6 +20,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import javafx.scene.image.Image;
+
 
 
 public class MenuController implements Initializable {
@@ -51,6 +53,8 @@ public class MenuController implements Initializable {
 
     public void setUsuario(User usuario) {
         this.usuario = usuario;
+        this.totalAciertos = 0;
+        this.totalErrores = 0;
         nomUsuario.setText(usuario.getNickName());
         avatar.setImage(usuario.getAvatar());
         aplicarClipCircular();
@@ -107,18 +111,93 @@ public class MenuController implements Initializable {
 
     @FXML
     private void selectAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXMLSeleccionProblema.fxml"));
+            Parent root = loader.load();
+
+            controller.FXMLSeleccionProblemaController controller = loader.getController();
+            controller.setUser(usuario);
+
+            Stage stage = new Stage();
+            
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.show();
+
+            
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void randomAction(ActionEvent event) {
+        
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EnunciadoCarta.fxml"));
+            Parent root = loader.load();
+
+            controller.EnunciadoCartaController controller = loader.getController();
+            //controller.setUsuario(usuario);
+
+            Stage stage = new Stage();
+            stage.setTitle("Problema Aleatorio");
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.show();
+
+            Stage current = (Stage) randomButton.getScene().getWindow();
+            current.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void resultAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXMLResultados.fxml"));
+            Parent root = loader.load();
+
+            controller.FXMLResultadosController controller = loader.getController();
+            controller.setUsuarioSesion(usuario);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.show();
+
+            
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void datosAction(ActionEvent event) {
+        try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXMLUserOptions.fxml"));
+        Parent root = loader.load();
+
+        
+        controller.FXMLUserOptionsController controller = loader.getController();
+        controller.setUsuarioSesion(usuario);
+        controller.setMenuController(this);
+
+        Stage stage = new Stage();
+        stage.setTitle("Editar datos de usuario");
+        stage.setScene(new Scene(root));
+        stage.setResizable(false);
+        stage.initOwner(menuButton.getScene().getWindow());
+        stage.initModality(javafx.stage.Modality.WINDOW_MODAL); 
+        stage.showAndWait();
+
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
     }
     
     private void aplicarClipCircular() {
@@ -127,8 +206,13 @@ public class MenuController implements Initializable {
         avatar.setClip(clip);
     }
     
-    public void setResultados(int aciertos, int errores) {
-        this.totalAciertos = aciertos;
-        this.totalErrores = errores;
+    public void setResultados(boolean bien) {
+        if (bien) {totalAciertos++;} else {totalErrores++;}
+}
+    
+    public void actualizarAvatar(Image nuevaImagen) {
+        usuario.setAvatar(nuevaImagen);
+        avatar.setImage(nuevaImagen);
+        aplicarClipCircular();
 }
 }
