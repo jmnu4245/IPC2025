@@ -1,8 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="450.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="controller.MenuController">
-    
+<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="400.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuController">
+   <children>
+      <HBox alignment="CENTER_RIGHT" layoutX="14.0" layoutY="14.0" prefHeight="100.0" prefWidth="407.0">
+         <children>
+            <Label fx:id="nomUsuario" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="18.0" prefWidth="134.0" styleClass="label-field" text="Nombre del usuario" />
+            <MenuButton fx:id="menuButton" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" mnemonicParsing="false" onAction="#desplegarMenu" prefHeight="81.0" prefWidth="110.0" styleClass="menu-button-custom">
+              <items>
+                <MenuItem fx:id="Datos" mnemonicParsing="false" onAction="#datosAction" text="Editar datos" />
+                <MenuItem fx:id="cerrarSesion" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar sesión" />
+              </items>
+               <graphic>
+                  <ImageView fx:id="avatar" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" translateX="7.0">
+                     <image>
+                        <Image url="@../resources/avatar_defecto.jpg" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </MenuButton>
+         </children>
+      </HBox>
+      <VBox alignment="CENTER" layoutX="14.0" layoutY="100.0" prefHeight="321.0" prefWidth="421.0" spacing="30.0">
+         <children>
+            <Button fx:id="selectButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#selectAction" prefHeight="50.0" prefWidth="250.0" styleClass="button-grande" text="Seleccionar problema" />
+            <Button fx:id="randomButton" mnemonicParsing="false" onAction="#randomAction" styleClass="button-grande" text="Problema aleatorio" />
+            <Button fx:id="resultButton" mnemonicParsing="false" onAction="#resultAction" styleClass="button-grande" text="Ver mis resultados" />
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>

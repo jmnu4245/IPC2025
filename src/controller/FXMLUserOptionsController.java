@@ -29,6 +29,7 @@ public class FXMLUserOptionsController implements Initializable {
     //Navigation nav = null;
     boolean passwordVisible = false;
     private static final int EDAD_MINIMA = 16;
+    private MenuController menuController;
     User usuarioSesion;
     @FXML
     private ImageView avatarIV;
@@ -158,6 +159,9 @@ public class FXMLUserOptionsController implements Initializable {
         usuarioSesion.setBirthdate(dateField.getValue());
         usuarioSesion.setPassword(passField.getText());
         emailField.getScene().getWindow().hide();
+        if (menuController != null) {
+            menuController.actualizarAvatar(usuarioSesion.getAvatar());
+}
     }
 
     @FXML
@@ -215,4 +219,8 @@ public class FXMLUserOptionsController implements Initializable {
             }
         }
     }
+    
+    public void setMenuController(MenuController controller) {
+        this.menuController = controller;
+}
 }
