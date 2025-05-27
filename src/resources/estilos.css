@@ -348,7 +348,7 @@ S17.642,20.762,13.558,20.762z";
     -fx-text-fill: #f9fafc;
     -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
     -fx-font-weight: 600;
-    -fx-font-size: 12px;
+    -fx-font-size: 10px;
     -fx-border-radius: 8;
     -fx-border-color: transparent;
     -fx-effect: dropshadow(gaussian, #53b9ff11, 3, 0.0, 0, 2);
@@ -396,4 +396,62 @@ S17.642,20.762,13.558,20.762z";
     -fx-text-fill: #6c7a8a;
     -fx-effect: none;
     -fx-border-color: #2a3140;
+}
+.boton-pregunta {
+    /* Degradado naranja cálido hacia violeta suave, elegante y moderno */
+    -fx-background-color: linear-gradient(
+        from 0% 0% to 100% 100%,
+        #ffb347 0%,
+        #ff9900 55%,
+        #a385e0 100%
+    );
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-text-fill: #fff;
+    -fx-font-size: 20px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: bold;
+    -fx-padding: 10 36 10 36;
+    -fx-effect: dropshadow(gaussian, #a385e088, 8, 0.15, 0, 2);
+    -fx-cursor: hand;
+    -fx-border-color: linear-gradient(from 0% 0% to 100% 100%, #ffb347 60%, #a385e0 100%);
+    -fx-border-width: 1.2;
+    -fx-transition: all 0.2s;
+    -fx-pref-height: 45px;
+    -fx-pref-width: 190px;
+    -fx-background-insets: 0, 1;
+    -fx-background-blend-mode: src-over, multiply;
+}
+
+.boton-pregunta:hover, .boton-pregunta:selected {
+    -fx-background-color: linear-gradient(
+        from 0% 0% to 100% 100%,
+        #ffd580 0%,
+        #ffb347 40%,
+        #a385e0 100%
+    );
+    -fx-effect: dropshadow(gaussian, #a385e099, 16, 0.23, 0, 5);
+    -fx-text-fill: #fff;
+    -fx-border-color: #a385e0;
+}
+.boton-pregunta:disabled {
+    /* Degradado violeta-naranja desaturado, integración elegante en modo inactivo */
+    -fx-background-color: linear-gradient(
+        from 0% 0% to 100% 100%,
+        #bfae99 0%,
+        #cbb6e0 100%
+    );
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 20px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: bold;
+    -fx-padding: 10 36 10 36;
+    -fx-cursor: default;
+    -fx-border-color: #cbb6e0;
+    -fx-border-width: 1.2;
+    -fx-opacity: 0.65;
+    -fx-pref-height: 45px;
+    -fx-pref-width: 190px;
 }

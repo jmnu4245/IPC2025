@@ -23,7 +23,7 @@ public class PoiUPVApp extends Application {
        // Parent root = FXMLLoader.load(getClass().getResource("EnunciadoCarta.fxml"));
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/logo.png")));
 
-        Parent root = FXMLLoader.load(getClass().getResource("/view/FXMLUserOptions.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/FXMLSeleccionProblema.fxml"));
         //stage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/logo.png")));
         Scene scene = new Scene(root);
         stage.setScene(scene);
