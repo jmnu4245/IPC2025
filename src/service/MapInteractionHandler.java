@@ -1,5 +1,7 @@
-package controller; // Considera cambiar a 'service' si aplica mejor
-
+package service; 
+//En esta clase se delegan los eventos al menu o herramienta correspondiente
+//y se evita que el menu retractil consuma los eventos
+import model.MapStateManager;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
@@ -15,6 +17,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.shape.Shape;
 
 import java.util.function.Consumer;
 
@@ -38,6 +41,7 @@ public class MapInteractionHandler {
     private final Consumer<MouseEvent> toolPressedHandler;
     private final Consumer<MouseEvent> toolReleaseHandler;
     private final Consumer<Node> selectionHandler;
+    
 
     // --- Visual Debugging ---
     private final boolean visualDebuggingEnabled = true;
@@ -74,6 +78,7 @@ public class MapInteractionHandler {
         this.toolPressedHandler = toolPressedHandler;
         this.toolReleaseHandler = toolReleaseHandler;
         this.selectionHandler = selectionHandler;
+        
 
         if (visualDebuggingEnabled) {
             this.debugVisualsGroup = new Group();
@@ -102,12 +107,7 @@ public class MapInteractionHandler {
                     rootStackPane.setCursor(Cursor.CLOSED_HAND);
                 }
             }
-            case SELECTION, NONE_SELECTED -> {
-                if (event.isPrimaryButtonDown()) {
-                    toolPressedHandler.accept(event);
-                    event.consume();
-                }
-            }
+            
             default -> {
                 if (event.isPrimaryButtonDown()) {
                     toolPressedHandler.accept(event);
@@ -116,61 +116,52 @@ public class MapInteractionHandler {
             }
         }
     }
-
     private void handleMouseDragged(MouseEvent event) {
-        if (isControlClicked(event)) return;
-
-        if (stateManager.getCurrentTool() == MapStateManager.Tool.HAND &&
-            stateManager.getLastMousePosition() != null &&
-            event.isPrimaryButtonDown()) {
-
-            Point2D currentMouse = new Point2D(event.getSceneX(), event.getSceneY());
-            Point2D lastMouse = stateManager.getLastMousePosition();
-
-            double deltaX = currentMouse.getX() - lastMouse.getX();
-            double deltaY = currentMouse.getY() - lastMouse.getY();
-
-            Bounds viewportBounds = mapScrollPane.getViewportBounds();
-            Bounds contentBounds = mapZoomGroup.getBoundsInLocal();
-
-            double zoomX = Math.max(mapZoomGroup.getScaleX(), 0.01);
-            double zoomY = Math.max(mapZoomGroup.getScaleY(), 0.01);
-
-            double contentWidth = contentBounds.getWidth() * zoomX;
-            double contentHeight = contentBounds.getHeight() * zoomY;
-
-            double scrollableWidth = contentWidth - viewportBounds.getWidth();
-            double scrollableHeight = contentHeight - viewportBounds.getHeight();
-
-            double newHvalue = lastScrollH;
-            double newVvalue = lastScrollV;
-
-            if (scrollableWidth > 1e-6) {
-                newHvalue = clamp(lastScrollH - deltaX / scrollableWidth, 0.0, 1.0);
-            }
-            if (scrollableHeight > 1e-6) {
-                newVvalue = clamp(lastScrollV - deltaY / scrollableHeight, 0.0, 1.0);
-            }
-
-            mapScrollPane.setHvalue(newHvalue);
-            mapScrollPane.setVvalue(newVvalue);
-
-            stateManager.setLastMousePosition(currentMouse);
-            lastScrollH = newHvalue;
-            lastScrollV = newVvalue;
-
-            System.out.println("ScrollH: " + newHvalue + ", ScrollV: " + newVvalue);
-        } else if (event.isPrimaryButtonDown() &&
-                   stateManager.getCurrentTool() != MapStateManager.Tool.HAND &&
-                   stateManager.getCurrentTool() != MapStateManager.Tool.SELECTION) {
-            toolDragHandler.accept(event);
-            event.consume();
+    if (isControlClicked(event)) return;
+//Logica de mano incorporada
+    if (stateManager.getCurrentTool() == MapStateManager.Tool.HAND &&
+        stateManager.getLastMousePosition() != null &&
+        event.isPrimaryButtonDown()) {
+        Point2D currentMouse = new Point2D(event.getSceneX(), event.getSceneY());
+        Point2D lastMouse = stateManager.getLastMousePosition();
+        double deltaX = currentMouse.getX() - lastMouse.getX();
+        double deltaY = currentMouse.getY() - lastMouse.getY();
+        Bounds viewportBounds = mapScrollPane.getViewportBounds();
+        Bounds contentBounds = mapZoomGroup.getBoundsInLocal();
+        // Las variables zoomX y zoomY se han integrado directamente.
+        double contentWidth = contentBounds.getWidth() * Math.max(mapZoomGroup.getScaleX(), 0.01);
+        double contentHeight = contentBounds.getHeight() * Math.max(mapZoomGroup.getScaleY(), 0.01);
+        double scrollableWidth = contentWidth - viewportBounds.getWidth();
+        double scrollableHeight = contentHeight - viewportBounds.getHeight();
+        double newHvalue;
+        double newVvalue;
+        if (scrollableWidth > 1e-6) {
+            newHvalue = clamp(lastScrollH - deltaX / scrollableWidth, 0.0, 1.0);
+        } else {
+            // Si no hay ancho desplazable, mantiene el valor horizontal anterior.
+            newHvalue = lastScrollH;
         }
-    }
+        if (scrollableHeight > 1e-6) {
+            newVvalue = clamp(lastScrollV - deltaY / scrollableHeight, 0.0, 1.0);
+        } else {
+            // Si no hay alto desplazable, mantiene el valor vertical anterior.
+            newVvalue = lastScrollV;
+        }
+        mapScrollPane.setHvalue(newHvalue);
+        mapScrollPane.setVvalue(newVvalue);
+        stateManager.setLastMousePosition(currentMouse);
+        lastScrollH = newHvalue;
+        lastScrollV = newVvalue;
 
+    } else if (event.isPrimaryButtonDown() &&
+               stateManager.getCurrentTool() != MapStateManager.Tool.HAND &&
+               stateManager.getCurrentTool() != MapStateManager.Tool.SELECTION) {
+        toolDragHandler.accept(event);
+        event.consume();
+    }
+}
     private void handleMouseReleased(MouseEvent event) {
         if (isControlClicked(event)) return;
-
         if (stateManager.getCurrentTool() == MapStateManager.Tool.HAND) {
             stateManager.setLastMousePosition(null);
             rootStackPane.setCursor(Cursor.OPEN_HAND);
@@ -186,38 +177,69 @@ public class MapInteractionHandler {
         if (isControlClicked(event)) return;
 
         if (stateManager.getCurrentTool() == MapStateManager.Tool.SELECTION) {
+            toolClickHandler.accept(event);
             Node clickedNode = getTopNodeAt(event.getSceneX(), event.getSceneY());
+            
             selectionHandler.accept(clickedNode);
             event.consume();
-        } else if (stateManager.getCurrentTool() != MapStateManager.Tool.HAND) {
+            
+        } 
+        else if(stateManager.getCurrentTool() == MapStateManager.Tool.TEXT){ toolClickHandler.accept(event); event.consume();}
+        else if(stateManager.getCurrentTool() == MapStateManager.Tool.DISTANCE){ toolClickHandler.accept(event); event.consume();}
+        else if(stateManager.getCurrentTool() ==MapStateManager.Tool.LATITUDE ){toolClickHandler.accept(event); event.consume();}
+        else if (stateManager.getCurrentTool() != MapStateManager.Tool.HAND) {
             // toolClickHandler.accept(event);
-            event.consume();
+                event.consume();
         }
+        
     }
-
     // --- Utility Methods ---
     private Node getTopNodeAt(double sceneX, double sceneY) {
         Point2D localPoint = mapZoomGroup.sceneToLocal(sceneX, sceneY);
         Node mapImageViewNode = mapZoomGroup.lookup("#mapImageView");
 
+        // Collect all clickable nodes except the map background
         var clickableNodes = mapZoomGroup.getChildren().stream()
             .filter(node -> node != mapImageViewNode)
             .collect(java.util.stream.Collectors.toCollection(java.util.ArrayList::new));
 
+        // Reverse the list to check from top to bottom
         java.util.Collections.reverse(clickableNodes);
 
         for (Node node : clickableNodes) {
-            if (node.getBoundsInLocal().contains(localPoint)) {
-                System.out.println(node);
+            if (isNodeAt(node, localPoint)) {
                 return node;
             }
         }
 
+        // Check if the map background is clicked
         if (mapImageViewNode != null && mapImageViewNode.getBoundsInLocal().contains(localPoint)) {
             return mapImageViewNode;
         }
 
         return null;
+    }
+
+    private boolean isNodeAt(Node node, Point2D point) {
+        Bounds bounds = node.getBoundsInLocal();
+
+        if (node instanceof Line) {
+            // For lines, check if the point is close to the line
+            Line line = (Line) node;
+            double lineLength = Math.sqrt(Math.pow(line.getEndX() - line.getStartX(), 2) +
+                                         Math.pow(line.getEndY() - line.getStartY(), 2));
+            double distance = Math.abs((line.getEndX() - line.getStartX()) * (line.getStartY() - point.getY()) -
+                                      (line.getStartX() - point.getX()) * (line.getEndY() - line.getStartY())) / lineLength;
+            return distance <= 2; // Adjust the threshold as needed
+        } else if (node instanceof Text) {
+            // For text, check if the point is within the text bounds
+            return bounds.contains(point);
+        } else if (node instanceof Shape) {
+            // For shapes like Circle, Rectangle, Arc, etc., check if the point is within the shape bounds
+            return bounds.contains(point);
+        }
+
+        return false;
     }
 
     private boolean isControlClicked(MouseEvent event) {
@@ -236,4 +258,5 @@ public class MapInteractionHandler {
         if (Double.isNaN(value) || Double.isInfinite(value)) return min;
         return Math.min(Math.max(value, min), max);
     }
+    
 }
