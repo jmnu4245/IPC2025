@@ -342,3 +342,58 @@ S17.642,20.762,13.558,20.762z";
     -fx-border-color: green;
     -fx-border-width: 2;
 }
+.toggle-button {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #164c7e 0%, #53b9ff 100%);
+    -fx-background-radius: 8;
+    -fx-text-fill: #f9fafc;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: 600;
+    -fx-font-size: 12px;
+    -fx-border-radius: 8;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, #53b9ff11, 3, 0.0, 0, 2);
+    -fx-cursor: hand;
+    -fx-pref-width: 75px;
+    -fx-pref-height: 35px;
+    -fx-padding: 0 16 0 16;
+    -fx-transition: all 0.2s;
+}
+
+/* --- Hover --- */
+.toggle-button:hover {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #53b9ff 0%, #164c7e 100%);
+    -fx-effect: dropshadow(gaussian, #53b9ff33, 8, 0.0, 0, 4);
+}
+
+/* --- Seleccionado (activado) --- */
+.toggle-button:selected {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #10141b 0%, #223356 100%);
+    -fx-border-color: white;
+    -fx-border-width: 2;
+    -fx-text-fill: #eaf1fb;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, #ffffff44, 10, 0.0, 0, 4);
+}
+
+/* --- Seleccionado y hover --- */
+.toggle-button:selected:hover {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #172030 0%, #246097 100%);
+    -fx-border-color: white;
+    -fx-effect: dropshadow(gaussian, #ffffff44, 16, 0.0, 0, 7);
+}
+
+/* --- Estado presionado (armed) --- */
+.toggle-button:armed, 
+.toggle-button:selected:armed {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #080a0e 0%, #19202b 100%);
+    -fx-border-color: white;
+    -fx-effect: dropshadow(gaussian, #ffffff66, 14, 0.0, 0, 7);
+}
+
+/* --- Deshabilitado --- */
+.toggle-button:disabled {
+    -fx-background-color: #232935;
+    -fx-text-fill: #6c7a8a;
+    -fx-effect: none;
+    -fx-border-color: #2a3140;
+}
