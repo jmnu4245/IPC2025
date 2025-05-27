@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import model.Navigation;
 import model.User;
-
+import ourModel.PreguntasHechas;
 
 /**
  * FXML Controller class
@@ -119,8 +119,7 @@ public class IniciarSesionController implements Initializable {
                 noValidFormat.setVisible(true);
                 passField.setStyle("-fx-border-color: red;");
                 return;}
-            
-       
+            PreguntasHechas.getInstance().resetear();
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Menu.fxml"));
                 Parent root = loader.load();

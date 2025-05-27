@@ -84,9 +84,9 @@
                         </StackPane>
                         <HBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="325.0">
                            <children>
-                              <Button fx:id="verPass" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#verAction" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                              <Button fx:id="verPass" alignment="CENTER" mnemonicParsing="false" onAction="#verAction" styleClass="button-eye">
                                  <graphic>
-                                    <ImageView fitHeight="17.0" fitWidth="21.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="17.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../resources/eye.png" />
                                        </image>
@@ -94,6 +94,9 @@
                                  </graphic>
                               </Button>
                            </children>
+                           <VBox.margin>
+                              <Insets top="3.0" />
+                           </VBox.margin>
                         </HBox>
                      </children>
                   </VBox>
