@@ -55,7 +55,7 @@ public class FXMLResultadosController implements Initializable {
         tableView.sceneProperty().addListener((obs, oldScene, newScene) -> {
            if (newScene != null) {
             newScene.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_PRESSED, event -> {
-                // Si el clic NO fue sobre la tabla
+                
                 if (!tableView.localToScene(tableView.getBoundsInLocal()).contains(
                         event.getSceneX(), event.getSceneY())) {
                     tableView.getSelectionModel().clearSelection();
@@ -80,7 +80,7 @@ public class FXMLResultadosController implements Initializable {
             };
         });
 
-        // Define cómo obtener los datos para cada columna
+        
         colUsuario.setCellValueFactory(cellData ->
             new SimpleStringProperty(usuario.getNickName())
         );
@@ -93,9 +93,11 @@ public class FXMLResultadosController implements Initializable {
         colFallos.setCellValueFactory(cellData ->
             new SimpleIntegerProperty(cellData.getValue().getFaults()).asObject()
         );
+        
+        
         fecha.valueProperty().addListener((obs, oldValue, newValue) -> {
         if (newValue != null && usuario != null) {
-        // Filtrar sesiones cuya fecha sea posterior a la seleccionada
+        
         ObservableList<Session> filtradas = FXCollections.observableArrayList(
             usuario.getSessions().stream()
                 .filter(session -> session.getTimeStamp().toLocalDate().isAfter(newValue))
@@ -103,16 +105,18 @@ public class FXMLResultadosController implements Initializable {
             );
             tableView.setItems(filtradas);
         } else if (usuario != null) {
-            // Si se borra la fecha, mostrar todas
+            
             tableView.setItems(FXCollections.observableArrayList(usuario.getSessions()));
         }
         });
+        
+        
         tableView.setRowFactory(tv -> new TableRow<Session>() {
         @Override
         protected void updateItem(Session item, boolean empty) {
         super.updateItem(item, empty);
         if (empty || item == null) {
-            setStyle(""); // Sin estilo si la fila está vacía
+            setStyle("");
         } else {
             int aciertos = item.getHits();
             int fallos = item.getFaults();
