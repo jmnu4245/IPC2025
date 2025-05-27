@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -65,14 +66,14 @@
             </VBox>
             <VBox spacing="3.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
                <children>
-                  <HBox fx:id="emailError" alignment="BASELINE_LEFT">
+                  <HBox alignment="BASELINE_LEFT">
                      <children>
                         <Label styleClass="label-field" text="Correo electrónico">
                            <font>
                               <Font size="16.0" />
                            </font></Label>
                         <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
-                        <Label alignment="CENTER_RIGHT" text="correo inválido" textFill="RED" visible="false" />
+                        <Label fx:id="emailError" alignment="CENTER_RIGHT" styleClass="label-error" text="correo inválido" textFill="RED" visible="false" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="3.0" />
@@ -97,7 +98,7 @@
                               <Font size="16.0" />
                            </font></Label>
                         <Region HBox.hgrow="ALWAYS" />
-                        <Label fx:id="dateError" text="el usuario debe ser mayor de 16" textFill="RED" visible="false" />
+                        <Label fx:id="dateError" styleClass="label-error" text="el usuario debe ser mayor de 16" textFill="RED" visible="false" />
                      </children>
                   </HBox>
                   <DatePicker fx:id="dateField" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" promptText="Introduce una fecha de nacimiento">
@@ -124,11 +125,29 @@
                         <Insets bottom="3.0" />
                      </padding>
                   </HBox>
-                  <PasswordField fx:id="passField" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" promptText="Crea una contraseña válida">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </PasswordField>
+                  <HBox prefHeight="16.0" prefWidth="266.0">
+                     <children>
+                        <StackPane prefHeight="28.0" prefWidth="314.0">
+                           <children>
+                              <TextField fx:id="plainPasswordField" maxHeight="-Infinity" minHeight="-Infinity" styleClass="text-field" />
+                              <PasswordField fx:id="passField" maxWidth="1.7976931348623157E308" minHeight="-Infinity" promptText="Crea una contraseña válida">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </PasswordField>
+                           </children>
+                        </StackPane>
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verAction" prefHeight="13.0" prefWidth="28.0" styleClass="button-eye">
+                           <graphic>
+                              <ImageView fitHeight="17.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../resources/eye.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
                <GridPane.margin>
                   <Insets left="60.0" right="60.0" />
@@ -165,7 +184,7 @@
          <children>
             <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionCancell" prefHeight="35.0" prefWidth="75.0" text="Cancelar" />
             <Region HBox.hgrow="ALWAYS" />
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#onActionSave" prefHeight="35.0" prefWidth="75.0" text="Guardar" />
+            <Button fx:id="saveButton" alignment="CENTER" mnemonicParsing="false" onAction="#onActionSave" prefHeight="35.0" prefWidth="75.0" text="Guardar" />
          </children>
          <padding>
             <Insets left="60.0" right="60.0" />
