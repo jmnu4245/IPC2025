@@ -100,9 +100,8 @@ public class RegistrarseController implements Initializable {
         
         
 
-        double radius = avatarIm.getFitWidth() / 2;
-        Circle circle = new Circle(radius, radius, radius);
-        avatarIm.setClip(circle);
+        avatarButton.layoutBoundsProperty().addListener((obs, oldVal, newVal) -> applyAvatarClip());
+        avatarIm.imageProperty().addListener((obs, oldImg, newImg) -> applyAvatarClip());
 
 
         userField.textProperty().addListener((obs, oldVal, newVal) -> {
@@ -168,26 +167,30 @@ public class RegistrarseController implements Initializable {
 
     @FXML
     private void avatarAction(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
+         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Selecciona una imagen de avatar");
 
-        // Filtro para imágenes
         fileChooser.getExtensionFilters().addAll(
             new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg")
         );
 
-        // Carpeta inicial segura (evita cuelgues por "Este equipo")
         File initialDir = new File(System.getProperty("user.home"), "Desktop");
         if (initialDir.exists()) {
             fileChooser.setInitialDirectory(initialDir);
         }
 
-        // Mostrar selector de archivo
         File selectedFile = fileChooser.showOpenDialog(avatarButton.getScene().getWindow());
 
         if (selectedFile != null) {
             try {
-                selectedAvatar = new Image(selectedFile.toURI().toString());
+                // ✅ Carga imagen ajustada al tamaño del botón y SIN preserveRatio
+                selectedAvatar = new Image(
+                    selectedFile.toURI().toString(),
+                    avatarButton.getWidth(),
+                    avatarButton.getHeight(),
+                    false, // NO preserve ratio
+                    true   // smooth
+                );
                 avatarIm.setImage(selectedAvatar);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -262,8 +265,10 @@ public class RegistrarseController implements Initializable {
 
             User nuevoUsuario = nav.registerUser(nick, mail, pass, selectedAvatar, birthdate);
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/IniciarSesion.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Menu.fxml"));
             Parent root = loader.load();
+            MenuController controller = loader.getController();
+            controller.setUsuario(nuevoUsuario);
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setResizable(false);
@@ -300,11 +305,8 @@ public class RegistrarseController implements Initializable {
     }
     
     private void applyAvatarClip() {
-        double width = avatarIm.getFitWidth();
-        double height = avatarIm.getFitHeight();
-        double radius = Math.min(width, height) / 2;
-
-        Circle clip = new Circle(width / 2, height / 2, radius);
-        avatarIm.setClip(clip);
+        double size = Math.min(avatarButton.getWidth(), avatarButton.getHeight());
+        Circle circle = new Circle(size / 2, size / 2, size / 2);
+        avatarButton.setClip(circle);
 }
 }

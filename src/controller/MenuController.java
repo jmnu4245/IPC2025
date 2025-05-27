@@ -1,26 +1,20 @@
- /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import model.User;
 
-/**
- * FXML Controller class
- *
- * @author kolir
- */
 public class MenuController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    private User usuario;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
+        // inicialización
+    }
+
+    public void setUsuario(User usuario) {
+        this.usuario = usuario;
+    }
 }

@@ -124,7 +124,8 @@ public class IniciarSesionController implements Initializable {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Menu.fxml"));
                 Parent root = loader.load();
-
+                MenuController controller = loader.getController();
+                controller.setUsuario(u);
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
                 stage.setResizable(false);
