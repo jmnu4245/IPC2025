@@ -50,6 +50,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
+import model.User;
 
 public class EnunciadoCartaController implements Initializable {
 
@@ -64,6 +65,8 @@ public class EnunciadoCartaController implements Initializable {
     @FXML private ToggleButton manoBtn;
 
     private Group mapZoomGroup;
+    private User usuario;
+    private int numPregunta;
 
     // Máximos y mínimos del mapa
     private double maxX, maxY, minX, minY;
@@ -315,4 +318,9 @@ public class EnunciadoCartaController implements Initializable {
 
     return ruler;
 }
+    
+    public void setMapData(User usuario, int numPregunta) {
+        this.usuario = usuario;
+        this.numPregunta = numPregunta;     
+    }
 }

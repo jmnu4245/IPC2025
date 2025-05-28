@@ -55,6 +55,9 @@ import model.User;
 import javafx.scene.image.Image;
 import model.NavDAOException;
 import javafx.scene.shape.Circle;
+import javafx.util.StringConverter;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class RegistrarseController implements Initializable {
 
@@ -96,7 +99,6 @@ public class RegistrarseController implements Initializable {
 
         plainPasswordField.textProperty().bindBidirectional(passField.textProperty());
         plainPasswordField.getStyleClass().add("text-input");
-        
         
         
 
@@ -225,9 +227,6 @@ public class RegistrarseController implements Initializable {
         String mail = mailField.getText().trim();
         String pass = passField.getText();
         LocalDate birthdate = dateField.getValue();
-        if(birthdate.getYear() > LocalDate.now().getYear()){
-                birthdate = birthdate.minusYears(100);
-            }
 
         noValidUser.setVisible(false);
         userFormat.setVisible(false);

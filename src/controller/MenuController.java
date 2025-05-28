@@ -139,7 +139,8 @@ public class MenuController implements Initializable {
             Parent root = loader.load();
 
             controller.EnunciadoCartaController controller = loader.getController();
-            //controller.setUsuario(usuario);
+            int numPregunta = (int) (Math.random() * 18) + 1;
+            //controller.setMapData(usuario,numPregunta);
 
             Stage stage = new Stage();
             stage.setTitle("Problema Aleatorio");
