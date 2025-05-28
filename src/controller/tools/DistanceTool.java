@@ -140,6 +140,5 @@ public void onMouseReleased(MouseEvent event, Point2D mapCoords) {
 
 @Override
 public void onMouseClick(MouseEvent event, Point2D mapCoords) {
-
 }
 }

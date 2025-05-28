@@ -374,18 +374,18 @@ public class SelectionMenuManager {
             );
         }
         case Line line -> {
-            System.out.println("Línea seleccionada");
-            sharedColorPicker.setValue((Color) line.getStroke());
-            sharedColorPicker.setOnAction(e -> line.setStroke(sharedColorPicker.getValue()));
-            sharedColorPicker.setVisible(true);
-            sharedColorPicker.setManaged(true);
+        System.out.println("Línea seleccionada");
+        sharedColorPicker.setValue((Color) line.getStroke());
+        sharedColorPicker.setOnAction(e -> line.setStroke(sharedColorPicker.getValue()));
+        sharedColorPicker.setVisible(true);
+        sharedColorPicker.setManaged(true);
+        selectionMenu.getChildren().addAll(
+        new Label("Color de línea:"),
+        sharedColorPicker,
+        deleteButton
+    );
+}
 
-            selectionMenu.getChildren().addAll(
-                new Label("Color de línea:"),
-                sharedColorPicker,
-                deleteButton
-            );
-        }
         case Text text -> {
             System.out.println("Texto seleccionado");
             sharedColorPicker.setValue((Color) text.getFill());

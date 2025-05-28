@@ -67,7 +67,7 @@ public class MarkerTooL implements MapDrawingTool {
                 }
                 case "Cuadrado" -> {
                     // Resta la mitad del tamaño para centrar el cuadrado en las coordenadas del clic
-                    Rectangle rect = new Rectangle(mapCoords.getX() - size / 2, mapCoords.getY() - size / 2, size, size);
+                    Rectangle rect = new Rectangle(mapCoords.getX() - (size), mapCoords.getY() - (size ), size*2, size*2);
                     rect.setFill(fillColor);
                     marker = rect;
                 }
@@ -76,9 +76,9 @@ public class MarkerTooL implements MapDrawingTool {
                     // Define los puntos para un triángulo equilátero centrado en (mapCoords.getX(), mapCoords.getY())
                     double h = size * Math.sqrt(3) / 2; // Altura del triángulo
                     triangle.getPoints().addAll(
-                        mapCoords.getX(), mapCoords.getY() - h / 2,         // Punto superior
-                        mapCoords.getX() - size / 2, mapCoords.getY() + h / 2, // Punto inferior izquierdo
-                        mapCoords.getX() + size / 2, mapCoords.getY() + h / 2  // Punto inferior derecho
+                        mapCoords.getX(), mapCoords.getY() - h,         // Punto superior
+                        mapCoords.getX() - size , mapCoords.getY() + h , // Punto inferior izquierdo
+                        mapCoords.getX() + size , mapCoords.getY() + h   // Punto inferior derecho
                     );
                     triangle.setFill(fillColor);
                     marker = triangle;
