@@ -27,6 +27,9 @@ public class LineTool implements MapDrawingTool {
 
     private Line currentLine;
     private boolean isDrawing = false;
+    private Circle startPointCircle;
+private Circle endPointCircle;
+
     private Point2D pressStart;
     private boolean dragged = false;
 
