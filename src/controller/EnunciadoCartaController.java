@@ -26,8 +26,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
@@ -35,6 +41,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
@@ -51,6 +58,12 @@ import javafx.scene.shape.Line;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
 import model.User;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import model.Problem;
+import model.Navigation;
+import model.NavDAOException;
+import model.Answer;
 
 public class EnunciadoCartaController implements Initializable {
 
@@ -77,11 +90,54 @@ public class EnunciadoCartaController implements Initializable {
     private SelectionManager selectionManager;
     private SelectionMenuManager menuManager;
     private Pane rulerBar;
+    private MenuController menuController;
 
 
     // Herramientas de dibujo
     private Map<MapStateManager.Tool, MapDrawingTool> drawingTools;
     private MapDrawingTool activeDrawingTool;
+    @FXML
+    private ToggleButton selectionBtn;
+    @FXML
+    private ToggleButton puntoBtn;
+    @FXML
+    private ToggleButton lineaBtn;
+    @FXML
+    private ToggleButton arcoBtn;
+    @FXML
+    private ToggleButton textoBtn;
+    @FXML
+    private ToggleButton limpiarBtn;
+    @FXML
+    private ToggleButton transportadorBtn;
+    @FXML
+    private ToggleButton distanciaBtn;
+    @FXML
+    private ToggleButton latitudBtn;
+    @FXML
+    private ColorPicker ColorPicker;
+    @FXML
+    private RadioButton A_answer;
+    @FXML
+    private RadioButton B_answer;
+    @FXML
+    private RadioButton C_answer;
+    @FXML
+    private RadioButton D_answer;
+    @FXML
+    private Label enunciadoCarta;
+    @FXML
+    private Label respuestaA;
+    @FXML
+    private Label respuestaB;
+    @FXML
+    private Label respuestaC;
+    @FXML
+    private Label respuestaD;
+    @FXML
+    private ToggleGroup answers;
+    @FXML
+    private Button entregarButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -321,6 +377,67 @@ public class EnunciadoCartaController implements Initializable {
     
     public void setMapData(User usuario, int numPregunta) {
         this.usuario = usuario;
-        this.numPregunta = numPregunta;     
+        this.numPregunta = numPregunta;
+        
+        try {
+            Problem problema = Navigation.getInstance().getProblems().get(numPregunta - 1); // -1 porque el índice empieza en 0
+            enunciadoCarta.setText(problema.getText());
+            List<Answer> respuestas = new ArrayList<>(problema.getAnswers());
+            Collections.shuffle(respuestas);
+            respuestaA.setText("A. " + respuestas.get(0).getText());
+            respuestaB.setText("B. " + respuestas.get(1).getText());
+            respuestaC.setText("C. " + respuestas.get(2).getText());
+            respuestaD.setText("D. " + respuestas.get(3).getText());
+            A_answer.setText("A. " + respuestas.get(0).getText());
+            B_answer.setText("B. " + respuestas.get(1).getText());
+            C_answer.setText("C. " + respuestas.get(2).getText());
+            D_answer.setText("D. " + respuestas.get(3).getText());
+            A_answer.setUserData(respuestas.get(0));
+            B_answer.setUserData(respuestas.get(1));
+            C_answer.setUserData(respuestas.get(2));
+            D_answer.setUserData(respuestas.get(3));
+            entregarButton.setDisable(true);
+            answers.selectedToggleProperty().addListener((obs, oldVal, newVal) -> {
+            entregarButton.setDisable(newVal == null);
+        });
+        } catch (NavDAOException | IndexOutOfBoundsException e) {
+            enunciadoCarta.setText("Error al cargar el problema.");
+            e.printStackTrace();
+    }
+    }
+
+    @FXML
+    private void entregarAction(ActionEvent event) {
+            RadioButton selected = (RadioButton) answers.getSelectedToggle();
+
+        if (selected != null) {
+            Answer selectedAnswer = (Answer) selected.getUserData();
+
+            // Evaluar todas las respuestas
+            for (RadioButton rb : List.of(A_answer, B_answer, C_answer, D_answer)) {
+                Answer ans = (Answer) rb.getUserData();
+                if (ans.getValidity()) {
+                    rb.setStyle("-fx-opacity:1; -fx-text-fill: #2ecc71;"); // Verde (respuesta correcta)
+                } else {
+                    rb.setStyle("-fx-opacity:1; -fx-text-fill: #e74c3c;"); // Rojo (incorrecta)
+                }
+                rb.setDisable(true);
+            }
+
+            entregarButton.setDisable(true);
+
+            
+            boolean acierto = selectedAnswer.getValidity();
+            if (menuController != null) {
+                menuController.setResultados(acierto);
+            }
+
+
+            answers.getToggles().forEach(t -> ((ToggleButton) t).setDisable(true));
+            entregarButton.setDisable(true);
+        }
+    }
+    public void setMenuController(MenuController controller) {
+        this.menuController = controller;
     }
 }

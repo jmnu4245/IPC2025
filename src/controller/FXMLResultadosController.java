@@ -125,7 +125,7 @@ public class FXMLResultadosController implements Initializable {
             } else if (fallos > aciertos) {
                 setStyle("-fx-border-color: red; -fx-border-width: 0 0 0 2px;");
             } else {
-                setStyle("");
+                setStyle("-fx-border-color: transparent; -fx-border-width: 0 0 0 2px;");
                     }
                 }
             }
