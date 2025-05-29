@@ -80,6 +80,7 @@ public class MenuController implements Initializable {
             if (respuesta == botonSi) {
 
                 if (totalAciertos + totalErrores > 0) {
+                    System.out.println("llego aqui");
                     usuario.addSession(totalAciertos, totalErrores);
                 }
 
@@ -117,6 +118,7 @@ public class MenuController implements Initializable {
 
             controller.FXMLSeleccionProblemaController controller = loader.getController();
             controller.setUser(usuario);
+            controller.setMenuController(this);
 
             Stage stage = new Stage();
             
@@ -139,12 +141,12 @@ public class MenuController implements Initializable {
             Parent root = loader.load();
 
             controller.EnunciadoCartaController controller = loader.getController();
-            //controller.setUsuario(usuario);
-
+            int numPregunta = (int) (Math.random() * 18) + 1;
+            controller.setMapData(usuario,numPregunta);
+            controller.setMenuController(this);
             Stage stage = new Stage();
             stage.setTitle("Problema Aleatorio");
             stage.setScene(new Scene(root));
-            stage.setResizable(false);
             stage.show();
 
             Stage current = (Stage) randomButton.getScene().getWindow();
@@ -207,8 +209,15 @@ public class MenuController implements Initializable {
     }
     
     public void setResultados(boolean bien) {
-        if (bien) {totalAciertos++;} else {totalErrores++;}
+        if (bien) {
+            totalAciertos++;
+            System.out.println("[DEBUG] ACIERTO -> Total Aciertos: " + totalAciertos + ", Total Errores: " + totalErrores);
+        } else {
+            totalErrores++;
+            System.out.println("[DEBUG] ERROR -> Total Aciertos: " + totalAciertos + ", Total Errores: " + totalErrores);
+        }
 }
+
     
     public void actualizarAvatar(Image nuevaImagen) {
         usuario.setAvatar(nuevaImagen);

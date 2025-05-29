@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import model.User;
 import ourModel.PreguntasHechas;
 
+
 public class FXMLSeleccionProblemaController implements Initializable {
 
     @FXML private Button b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18;
@@ -24,6 +25,7 @@ public class FXMLSeleccionProblemaController implements Initializable {
 
     private Button[] botonesPagina1;
     private Button[] botonesPagina2;
+    private MenuController menuController;
     private User usuario;
     private int paginaActual = 1; // 1 o 2
 
@@ -121,7 +123,8 @@ public class FXMLSeleccionProblemaController implements Initializable {
        
         EnunciadoCartaController controlador = loader.getController();
        
-//        controlador.setMapData(usuario,numPregunta);
+        controlador.setMapData(usuario,numPregunta);
+        controlador.setMenuController(menuController);
 
 
         Stage stage = new Stage();
@@ -141,5 +144,8 @@ public class FXMLSeleccionProblemaController implements Initializable {
     }
     public void setUser(User u){
         usuario = u;
+    }
+    public void setMenuController(MenuController controller) {
+        this.menuController = controller;
     }
 }

@@ -20,14 +20,18 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EnunciadoCartaController">
    <children>
       <ToolBar fx:id="options_toolbar" orientation="VERTICAL" HBox.hgrow="NEVER">
          <items>
+<<<<<<< HEAD
             <Region minHeight="0.0" minWidth="0.0" />
             <VBox alignment="CENTER" prefHeight="418.0" prefWidth="120.0" spacing="10.0">
+=======
+            <Region minHeight="0.0" minWidth="0.0" prefHeight="12.0" prefWidth="331.0" />
+            <VBox alignment="CENTER" prefHeight="418.0" prefWidth="331.0" spacing="10.0">
+>>>>>>> 0d3a584b46278d740af3140888d8f06c60cc9db7
                <children>
                   <ToggleButton fx:id="selectionBtn" lineSpacing="2.0" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="0.0" text="Seleccionar" textAlignment="CENTER">
                      <toggleGroup>
@@ -129,11 +133,38 @@
             <Separator prefHeight="2.0" prefWidth="166.0" />
             <VBox alignment="CENTER" spacing="10.0">
                <children>
-                  <RadioButton fx:id="A_answer" mnemonicParsing="false" prefHeight="18.0" prefWidth="161.0" text="A:" />
-                  <RadioButton fx:id="B_answer" mnemonicParsing="false" prefHeight="18.0" prefWidth="160.0" text="B:" />
-                  <RadioButton fx:id="C_answer" mnemonicParsing="false" prefHeight="18.0" prefWidth="163.0" text="C:" />
-                  <RadioButton fx:id="D_answer" mnemonicParsing="false" prefHeight="18.0" prefWidth="168.0" text="D:" />
-                  <Button alignment="CENTER" contentDisplay="CENTER" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="100.0" text="Entregar" />
+                  <HBox>
+                     <children>
+                        <RadioButton fx:id="A_answer" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="18.0" prefWidth="161.0" text="A:">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="answers" />
+                           </toggleGroup>
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="B_answer" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="18.0" prefWidth="160.0" text="B:" toggleGroup="$answers">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <RadioButton fx:id="C_answer" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="18.0" prefWidth="163.0" text="C:" toggleGroup="$answers">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="D_answer" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="18.0" prefWidth="168.0" text="D:" toggleGroup="$answers">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                  </HBox>
+                  <Button fx:id="entregarButton" alignment="CENTER" contentDisplay="CENTER" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" onAction="#entregarAction" prefHeight="33.0" prefWidth="100.0" text="Entregar" />
                </children>
             </VBox>
          </items>
@@ -154,15 +185,45 @@
                </StackPane.margin>
             </ScrollPane>
 
+<<<<<<< HEAD
             <HBox fillHeight="false" focusTraversable="true" prefHeight="800.0" prefWidth="1011.0" spacing="10.0">
                <children>
                   <TitledPane fx:id="titledPane" alignment="CENTER" animated="false" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" minWidth="400.0" prefHeight="104.0" prefWidth="962.0" text="Enunciado" HBox.hgrow="ALWAYS">
+=======
+            <HBox fillHeight="false" focusTraversable="true" prefHeight="800.0" prefWidth="1002.0">
+               <children>
+                  <TitledPane fx:id="titledPane" alignment="CENTER" animated="false" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" minWidth="400.0" prefHeight="104.0" prefWidth="932.0" text="Enunciado" HBox.hgrow="ALWAYS">
+>>>>>>> 0d3a584b46278d740af3140888d8f06c60cc9db7
                      <content>
                         <AnchorPane minWidth="100.0" prefHeight="78.0" prefWidth="946.0">
                            <children>
+<<<<<<< HEAD
                               <VBox fillWidth="false" layoutX="-17.6" layoutY="15.2" minWidth="400.0" prefHeight="58.0" prefWidth="938.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="10.0">
                                  <children>
                                     <Text fx:id="enunciadoCarta" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Cuanta distancia hay ?" wrappingWidth="938.1366806030273" />
+=======
+                              <VBox layoutY="9.6" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="5.0">
+                                 <children>
+                                    <Label fx:id="enunciadoCarta" maxWidth="-Infinity" prefWidth="1200.0" styleClass="label-field" text="Enunciado del problema" wrapText="true">
+                                       <padding>
+                                          <Insets left="20.0" right="60.0" />
+                                       </padding>
+                                    </Label>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="935.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Label fx:id="respuestaA" text="A." wrapText="true" HBox.hgrow="ALWAYS" />
+                                          <Region prefHeight="41.0" prefWidth="80.0" />
+                                          <Label fx:id="respuestaB" text="B." wrapText="true" HBox.hgrow="ALWAYS" />
+                                          <Region prefHeight="41.0" prefWidth="80.0" />
+                                          <Label fx:id="respuestaC" text="C." wrapText="true" HBox.hgrow="ALWAYS" />
+                                          <Region prefHeight="41.0" prefWidth="80.0" />
+                                          <Label fx:id="respuestaD" text="D." wrapText="true" HBox.hgrow="ALWAYS" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="20.0" />
+                                       </VBox.margin>
+                                    </HBox>
+>>>>>>> 0d3a584b46278d740af3140888d8f06c60cc9db7
                                  </children>
                               </VBox>
                            </children>
@@ -172,7 +233,11 @@
                         </AnchorPane>
                      </content>
                      <HBox.margin>
+<<<<<<< HEAD
                         <Insets top="2.0" />
+=======
+                        <Insets />
+>>>>>>> 0d3a584b46278d740af3140888d8f06c60cc9db7
                      </HBox.margin>
                   </TitledPane>
                </children>
