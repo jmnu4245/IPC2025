@@ -2,7 +2,9 @@ package controller;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Consumer;
 import model.MapStateManager;
+import javafx.scene.image.ImageView;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.util.converter.NumberStringConverter;
@@ -32,7 +34,9 @@ import java.util.stream.Collectors;
 
 public class SelectionMenuManager {
 
+private Consumer<Double> distanceThicknessSliderListener;
 
+    
     private VBox selectionMenu;
     private ColorPicker sharedColorPicker;
     private MapStateManager stateManager; // Se mantiene, para la lógica de herramientas
@@ -253,50 +257,27 @@ public class SelectionMenuManager {
                     fontSizeControl
                 );
             }
-            case DELETE -> {
-                ListView<String> list = new ListView<>();
-                list.getItems().addAll(
-                    mapZoomGroup.getChildren().stream()
-                        .filter(n -> n != mapZoomGroup.lookup("#mapImageView"))
-                        .map(n -> {
-                            String type = n.getClass().getSimpleName();
-                            String coords = String.format("%.0f,%.0f", n.getLayoutX(), n.getLayoutY());
-                            return type + " @" + coords;
-                        })
-                        .collect(Collectors.toList())
-                );
-                Button borrar = new Button("Eliminar Seleccionado");
-                borrar.setOnAction(e -> {
-                    int i = list.getSelectionModel().getSelectedIndex();
-                    if (i >= 0) {
-                        String selectedItemText = list.getSelectionModel().getSelectedItem();
-                        Node nodeToRemove = findNodeFromDescription(selectedItemText);
-                        if (nodeToRemove != null) {
-                            mapZoomGroup.getChildren().remove(nodeToRemove);
-                            updateMenuForTool();
-                        }
-                    }
-                });
-                selectionMenu.getChildren().addAll(new Label("Elementos en el mapa:"), list, borrar);
-            }
-            case DISTANCE -> {
-                sharedColorPicker.setValue(Color.BLUE);
-                sharedColorPicker.setVisible(true);
-                sharedColorPicker.setManaged(true);
-                sharedColorPicker.setOnAction(null);
-                distanceThicknessSliderDynamic = new Slider(1, 20, 2);
-                selectionMenu.getChildren().addAll(
-                    new Label("Color:"),
-                    sharedColorPicker,
-                   distanceThicknessSliderDynamic
-                );
-            }
+            case DELETE -> {mapZoomGroup.getChildren().removeIf(n -> !(n instanceof ImageView));
+            }                       
             case LATITUDE -> {
-                selectionMenu.getChildren().add(new Label("Latitud/Longitud se muestra automáticamente al hacer clic"));
+                selectionMenu.getChildren().add(new Label("Latitud/Longitud se muestra %n automáticamente al hacer clic"));
             }
-            case SELECTION, HAND, NONE_SELECTED -> {
-                selectionMenu.getChildren().add(new Label("Selecciona una herramienta para ver opciones."));
+            case SELECTION, HAND-> {
+                selectionMenu.getChildren().add(new Label("Selecciona una herramienta%n para ver opciones."));
             }
+            case NONE_SELECTED -> {
+                if(stateManager.getisProtractorSel()){distanceThicknessSliderDynamic = new Slider(100,4000, 2000);
+                selectionMenu.getChildren().addAll(
+                    new Label("Tamaño:"),
+                   distanceThicknessSliderDynamic
+                );}
+                if(stateManager.getisRuleSel()){distanceThicknessSliderDynamic = new Slider(100,4000, 2000);
+                selectionMenu.getChildren().addAll(
+                    new Label("Tamaño:"),
+                   distanceThicknessSliderDynamic
+                );}
+            }
+            
         }
         selectionMenu.setVisible(true);
         selectionMenu.setManaged(true);
@@ -466,6 +447,15 @@ public class SelectionMenuManager {
             // También borra el texto del StateManager, ya que el TextField se basa en él
         }
     }
+    public void addDistanceThicknessSliderListener(Consumer<Double> listener) {
+    this.distanceThicknessSliderListener = listener;
+    // Si ya hay un slider en uso, lo enlazas ahora
+    distanceThicknessSliderDynamic.valueProperty().addListener((obs, oldVal, newVal) -> {
+        if (distanceThicknessSliderListener != null) {
+            distanceThicknessSliderListener.accept(newVal.doubleValue());
+        }
+    });
+}
     public String getTextInputValue() {
     return textInputDynamic != null ? textInputDynamic.getText() : "";
 }

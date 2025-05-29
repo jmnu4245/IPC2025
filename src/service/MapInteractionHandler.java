@@ -79,7 +79,6 @@ public class MapInteractionHandler {
         this.toolReleaseHandler = toolReleaseHandler;
         this.selectionHandler = selectionHandler;
         
-
         if (visualDebuggingEnabled) {
             this.debugVisualsGroup = new Group();
             this.mapZoomGroup.getChildren().add(debugVisualsGroup);
@@ -95,34 +94,53 @@ public class MapInteractionHandler {
     }
 
     // --- Event Handlers ---
+      
     private void handleMousePressed(MouseEvent event) {
-        if (isControlClicked(event)) return;
-
-        switch (stateManager.getCurrentTool()) {
-            case HAND -> {
-                if (event.isPrimaryButtonDown()) {
-                    lastScrollH = mapScrollPane.getHvalue();
-                    lastScrollV = mapScrollPane.getVvalue();
-                    stateManager.setLastMousePosition(new Point2D(event.getSceneX(), event.getSceneY()));
-                    rootStackPane.setCursor(Cursor.CLOSED_HAND);
-                }
-            }
-            
-            default -> {
-                if (event.isPrimaryButtonDown()) {
-                    toolPressedHandler.accept(event);
-                    event.consume();
-                }
-            }
-        }
-    }
-    private void handleMouseDragged(MouseEvent event) {
     if (isControlClicked(event)) return;
-//Logica de mano incorporada
-    if (stateManager.getCurrentTool() == MapStateManager.Tool.HAND &&
-        stateManager.getLastMousePosition() != null &&
-        event.isPrimaryButtonDown()) {
+    stateManager.setLastMousePosition(new Point2D(event.getSceneX(), event.getSceneY()));
+    boolean handled = false;
+    if (stateManager.getCurrentTool() !=  MapStateManager.Tool.NONE_SELECTED) {
+        toolPressedHandler.accept(event);
+        handled = true;
+    } else if (stateManager.getisRuleSel()) {
+        toolPressedHandler.accept(event);
+        handled = true;
+    } else if (stateManager.getisProtractorSel()) {
+        toolPressedHandler.accept(event);
+        handled = true;
+    }
+    if (handled) {
+        event.consume();
+        return;
+    }
+    // Lógica de HAND si aplica...
+    if (stateManager.getCurrentTool() == MapStateManager.Tool.HAND && event.isPrimaryButtonDown()) {
+        lastScrollH = mapScrollPane.getHvalue();
+        lastScrollV = mapScrollPane.getVvalue();
+        rootStackPane.setCursor(Cursor.CLOSED_HAND);
+    }
+}
+
+private void handleMouseDragged(MouseEvent event) {
+    if (isControlClicked(event)) return;
+    boolean handled = false;
+    if (stateManager.getCurrentTool() !=  MapStateManager.Tool.NONE_SELECTED) {
+        toolDragHandler.accept(event);
+        handled = true;
+    } else if (stateManager.getisRuleSel()) {
+        toolDragHandler.accept(event);
+        handled = true;
+    } else if (stateManager.getisProtractorSel()) {
+        toolDragHandler.accept(event);
+        handled = true;
+    }
+    if (handled) {
+        event.consume();
+        return;
+    }
+    if ((stateManager.getCurrentTool() == MapStateManager.Tool.HAND && event.isPrimaryButtonDown()) || event.isMiddleButtonDown()) {
         Point2D currentMouse = new Point2D(event.getSceneX(), event.getSceneY());
+        if(stateManager.getLastMousePosition()==null){stateManager.setLastMousePosition(currentMouse);}  
         Point2D lastMouse = stateManager.getLastMousePosition();
         double deltaX = currentMouse.getX() - lastMouse.getX();
         double deltaY = currentMouse.getY() - lastMouse.getY();
@@ -152,49 +170,62 @@ public class MapInteractionHandler {
         stateManager.setLastMousePosition(currentMouse);
         lastScrollH = newHvalue;
         lastScrollV = newVvalue;
+    } else if(stateManager.getCurrentTool() != MapStateManager.Tool.HAND &&
+        stateManager.getCurrentTool() != MapStateManager.Tool.SELECTION) {
+        toolDragHandler.accept(event);}
+        event.consume();
+    }
 
-    } else if 
-            (event.isPrimaryButtonDown() &&
-               stateManager.getCurrentTool() != MapStateManager.Tool.HAND &&
-               stateManager.getCurrentTool() != MapStateManager.Tool.SELECTION) {
-        toolDragHandler.accept(event);
+ private void handleMouseReleased(MouseEvent event) {
+    if (isControlClicked(event)) return;
+    boolean handled = false;
+    if (stateManager.getCurrentTool() !=  MapStateManager.Tool.NONE_SELECTED) {
+        toolReleaseHandler.accept(event);
+        handled = true;
+    } else if (stateManager.getisRuleSel()) {
+        toolReleaseHandler.accept(event);
+        handled = true;
+    } else if (stateManager.getisProtractorSel()) {
+        toolReleaseHandler.accept(event);
+        handled = true;
+    }
+    if (handled) {
+        event.consume();
+        return;
+    }
+    if (stateManager.getCurrentTool() == MapStateManager.Tool.HAND) {
+        stateManager.setLastMousePosition(null);
+        rootStackPane.setCursor(Cursor.OPEN_HAND);
         event.consume();
     }
 }
-    private void handleMouseReleased(MouseEvent event) {
-        if (isControlClicked(event)) return;
-        if (stateManager.getCurrentTool() == MapStateManager.Tool.HAND) {
-            stateManager.setLastMousePosition(null);
-            rootStackPane.setCursor(Cursor.OPEN_HAND);
-            event.consume();
-        } else if (stateManager.getCurrentTool() != MapStateManager.Tool.NONE_SELECTED &&
-                   stateManager.getCurrentTool() != MapStateManager.Tool.SELECTION) {
-            toolReleaseHandler.accept(event);
-            event.consume();
-        }
-    }
 
-    private void handleMouseClick(MouseEvent event) {
-        if (isControlClicked(event)) return;
-
-        if (stateManager.getCurrentTool() == MapStateManager.Tool.SELECTION) {
-            toolClickHandler.accept(event);
-            Node clickedNode = getTopNodeAt(event.getSceneX(), event.getSceneY());
-            
-            selectionHandler.accept(clickedNode);
-            event.consume();
-            
-        } 
-        else if(stateManager.getCurrentTool() == MapStateManager.Tool.TEXT){ toolClickHandler.accept(event); event.consume();}
-        else if(stateManager.getCurrentTool() == MapStateManager.Tool.DISTANCE){ toolClickHandler.accept(event); event.consume();}
-        else if(stateManager.getCurrentTool() ==MapStateManager.Tool.LATITUDE ){toolClickHandler.accept(event); event.consume();}
-        else if (stateManager.getCurrentTool() != MapStateManager.Tool.HAND) {
-            // toolClickHandler.accept(event);
-                event.consume();
-        }
-        
+private void handleMouseClick(MouseEvent event) {
+    if (isControlClicked(event)) return;
+    boolean handled = false;
+    if (stateManager.getCurrentTool() !=  MapStateManager.Tool.NONE_SELECTED) {
+        toolClickHandler.accept(event);
+        handled = true;
+    } else if (stateManager.getisRuleSel()) {
+        toolClickHandler.accept(event);
+        handled = true;
+    } else if (stateManager.getisProtractorSel()) {
+        toolClickHandler.accept(event);
+        handled = true;
     }
-    // --- Utility Methods ---
+    if (handled) {
+        event.consume();
+        return;
+    }
+    if (stateManager.getCurrentTool() == MapStateManager.Tool.SELECTION) {
+        toolClickHandler.accept(event);
+        Node clickedNode = getTopNodeAt(event.getSceneX(), event.getSceneY());
+        selectionHandler.accept(clickedNode);
+        event.consume();
+    }
+}
+    
+    // --- Utility MethoMds ---
     private Node getTopNodeAt(double sceneX, double sceneY) {
         Point2D localPoint = mapZoomGroup.sceneToLocal(sceneX, sceneY);
         Node mapImageViewNode = mapZoomGroup.lookup("#mapImageView");

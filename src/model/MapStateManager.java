@@ -14,7 +14,8 @@ public class MapStateManager {
     public enum Tool {SELECTION, HAND, MARKER, LINE, ARC, TEXT, DELETE, PROTRACTOR, DISTANCE, LATITUDE, NONE_SELECTED }
 
     private final ObjectProperty<Tool> currentTool = new SimpleObjectProperty<>(Tool.NONE_SELECTED);
-    
+    private boolean isProtractorSel;
+    private boolean isRuleSel;
     private double zoom;
     // Para el paneo
     private Point2D lastMousePosition; 
@@ -32,17 +33,19 @@ public class MapStateManager {
     public ObjectProperty<Tool> currentToolProperty() {
         return currentTool;
     }
-
     public Tool getCurrentTool() {
         return currentTool.get();
     }
-
     public void setCurrentTool(Tool tool) {
         this.currentTool.set(tool);
     }
     public void setCurrentToolNone(){
         this.currentTool.set(Tool.NONE_SELECTED);
     }
+    public void setisProtractorSel(Boolean isProtractorSel){ this.isProtractorSel= isProtractorSel;}
+    public boolean getisProtractorSel(){return isProtractorSel ;}
+     public void setisRuleSel(Boolean isRuleSel){ this.isRuleSel= isRuleSel;}
+    public boolean getisRuleSel(){return isRuleSel ;}
     public Point2D getLastMousePosition() {
         return lastMousePosition;
     }

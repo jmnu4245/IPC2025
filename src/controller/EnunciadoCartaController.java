@@ -14,11 +14,12 @@ import javafx.scene.text.Font;
 
 // Herramientas de dibujo
 import controller.tools.ArcTool;
-import controller.tools.DistanceTool;
+import controller.tools.RulerTool;
 import controller.tools.LatitudeTool;
 import controller.tools.LineTool;
 import controller.tools.MarkerTooL;
 import controller.tools.TextTool;
+import controller.tools.ProtractorTool;
 
 // Java y JavaFX imports
 import java.net.URL;
@@ -62,36 +63,46 @@ public class EnunciadoCartaController implements Initializable {
     @FXML private Slider zoom_slider;
     @FXML private StackPane rootStackPane;
     @FXML private ToggleButton manoBtn;
+    @FXML private ToggleButton distanciaBtn;
+    @FXML private ToggleButton transportadorBtn;
 
     private Group mapZoomGroup;
 
-    // Máximos y mínimos del mapa
-    private double maxX, maxY, minX, minY;
 
     // Componentes modulares
     private MapStateManager stateManager;
     private MapInteractionHandler interactionHandler;
     private SelectionManager selectionManager;
     private SelectionMenuManager menuManager;
-    private Pane rulerBar;
 
 
     // Herramientas de dibujo
     private Map<MapStateManager.Tool, MapDrawingTool> drawingTools;
     private MapDrawingTool activeDrawingTool;
+    private RulerTool RulerTool;
+    private ProtractorTool ProtractorTool;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         Group contentGroup = new Group();
         mapZoomGroup = new Group();
         contentGroup.getChildren().add(mapZoomGroup);
         mapZoomGroup.getChildren().add(map_scrollpane.getContent());
         map_scrollpane.setContent(contentGroup);
+        
         zoom_slider.setMin(0.13);
         zoom_slider.setMax(1.5);
         zoom_slider.valueProperty().addListener((o, oldVal, newVal) -> zoom((Double) newVal));
         zoom_slider.setValue(0.14);
+        zoom_slider.setOnScroll(event -> {
+            double deltaY = event.getDeltaY();
+            double newValue = zoom_slider.getValue();
+            if (deltaY > 0) {    newValue += 0.1;    } 
+            else {               newValue -= 0.1;    }
+            newValue = Math.max(zoom_slider.getMin(), Math.min(zoom_slider.getMax(), newValue));
+            zoom_slider.setValue(newValue);
+            event.consume();
+        });
         // 1. Inicializar manejador de estado
         stateManager = new MapStateManager();
 
@@ -100,16 +111,21 @@ public class EnunciadoCartaController implements Initializable {
         menuManager = new SelectionMenuManager(stateManager, selectionMenu, mapZoomGroup);
 
         // 3. Inicializar herramientas de dibujo
+        RulerTool = new RulerTool();
+        ProtractorTool = new ProtractorTool();
+        //Inicializar el resto
         drawingTools = new HashMap<>();
+        drawingTools.put(MapStateManager.Tool.PROTRACTOR, ProtractorTool);
         drawingTools.put(MapStateManager.Tool.MARKER, new MarkerTooL());
         drawingTools.put(MapStateManager.Tool.LINE, new LineTool());
         drawingTools.put(MapStateManager.Tool.ARC, new ArcTool());
         drawingTools.put(MapStateManager.Tool.TEXT, new TextTool());
-        drawingTools.put(MapStateManager.Tool.DISTANCE, new DistanceTool());
+        drawingTools.put(MapStateManager.Tool.DISTANCE, RulerTool);
         drawingTools.put(MapStateManager.Tool.LATITUDE, new LatitudeTool());
-
+       
         drawingTools.values().forEach(tool -> tool.setDependencies(stateManager, mapZoomGroup, menuManager,map_scrollpane));
 
+        
         // 4. Inicializar manejador de interacción
         interactionHandler = new MapInteractionHandler(
             stateManager, mapZoomGroup, map_scrollpane, rootStackPane, titledPane,
@@ -124,54 +140,74 @@ public class EnunciadoCartaController implements Initializable {
         // 5. Configurar botones y herramientas
         configureToolSelector();
         manoBtn.setSelected(true);
-        
-        stateManager.currentToolProperty().addListener((obs, oldTool, newTool) -> {
-    if (newTool == MapStateManager.Tool.DISTANCE) {
-        double width = mapZoomGroup.getBoundsInLocal().getWidth();
-        rulerBar = createRulerBar(width);
-
-        // Posicionar la regla abajo
-        rulerBar.setTranslateY(mapZoomGroup.getBoundsInLocal().getHeight() - rulerBar.getPrefHeight());
-
-        mapZoomGroup.getChildren().add(rulerBar);
-    } else {
-        if (rulerBar != null) {
-            mapZoomGroup.getChildren().remove(rulerBar);
-            rulerBar = null;
-        }
-    }
-});
-    }
+          }
     public void setNumEj() {}
     private void handleToolClick(MouseEvent event) {
-        if (activeDrawingTool != null) {
-            Point2D mapCoords = mapZoomGroup.sceneToLocal(event.getSceneX(), event.getSceneY());
-            activeDrawingTool.onMouseClick(event, mapCoords);
-            if(!stateManager.getCurrentTool().equals(MapStateManager.Tool.SELECTION)){
-            selectionManager.deselectCurrentElement();}
+    Point2D mapCoords = mapZoomGroup.sceneToLocal(event.getSceneX(), event.getSceneY());
+    boolean handled = false;
+    if (activeDrawingTool != null) {
+        activeDrawingTool.onMouseClick(event, mapCoords);
+        handled = true;
+        if (!stateManager.getCurrentTool().equals(MapStateManager.Tool.SELECTION)){
+            selectionManager.deselectCurrentElement();
         }
+    } else if (stateManager.getisRuleSel()) {
+        RulerTool.onMouseClick(event, mapCoords);
+        handled = true;
+    } else if (stateManager.getisProtractorSel()) {
+        ProtractorTool.onMouseClick(event, mapCoords);
+        handled = true;
     }
+    if (handled) event.consume();
+}
 
-    private void handleToolDrag(MouseEvent event) {
-        if (activeDrawingTool != null) {
-            Point2D mapCoords = mapZoomGroup.sceneToLocal(event.getSceneX(), event.getSceneY());
-            activeDrawingTool.onMouseDragged(event, mapCoords);
-        }
+private void handleToolDrag(MouseEvent event) {
+    Point2D mapCoords = mapZoomGroup.sceneToLocal(event.getSceneX(), event.getSceneY());
+    boolean handled = false;
+    if (activeDrawingTool != null) {
+        activeDrawingTool.onMouseDragged(event, mapCoords);
+        handled = true;
+    } else if (stateManager.getisRuleSel()) {
+        RulerTool.onMouseDragged(event, mapCoords);
+        handled = true;
+    } else if (stateManager.getisProtractorSel()) {
+        ProtractorTool.onMouseDragged(event, mapCoords);
+        handled = true;
     }
+    if (handled) event.consume();
+}
 
-    private void handleToolRelease(MouseEvent event) {
-        if (activeDrawingTool != null) {
-            Point2D mapCoords = mapZoomGroup.sceneToLocal(event.getSceneX(), event.getSceneY());
-            activeDrawingTool.onMouseReleased(event, mapCoords);
-        }
+private void handleToolRelease(MouseEvent event) {
+    Point2D mapCoords = mapZoomGroup.sceneToLocal(event.getSceneX(), event.getSceneY());
+    boolean handled = false;
+    if (activeDrawingTool != null) {
+        activeDrawingTool.onMouseReleased(event, mapCoords);
+        handled = true;
+    } else if (stateManager.getisRuleSel()) {
+        RulerTool.onMouseReleased(event, mapCoords);
+        handled = true;
+    } else if (stateManager.getisProtractorSel()) {
+        ProtractorTool.onMouseReleased(event, mapCoords);
+        handled = true;
     }
+    if (handled) event.consume();
+}
 
-    private void handleToolPressed(MouseEvent event) {
-        if (activeDrawingTool != null) {
-            Point2D mapCoords = mapZoomGroup.sceneToLocal(event.getSceneX(), event.getSceneY());
-            activeDrawingTool.onMousePressed(event, mapCoords);
-        }
+private void handleToolPressed(MouseEvent event) {
+    Point2D mapCoords = mapZoomGroup.sceneToLocal(event.getSceneX(), event.getSceneY());
+    boolean handled = false;
+    if (activeDrawingTool != null) {
+        activeDrawingTool.onMousePressed(event, mapCoords);
+        handled = true;
+    } else if (stateManager.getisRuleSel()) {
+        RulerTool.onMousePressed(event, mapCoords);
+        handled = true;
+    } else if (stateManager.getisProtractorSel()) {
+        ProtractorTool.onMousePressed(event, mapCoords);
+        handled = true;
     }
+    if (handled) event.consume();
+}
 
     private void handleSelection(Node clickedNode) {
         selectionManager.selectElement(clickedNode);
@@ -182,13 +218,31 @@ public class EnunciadoCartaController implements Initializable {
         }
     }
 
-    private void configureToolSelector() {
+private void configureToolSelector() {
+    transportadorBtn.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
+    if (isSelected) {
+        stateManager.setisProtractorSel(true);
+        drawingTools.get(MapStateManager.Tool.PROTRACTOR).activate();
+    } else {
+        stateManager.setisProtractorSel(false);
+        drawingTools.get(MapStateManager.Tool.PROTRACTOR).deactivate();
+        
+    }
+}); 
+    distanciaBtn.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
+    if (isSelected) {
+        stateManager.setisRuleSel(true);
+        drawingTools.get(MapStateManager.Tool.DISTANCE).activate();
+    } else {
+        stateManager.setisRuleSel(false);
+        drawingTools.get(MapStateManager.Tool.DISTANCE).deactivate();
+    }
+});     
         options.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
             if (activeDrawingTool != null) {
                 activeDrawingTool.deactivate();
             }
             selectionManager.deselectCurrentElement();
-
             if (newToggle != null) {
                 ToggleButton btn = (ToggleButton) newToggle;
                 MapStateManager.Tool newTool;
@@ -200,19 +254,12 @@ public class EnunciadoCartaController implements Initializable {
                     case "arcoBtn": newTool = MapStateManager.Tool.ARC; break;
                     case "textoBtn": newTool = MapStateManager.Tool.TEXT; break;
                     case "limpiarBtn": newTool = MapStateManager.Tool.DELETE; break;
-                    case "transportadorBtn": newTool = MapStateManager.Tool.PROTRACTOR; break;
-                    case "distanciaBtn": newTool = MapStateManager.Tool.DISTANCE; break;
                     case "latitudBtn": newTool = MapStateManager.Tool.LATITUDE; break;
                     default: newTool = MapStateManager.Tool.NONE_SELECTED; break;
                 }
-
                 stateManager.setCurrentTool(newTool);
                 updateCursorAndMenu(newTool);
-
-                if (newTool == MapStateManager.Tool.DELETE) {
-                    mapZoomGroup.getChildren().removeIf(node -> node != mapImageView);
-                    manoBtn.setSelected(true);
-                } else {
+                if (newTool != MapStateManager.Tool.DELETE || newTool != MapStateManager.Tool.NONE_SELECTED){
                     activeDrawingTool = drawingTools.get(newTool);
                     if (activeDrawingTool != null) {
                         activeDrawingTool.activate();
@@ -225,15 +272,13 @@ public class EnunciadoCartaController implements Initializable {
             }
         });
     }
-
-    private void updateCursorAndMenu(MapStateManager.Tool tool) {
+    private void updateCursorAndMenu(MapStateManager.Tool tool) {        
         switch (tool) {
             case SELECTION: rootStackPane.setCursor(Cursor.DEFAULT); break;
             case HAND: rootStackPane.setCursor(Cursor.OPEN_HAND); break;
             case MARKER:
             case LINE:
             case ARC:
-            case DISTANCE:
             case LATITUDE:
                 rootStackPane.setCursor(Cursor.CROSSHAIR); break;
             case TEXT: rootStackPane.setCursor(Cursor.TEXT); break;
@@ -243,19 +288,6 @@ public class EnunciadoCartaController implements Initializable {
         }
         menuManager.updateMenuForTool();
     }
-
-    @FXML
-    private void zoomIn() {
-        double sliderVal = zoom_slider.getValue();
-        zoom_slider.setValue(sliderVal + 0.1);
-    }
-
-    @FXML
-    private void zoomOut() {
-        double sliderVal = zoom_slider.getValue();
-        zoom_slider.setValue(sliderVal - 0.1);
-    }
-
     private void zoom(double scaleValue) {
         double scrollH = map_scrollpane.getHvalue();
         double scrollV = map_scrollpane.getVvalue();
@@ -264,55 +296,14 @@ public class EnunciadoCartaController implements Initializable {
         map_scrollpane.setHvalue(scrollH);
         map_scrollpane.setVvalue(scrollV);
     }
-
-    private static double clamp(double value, double min, double max) {
-        if (Double.isNaN(value) || Double.isInfinite(value)) return min;
-        return Math.min(Math.max(value, min), max);
+    @FXML
+    private void zoomIn() {
+        double sliderVal = zoom_slider.getValue();
+        zoom_slider.setValue(sliderVal + 0.1);
     }
-    private Pane createRulerBar(double totalWidth) {
-    Pane ruler = new Pane();
-    ruler.setPrefHeight(80); // Más alto para mayor visibilidad
-    ruler.setMaxWidth(Double.MAX_VALUE);
-    ruler.setStyle("-fx-background-color: transparent;");
-
-    double pixelsPerKm = 240.0 / 100.0; // 2.4 px/km
-    double spacing = pixelsPerKm * 10; // Marcas cada 10 km
-
-    for (double x = 0; x <= totalWidth; x += spacing) {
-        double km = x / pixelsPerKm;
-        double height;
-        double strokeWidth;
-        Color color = Color.DARKSLATEGRAY;
-
-        // Cada 100 km: marca mayor + etiqueta
-        if (km % 100 == 0) {
-            height = 50;
-            strokeWidth = 3;
-
-            Text label = new Text(String.format("%.0f km", km));
-            label.setFont(Font.font(16));
-            label.setFill(color);
-            label.setLayoutX(x - 25);
-            label.setLayoutY(75);
-            ruler.getChildren().add(label);
-        }
-        // Cada 50 km: marca media
-        else if (km % 50 == 0) {
-            height = 35;
-            strokeWidth = 2.5;
-        }
-        // Cada 10 km: marca menor
-        else {
-            height = 20;
-            strokeWidth = 2;
-        }
-
-        Line mark = new Line(x, 0, x, height);
-        mark.setStroke(color);
-        mark.setStrokeWidth(strokeWidth);
-        ruler.getChildren().add(mark);
+    @FXML
+    private void zoomOut() {
+        double sliderVal = zoom_slider.getValue();
+        zoom_slider.setValue(sliderVal - 0.1);
     }
-
-    return ruler;
-}
 }

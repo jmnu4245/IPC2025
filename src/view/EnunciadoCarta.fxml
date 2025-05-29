@@ -22,12 +22,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EnunciadoCartaController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EnunciadoCartaController">
    <children>
-      <ToolBar fx:id="options_toolbar" orientation="VERTICAL" prefHeight="800.0" prefWidth="173.0" HBox.hgrow="ALWAYS">
+      <ToolBar fx:id="options_toolbar" orientation="VERTICAL" HBox.hgrow="NEVER">
          <items>
-            <Region minHeight="0.0" minWidth="0.0" prefHeight="22.0" prefWidth="166.0" />
-            <VBox alignment="CENTER" prefHeight="418.0" prefWidth="232.0" spacing="10.0">
+            <Region minHeight="0.0" minWidth="0.0" />
+            <VBox alignment="CENTER" prefHeight="418.0" prefWidth="120.0" spacing="10.0">
                <children>
                   <ToggleButton fx:id="selectionBtn" lineSpacing="2.0" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="0.0" text="Seleccionar" textAlignment="CENTER">
                      <toggleGroup>
@@ -75,14 +75,17 @@
                      <padding>
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </padding></ToggleButton>
-                  <ToggleButton fx:id="transportadorBtn" lineSpacing="2.0" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" prefWidth="0.0" text="Transportador" textAlignment="CENTER" toggleGroup="$options">
+                  <ToggleButton fx:id="transportadorBtn" lineSpacing="2.0" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" prefWidth="0.0" text="Transportador" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                      <padding>
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                     </padding></ToggleButton>
-                  <ToggleButton fx:id="distanciaBtn" lineSpacing="2.0" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" prefWidth="0.0" text="Distancia" textAlignment="CENTER" toggleGroup="$options">
+                     </padding>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="imageoptions" />
+                     </toggleGroup></ToggleButton>
+                  <ToggleButton fx:id="distanciaBtn" lineSpacing="2.0" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" prefWidth="0.0" text="Distancia" textAlignment="CENTER" toggleGroup="$imageoptions">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
@@ -118,7 +121,7 @@
                </children>
             </VBox>
             <Separator prefHeight="8.0" prefWidth="6.0" />
-            <VBox fx:id="selectionMenu" alignment="CENTER" prefHeight="139.0" prefWidth="182.0">
+            <VBox fx:id="selectionMenu" alignment="CENTER" prefHeight="165.0" prefWidth="168.0">
                <children>
                   <ColorPicker fx:id="ColorPicker" />
                </children>
@@ -135,7 +138,7 @@
             </VBox>
          </items>
       </ToolBar>
-      <Separator orientation="VERTICAL" prefHeight="800.0" prefWidth="53.0" />
+      <Separator orientation="VERTICAL" />
       <StackPane fx:id="rootStackPane" focusTraversable="true" HBox.hgrow="ALWAYS">
          <children>
             <ScrollPane fx:id="map_scrollpane" prefHeight="200.0" prefWidth="200.0">
@@ -151,15 +154,15 @@
                </StackPane.margin>
             </ScrollPane>
 
-            <HBox fillHeight="false" focusTraversable="true" prefHeight="800.0" prefWidth="1002.0" spacing="10.0">
+            <HBox fillHeight="false" focusTraversable="true" prefHeight="800.0" prefWidth="1011.0" spacing="10.0">
                <children>
-                  <TitledPane fx:id="titledPane" alignment="CENTER" animated="false" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" minWidth="400.0" prefHeight="104.0" prefWidth="400.0" text="Enunciado" HBox.hgrow="ALWAYS">
+                  <TitledPane fx:id="titledPane" alignment="CENTER" animated="false" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" minWidth="400.0" prefHeight="104.0" prefWidth="962.0" text="Enunciado" HBox.hgrow="ALWAYS">
                      <content>
-                        <AnchorPane minWidth="100.0" prefHeight="96.0" prefWidth="1018.0">
+                        <AnchorPane minWidth="100.0" prefHeight="78.0" prefWidth="946.0">
                            <children>
-                              <VBox fillWidth="false" minWidth="400.0" prefHeight="57.0" prefWidth="400.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <VBox fillWidth="false" layoutX="-17.6" layoutY="15.2" minWidth="400.0" prefHeight="58.0" prefWidth="938.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="10.0">
                                  <children>
-                                    <Text fx:id="enunciadoCarta" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Cuanta distancia hay ?" wrappingWidth="276.53670501708984" />
+                                    <Text fx:id="enunciadoCarta" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Cuanta distancia hay ?" wrappingWidth="938.1366806030273" />
                                  </children>
                               </VBox>
                            </children>
@@ -169,13 +172,12 @@
                         </AnchorPane>
                      </content>
                      <HBox.margin>
-                        <Insets left="10.0" top="2.0" />
+                        <Insets top="2.0" />
                      </HBox.margin>
                   </TitledPane>
                </children>
             </HBox>
          </children>
       </StackPane>
-      <Separator orientation="VERTICAL" prefHeight="400.0" prefWidth="0.0" />
    </children>
 </HBox>
