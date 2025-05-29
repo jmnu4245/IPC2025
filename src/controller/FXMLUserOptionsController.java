@@ -58,16 +58,6 @@ public class FXMLUserOptionsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//         try {
-//             nav = Navigation.getInstance();
-//             User debugUser = nav.authenticate("user3", "User123!");
-//             if (debugUser == null) {
-//                 debugUser = nav.registerUser("user4", "prueba@prueba.com", "User123!", null, LocalDate.of(2000, 1, 1));
-//             }
-//             setUsuarioSesion(debugUser);
-//         } catch (NavDAOException e) {
-//             e.printStackTrace();
-//         }
 
         plainPasswordField.textProperty().bindBidirectional(passField.textProperty());
 

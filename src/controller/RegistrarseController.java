@@ -195,8 +195,8 @@ public class RegistrarseController implements Initializable {
                     selectedFile.toURI().toString(),
                     avatarButton.getWidth(),
                     avatarButton.getHeight(),
-                    false, // NO preserve ratio
-                    true   // smooth
+                    false, 
+                    true   
                 );
                 avatarIm.setImage(selectedAvatar);
             } catch (Exception e) {

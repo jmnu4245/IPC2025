@@ -27,6 +27,7 @@ import javafx.scene.image.Image;
 public class MenuController implements Initializable {
 
     private User usuario;
+    private Stage menuStage;
     private int totalAciertos = 0;
     private int totalErrores = 0;
     @FXML
@@ -124,7 +125,7 @@ public class MenuController implements Initializable {
             
             stage.setScene(new Scene(root));
             stage.setResizable(false);
-            stage.show();
+            stage.showAndWait();
 
             
 
@@ -147,10 +148,8 @@ public class MenuController implements Initializable {
             Stage stage = new Stage();
             stage.setTitle("Problema Aleatorio");
             stage.setScene(new Scene(root));
-            stage.show();
+            stage.showAndWait();
 
-            Stage current = (Stage) randomButton.getScene().getWindow();
-            current.close();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -211,10 +210,8 @@ public class MenuController implements Initializable {
     public void setResultados(boolean bien) {
         if (bien) {
             totalAciertos++;
-            System.out.println("[DEBUG] ACIERTO -> Total Aciertos: " + totalAciertos + ", Total Errores: " + totalErrores);
         } else {
             totalErrores++;
-            System.out.println("[DEBUG] ERROR -> Total Aciertos: " + totalAciertos + ", Total Errores: " + totalErrores);
         }
 }
 

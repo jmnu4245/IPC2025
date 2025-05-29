@@ -28,19 +28,18 @@ public class ArcTool implements MapDrawingTool {
     private Group mapZoomGroup;
     private SelectionMenuManager menuManager;
 
-    private Point2D centerPoint;        // El centro del arco
-    private Circle tempCenterCircle;    // Para visualizar el centro
+    private Point2D centerPoint;        
+    private Circle tempCenterCircle;    
 
-    private Line previewRadiusLine;     // Para mostrar la flecha del radio
-    private Text radiusValueText;       // Para mostrar el valor del radio
-    private Arc previewArc;             // Para mostrar el arco que se está dibujando
+    private Line previewRadiusLine;     
+    private Text radiusValueText;       
+    private Arc previewArc;             
 
-    private boolean definingRadius = false; // Estado: ¿estamos definiendo el radio?
-    private boolean definingAngle = false;  // Estado: ¿estamos definiendo el ángulo?
+    private boolean definingRadius = false; 
+    private boolean definingAngle = false;  
 
-    private static final Double[] BASE_DASH_PATTERN_DOTTED = {1.0, 3.0}; // Puntos
-    private static final Double[] BASE_DASH_PATTERN_DASHED = {5.0, 5.0}; // Rayas
-    // Variable para almacenar el radio final (definido o introducido)
+    private static final Double[] BASE_DASH_PATTERN_DOTTED = {1.0, 3.0}; 
+    private static final Double[] BASE_DASH_PATTERN_DASHED = {5.0, 5.0}; 
     private double currentRadius = 0;
     
     private Rectangle clip;
@@ -57,9 +56,8 @@ public class ArcTool implements MapDrawingTool {
     @Override
     public void activate() {
         stateManager.resetDrawingStates();
-        stateManager.setArcStart(null); // Reset del punto de inicio del arco
+        stateManager.setArcStart(null); 
 
-        // Limpiar todos los elementos de previsualización
         if (tempCenterCircle != null) mapZoomGroup.getChildren().remove(tempCenterCircle);
         if (previewRadiusLine != null) mapZoomGroup.getChildren().remove(previewRadiusLine);
         if (radiusValueText != null) mapZoomGroup.getChildren().remove(radiusValueText);
@@ -86,8 +84,8 @@ public class ArcTool implements MapDrawingTool {
     @Override
     public void deactivate() {
         if (tempCenterCircle != null) mapZoomGroup.getChildren().remove(tempCenterCircle);
-        if (previewRadiusLine != null) mapZoomGroup.getChildren().remove(previewRadiusLine); // Limpiar aquí
-        if (radiusValueText != null) mapZoomGroup.getChildren().remove(radiusValueText);     // Limpiar aquí
+        if (previewRadiusLine != null) mapZoomGroup.getChildren().remove(previewRadiusLine); 
+        if (radiusValueText != null) mapZoomGroup.getChildren().remove(radiusValueText);     
         if (previewArc != null) mapZoomGroup.getChildren().remove(previewArc);
 
         tempCenterCircle = null;
@@ -117,7 +115,6 @@ public class ArcTool implements MapDrawingTool {
                     previewArc.setStroke(menuManager.getColorPickerValue());
                     previewArc.setStrokeWidth(menuManager.getLineThickness());
                     mapZoomGroup.getChildren().add(previewArc);
-                    // También mostrar la línea de radio predefinido punteada/rayada
                     previewRadiusLine = new Line(centerPoint.getX(), centerPoint.getY(), mapCoords.getX(), mapCoords.getY());
                     previewRadiusLine.setStroke(menuManager.getColorPickerValue());
                     previewRadiusLine.setStrokeWidth(menuManager.getLineThickness());
@@ -153,7 +150,6 @@ public class ArcTool implements MapDrawingTool {
     @Override
     public void onMouseDragged(MouseEvent event, Point2D mapCoords) {
         if (event.getButton() == MouseButton.PRIMARY) {
-            // En la fase de definición del radio, no hay restricción de salida del viewport.
             if (definingRadius) {
                 double proposedRadius = centerPoint.distance(mapCoords);
                 previewRadiusLine.setEndX(mapCoords.getX());
@@ -167,7 +163,6 @@ public class ArcTool implements MapDrawingTool {
                 event.consume();
             } 
             else if (definingAngle) {
-    // Obtener los límites del zoomGroup en coordenadas de contenido (o escena si es necesario)
     Bounds zoomBounds = mapZoomGroup.getBoundsInLocal();
 
     double minX = zoomBounds.getMinX() + 20;
@@ -178,13 +173,10 @@ public class ArcTool implements MapDrawingTool {
     double mouseX = mapCoords.getX();
     double mouseY = mapCoords.getY();
 
-    // Comprobar si el cursor está dentro del área permitida (con margen de 20 píxeles)
     if (mouseX < minX || mouseX > maxX || mouseY < minY || mouseY > maxY) {
-        // Si el ratón se sale, no actualizamos la línea de preview
         return;
     }
 
-    // El resto del código de actualización del arco sigue igual...
     double currentMouseAngle = calculateAngle(centerPoint, mapCoords);
     double initialArcStartAngle = calculateAngle(centerPoint, stateManager.getArcStart());
     double sweep = currentMouseAngle - initialArcStartAngle;
@@ -215,10 +207,9 @@ public class ArcTool implements MapDrawingTool {
                 }
                 stateManager.setArcStart(mapCoords);
                 previewArc.setStartAngle(calculateAngle(centerPoint, mapCoords));
-                previewArc.setLength(0); // El barrido empieza en 0
+                previewArc.setLength(0); 
                 event.consume();
             } else if (definingAngle) {
-                // Fin de la definición del ángulo y del arco completo.
                 Arc finalArc = new Arc(
                     centerPoint.getX(), centerPoint.getY(),
                     currentRadius, currentRadius,
@@ -231,7 +222,6 @@ public class ArcTool implements MapDrawingTool {
                 finalArc.setStrokeWidth(menuManager.getLineThickness());
                 mapZoomGroup.getChildren().add(finalArc);
 
-                // Limpiar todo y resetear estados
                 mapZoomGroup.getChildren().remove(tempCenterCircle);
                 mapZoomGroup.getChildren().remove(previewArc);
                 mapZoomGroup.getChildren().remove(previewRadiusLine);
@@ -251,7 +241,6 @@ public class ArcTool implements MapDrawingTool {
     @Override
    public void onMouseClick(MouseEvent event, Point2D mapCoords) {}
    private double calculateAngle(Point2D center, Point2D p) {
-    // Invertir el signo de la diferencia en Y para ajustar al sistema de coordenadas invertido
     double angle = Math.toDegrees(Math.atan2(-center.getY()+ p.getY(), center.getX() - p.getX() ));
     return angle;
 }

@@ -11,7 +11,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.Font;
 
-// Herramientas de dibujo
 import controller.tools.ArcTool;
 import controller.tools.RulerTool;
 import controller.tools.LatitudeTool;
@@ -20,7 +19,6 @@ import controller.tools.MarkerTooL;
 import controller.tools.TextTool;
 import controller.tools.ProtractorTool;
 
-// Java y JavaFX imports
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -62,6 +60,11 @@ import model.Problem;
 import model.Navigation;
 import model.NavDAOException;
 import model.Answer;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import java.io.IOException;
 
 public class EnunciadoCartaController implements Initializable {
 
@@ -80,16 +83,12 @@ public class EnunciadoCartaController implements Initializable {
     private Group mapZoomGroup;
     private User usuario;
     private int numPregunta;
-
-    // Componentes modulares
     private MapStateManager stateManager;
     private MapInteractionHandler interactionHandler;
     private SelectionManager selectionManager;
     private SelectionMenuManager menuManager;
     private Pane rulerBar;
     private MenuController menuController;
-
-    // Herramientas de dibujo
     private Map<MapStateManager.Tool, MapDrawingTool> drawingTools;
     private MapDrawingTool activeDrawingTool;
     private RulerTool RulerTool;
@@ -114,6 +113,8 @@ public class EnunciadoCartaController implements Initializable {
     @FXML private Label respuestaD;
     @FXML private ToggleGroup answers;
     @FXML private Button entregarButton;
+    @FXML private ToggleGroup options1;
+    @FXML private Button volverMenu;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -150,14 +151,10 @@ public class EnunciadoCartaController implements Initializable {
             event.consume();
         });
 
-        // 1. Inicializar manejador de estado
         stateManager = new MapStateManager();
-
-        // 2. Inicializar manejador de selección y menú
         selectionManager = new SelectionManager(mapZoomGroup);
         menuManager = new SelectionMenuManager(stateManager, selectionMenu, mapZoomGroup);
 
-        // 3. Inicializar herramientas de dibujo
         RulerTool = new RulerTool();
         ProtractorTool = new ProtractorTool();
         drawingTools = new HashMap<>();
@@ -171,7 +168,6 @@ public class EnunciadoCartaController implements Initializable {
 
         drawingTools.values().forEach(tool -> tool.setDependencies(stateManager, mapZoomGroup, menuManager, map_scrollpane));
 
-        // 4. Inicializar manejador de interacción
         interactionHandler = new MapInteractionHandler(
             stateManager, mapZoomGroup, map_scrollpane, rootStackPane, titledPane,
             this::handleToolPressed,
@@ -181,8 +177,6 @@ public class EnunciadoCartaController implements Initializable {
             this::handleSelection
         );
         interactionHandler.attachEventHandlers();
-
-        // 5. Configurar botones y herramientas
         configureToolSelector();
         manoBtn.setSelected(true);
     }
@@ -364,9 +358,8 @@ public class EnunciadoCartaController implements Initializable {
     public void setMapData(User usuario, int numPregunta) {
         this.usuario = usuario;
         this.numPregunta = numPregunta;
-
         try {
-            Problem problema = Navigation.getInstance().getProblems().get(numPregunta - 1); // -1 porque el índice empieza en 0
+            Problem problema = Navigation.getInstance().getProblems().get(numPregunta - 1);
             enunciadoCarta.setText(problema.getText());
             List<Answer> respuestas = new ArrayList<>(problema.getAnswers());
             Collections.shuffle(respuestas);
@@ -395,28 +388,22 @@ public class EnunciadoCartaController implements Initializable {
     @FXML
     private void entregarAction(ActionEvent event) {
         RadioButton selected = (RadioButton) answers.getSelectedToggle();
-
         if (selected != null) {
             Answer selectedAnswer = (Answer) selected.getUserData();
-
-            // Evaluar todas las respuestas
             for (RadioButton rb : List.of(A_answer, B_answer, C_answer, D_answer)) {
                 Answer ans = (Answer) rb.getUserData();
                 if (ans.getValidity()) {
-                    rb.setStyle("-fx-opacity:1; -fx-text-fill: #2ecc71;"); // Verde (respuesta correcta)
+                    rb.setStyle("-fx-opacity:1; -fx-text-fill: #2ecc71;");
                 } else {
-                    rb.setStyle("-fx-opacity:1; -fx-text-fill: #e74c3c;"); // Rojo (incorrecta)
+                    rb.setStyle("-fx-opacity:1; -fx-text-fill: #e74c3c;");
                 }
                 rb.setDisable(true);
             }
-
             entregarButton.setDisable(true);
-
             boolean acierto = selectedAnswer.getValidity();
             if (menuController != null) {
                 menuController.setResultados(acierto);
             }
-
             answers.getToggles().forEach(t -> ((ToggleButton) t).setDisable(true));
             entregarButton.setDisable(true);
         }
@@ -424,5 +411,11 @@ public class EnunciadoCartaController implements Initializable {
 
     public void setMenuController(MenuController controller) {
         this.menuController = controller;
+    }
+
+    @FXML
+    private void volverMenuAction(ActionEvent event) {
+        Stage current = (Stage) volverMenu.getScene().getWindow();
+        current.close();
     }
 }

@@ -27,14 +27,10 @@ public class FXMLSeleccionProblemaController implements Initializable {
     private Button[] botonesPagina2;
     private MenuController menuController;
     private User usuario;
-    private int paginaActual = 1; // 1 o 2
+    private int paginaActual = 1; 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        // DEBUG: marcar alguna pregunta como hecha
-//        PreguntasHechas.getInstance().agregarPregunta(18);
-//        PreguntasHechas.getInstance().agregarPregunta(6);
-//        PreguntasHechas.getInstance().agregarPregunta(2);
 
        
         botonesPagina1 = new Button[]{b1, b2, b3, b4, b5, b6, b7, b8, b9};
@@ -58,7 +54,7 @@ public class FXMLSeleccionProblemaController implements Initializable {
     boolean ocultarContestadas = mostrarHechas.isSelected();
     List<Integer> preguntasContestadas = PreguntasHechas.getInstance().getPreguntasHechas();
 
-    // Página 1
+    
         for (int i = 0; i < botonesPagina1.length; i++) {
             int id = i + 1;
             Button b = botonesPagina1[i];
@@ -73,7 +69,7 @@ public class FXMLSeleccionProblemaController implements Initializable {
             }
         }
 
-        // Página 2
+       
         for (int i = 0; i < botonesPagina2.length; i++) {
             int id = i + 10;
             Button b = botonesPagina2[i];

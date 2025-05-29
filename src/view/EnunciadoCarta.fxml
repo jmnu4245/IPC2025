@@ -149,39 +149,39 @@
                <children>
                   <HBox>
                      <children>
-                        <RadioButton fx:id="A_answer" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="18.0" prefWidth="161.0" text="A:">
+                        <RadioButton fx:id="A_answer" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="18.0" prefWidth="160.0" text="A:">
                            <toggleGroup>
                               <ToggleGroup fx:id="answers" />
                            </toggleGroup>
                            <font>
-                              <Font size="9.0" />
+                              <Font size="7.0" />
                            </font>
                         </RadioButton>
                         <RadioButton fx:id="B_answer" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="18.0" prefWidth="160.0" text="B:" toggleGroup="$answers">
                            <font>
-                              <Font size="9.0" />
+                              <Font size="7.0" />
                            </font>
                         </RadioButton>
                      </children>
                   </HBox>
                   <HBox>
                      <children>
-                        <RadioButton fx:id="C_answer" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="18.0" prefWidth="163.0" text="C:" toggleGroup="$answers">
+                        <RadioButton fx:id="C_answer" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="18.0" prefWidth="160.0" text="C:" toggleGroup="$answers">
                            <font>
-                              <Font size="9.0" />
+                              <Font size="7.0" />
                            </font>
                         </RadioButton>
-                        <RadioButton fx:id="D_answer" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="18.0" prefWidth="168.0" text="D:" toggleGroup="$answers">
+                        <RadioButton fx:id="D_answer" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="18.0" prefWidth="160.0" text="D:" toggleGroup="$answers">
                            <font>
-                              <Font size="9.0" />
+                              <Font size="7.0" />
                            </font>
                         </RadioButton>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="36.0" prefWidth="302.0" spacing="70.0">
                      <children>
-                        <Button fx:id="entregarButton" alignment="CENTER" contentDisplay="CENTER" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" onAction="#entregarAction" prefHeight="33.0" prefWidth="100.0" text="Menu" />
-                        <Button fx:id="entregarButton1" alignment="CENTER" contentDisplay="CENTER" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" onAction="#entregarAction" prefHeight="33.0" prefWidth="100.0" text="Entregar" />
+                        <Button fx:id="volverMenu" alignment="CENTER" contentDisplay="CENTER" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" onAction="#volverMenuAction" prefHeight="33.0" prefWidth="100.0" text="Menu" />
+                        <Button fx:id="entregarButton" alignment="CENTER" contentDisplay="CENTER" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" onAction="#entregarAction" prefHeight="33.0" prefWidth="100.0" text="Entregar" />
                      </children>
                   </HBox>
                </children>
@@ -215,6 +215,9 @@
                                        <padding>
                                           <Insets left="20.0" right="60.0" />
                                        </padding>
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
                                     </Label>
                                     <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="935.0" VBox.vgrow="ALWAYS">
                                        <children>

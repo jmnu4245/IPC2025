@@ -40,17 +40,7 @@ public class FXMLResultadosController implements Initializable {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //PARA DEBUGUEAR SOLO
-//        try {
-//            Navigation nav = Navigation.getInstance();
-//            User debugUser = nav.authenticate("user1", "User123!"); // Cambia por tu usuario de pruebas
-//            if (debugUser != null) {
-//                setUsuarioSesion(debugUser);
-//                tableView.setItems(FXCollections.observableArrayList(usuario.getSessions()));
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+       
 
         tableView.sceneProperty().addListener((obs, oldScene, newScene) -> {
            if (newScene != null) {

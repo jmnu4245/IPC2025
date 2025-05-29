@@ -55,7 +55,7 @@ public class IniciarSesionController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //deshabilitar boton de continuar si los campos usuario y contraseña no están rellenos
+        
         notRegUser.setVisible(false);
         noValidFormat.setVisible(false);
         continuarIni.setDisable(true);
@@ -71,14 +71,14 @@ public class IniciarSesionController implements Initializable {
         introducirUsuario.textProperty().addListener((obs, oldText, newText) -> {
         if (!newText.trim().isEmpty()) {
             notRegUser.setVisible(false);
-            introducirUsuario.setStyle(""); // Quitar borde rojo si lo tenía
+            introducirUsuario.setStyle(""); 
         }
         });
         
         passField.textProperty().addListener((obs, oldText, newText) -> {
         if (!newText.trim().isEmpty()) {
             noValidFormat.setVisible(false);
-            passField.setStyle(""); // Quitar borde rojo si lo tenía
+            passField.setStyle(""); 
         }
         });
     }}

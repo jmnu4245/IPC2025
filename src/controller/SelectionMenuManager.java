@@ -27,8 +27,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.ArcType;
 import javafx.scene.Group;
 import javafx.scene.control.ComboBox;
-import javafx.scene.shape.Rectangle; // Importar Rectangle
-import javafx.scene.shape.Polygon;   // Importar Polygon
+import javafx.scene.shape.Rectangle; 
+import javafx.scene.shape.Polygon;   
 
 import java.util.stream.Collectors;
 
@@ -39,28 +39,24 @@ private Consumer<Double> distanceThicknessSliderListener;
     
     private VBox selectionMenu;
     private ColorPicker sharedColorPicker;
-    private MapStateManager stateManager; // Se mantiene, para la lógica de herramientas
+    private MapStateManager stateManager; 
 
-    // Controles dinámicos para la herramienta de Línea/Arco
+    
     private Slider lineThicknessSliderDynamic;
     private TextField lineThicknessInputFieldDynamic;
 
-    // Controles dinámicos para la herramienta de Marcador
     private ComboBox<String> markerShapeComboBoxDynamic;
     private Slider markerSizeSliderDynamic;
     private TextField markerSizeInputFieldDynamic;
 
-    // Controles dinámicos para la herramienta de Texto
-    private TextField textInputDynamic; // Este TextField es donde el usuario escribe el texto
+    private TextField textInputDynamic; 
     private ComboBox<String> fontFamilyComboBoxDynamic;
     private Slider fontSizeSliderDynamic;
     private TextField fontSizeInputFieldDynamic;
 
-    // Controles dinámicos para la herramienta de Arco
     private ToggleGroup arcTypeToggleGroupDynamic;
     private TextField arcRadiusInputDynamic;    
     
-    //Controles dinámicos para la herramienta distancia
     private Slider distanceThicknessSliderDynamic;
     
     private final Group mapZoomGroup;
@@ -285,7 +281,6 @@ private Consumer<Double> distanceThicknessSliderListener;
     sharedColorPicker.setManaged(false);
     sharedColorPicker.setOnAction(null);
 
-    // Botón de eliminar común para todos los elementos
     Button deleteButton = new Button("Eliminar");
     deleteButton.setOnAction(e -> {
        mapZoomGroup.getChildren().remove(node);
@@ -418,11 +413,9 @@ private Consumer<Double> distanceThicknessSliderListener;
     public double getFontSize() {
         return fontSizeSliderDynamic != null ? fontSizeSliderDynamic.getValue() : 12.0;
     }
-    // Método para borrar el campo de texto después de dibujar
     public void clearTextInputField() {
         if (textInputDynamic != null) {
             textInputDynamic.setText("");
-            // También borra el texto del StateManager, ya que el TextField se basa en él
         }
     }
     public String getTextInputValue() {
