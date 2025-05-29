@@ -103,6 +103,20 @@ public class EnunciadoCartaController implements Initializable {
             zoom_slider.setValue(newValue);
             event.consume();
         });
+        
+mapZoomGroup.setOnScroll(event -> {
+    double deltaY = event.getDeltaY();
+    double newValue = zoom_slider.getValue();
+    if (deltaY > 0) {    
+        newValue += 0.1;    
+    } else {               
+        newValue -= 0.1;    
+    }
+    newValue = Math.max(zoom_slider.getMin(), Math.min(zoom_slider.getMax(), newValue));
+    zoom_slider.setValue(newValue);
+    event.consume();
+});
+        
         // 1. Inicializar manejador de estado
         stateManager = new MapStateManager();
 
@@ -255,6 +269,8 @@ private void configureToolSelector() {
                     case "textoBtn": newTool = MapStateManager.Tool.TEXT; break;
                     case "limpiarBtn": newTool = MapStateManager.Tool.DELETE; break;
                     case "latitudBtn": newTool = MapStateManager.Tool.LATITUDE; break;
+                    case "distanciaBtn": newTool = MapStateManager.Tool.NONE_SELECTED;break;
+                    case "transportadorBtn":newTool = MapStateManager.Tool.NONE_SELECTED;break;
                     default: newTool = MapStateManager.Tool.NONE_SELECTED; break;
                 }
                 stateManager.setCurrentTool(newTool);

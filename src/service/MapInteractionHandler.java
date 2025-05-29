@@ -124,20 +124,6 @@ public class MapInteractionHandler {
 private void handleMouseDragged(MouseEvent event) {
     if (isControlClicked(event)) return;
     boolean handled = false;
-    if (stateManager.getCurrentTool() !=  MapStateManager.Tool.NONE_SELECTED) {
-        toolDragHandler.accept(event);
-        handled = true;
-    } else if (stateManager.getisRuleSel()) {
-        toolDragHandler.accept(event);
-        handled = true;
-    } else if (stateManager.getisProtractorSel()) {
-        toolDragHandler.accept(event);
-        handled = true;
-    }
-    if (handled) {
-        event.consume();
-        return;
-    }
     if ((stateManager.getCurrentTool() == MapStateManager.Tool.HAND && event.isPrimaryButtonDown()) || event.isMiddleButtonDown()) {
         Point2D currentMouse = new Point2D(event.getSceneX(), event.getSceneY());
         if(stateManager.getLastMousePosition()==null){stateManager.setLastMousePosition(currentMouse);}  
@@ -170,10 +156,26 @@ private void handleMouseDragged(MouseEvent event) {
         stateManager.setLastMousePosition(currentMouse);
         lastScrollH = newHvalue;
         lastScrollV = newVvalue;
-    } else if(stateManager.getCurrentTool() != MapStateManager.Tool.HAND &&
+    }
+    else if (stateManager.getCurrentTool() !=  MapStateManager.Tool.NONE_SELECTED) {
+        toolDragHandler.accept(event);
+        handled = true;
+    } else if (stateManager.getisRuleSel()) {
+        toolDragHandler.accept(event);
+        handled = true;
+    } else if (stateManager.getisProtractorSel()) {
+        toolDragHandler.accept(event);
+        handled = true;
+    }
+    
+    else if(stateManager.getCurrentTool() != MapStateManager.Tool.HAND &&
         stateManager.getCurrentTool() != MapStateManager.Tool.SELECTION) {
-        toolDragHandler.accept(event);}
+        toolDragHandler.accept(event);
+        handled = true;
+    }
+    if (handled) {
         event.consume();
+    }
     }
 
  private void handleMouseReleased(MouseEvent event) {
@@ -290,5 +292,5 @@ private void handleMouseClick(MouseEvent event) {
         if (Double.isNaN(value) || Double.isInfinite(value)) return min;
         return Math.min(Math.max(value, min), max);
     }
-    
+
 }

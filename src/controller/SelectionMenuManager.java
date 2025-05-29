@@ -260,44 +260,17 @@ private Consumer<Double> distanceThicknessSliderListener;
             case DELETE -> {mapZoomGroup.getChildren().removeIf(n -> !(n instanceof ImageView));
             }                       
             case LATITUDE -> {
-                selectionMenu.getChildren().add(new Label("Latitud/Longitud se muestra %n automáticamente al hacer clic"));
+                selectionMenu.getChildren().add(new Label("Latitud/Longitud se muestra \n automáticamente al hacer clic"));
             }
             case SELECTION, HAND-> {
-                selectionMenu.getChildren().add(new Label("Selecciona una herramienta%n para ver opciones."));
+                selectionMenu.getChildren().add(new Label("Selecciona una herramientan \n para ver opciones."));
             }
             case NONE_SELECTED -> {
-                if(stateManager.getisProtractorSel()){distanceThicknessSliderDynamic = new Slider(100,4000, 2000);
-                selectionMenu.getChildren().addAll(
-                    new Label("Tamaño:"),
-                   distanceThicknessSliderDynamic
-                );}
-                if(stateManager.getisRuleSel()){distanceThicknessSliderDynamic = new Slider(100,4000, 2000);
-                selectionMenu.getChildren().addAll(
-                    new Label("Tamaño:"),
-                   distanceThicknessSliderDynamic
-                );}
+               selectionMenu.getChildren().add(new Label("Selecciona una herramienta \n para ver opciones."));
             }
-            
         }
         selectionMenu.setVisible(true);
         selectionMenu.setManaged(true);
-    }
-
-    private Node findNodeFromDescription(String description) {
-        String className = description.split(" ")[0];
-        String coordsPart = description.split("@")[1];
-        double targetX = Double.parseDouble(coordsPart.split(",")[0]);
-        double targetY = Double.parseDouble(coordsPart.split(",")[1]);
-
-        for (Node node : mapZoomGroup.getChildren()) {
-            if (node != mapZoomGroup.lookup("#mapImageView") &&
-                node.getClass().getSimpleName().equals(className) &&
-                Math.abs(node.getLayoutX() - targetX) < 1 &&
-                Math.abs(node.getLayoutY() - targetY) < 1) {
-                return node;
-            }
-        }
-        return null;
     }
 
     public void showOptionsForSelectedNode(Node node) {
@@ -447,15 +420,6 @@ private Consumer<Double> distanceThicknessSliderListener;
             // También borra el texto del StateManager, ya que el TextField se basa en él
         }
     }
-    public void addDistanceThicknessSliderListener(Consumer<Double> listener) {
-    this.distanceThicknessSliderListener = listener;
-    // Si ya hay un slider en uso, lo enlazas ahora
-    distanceThicknessSliderDynamic.valueProperty().addListener((obs, oldVal, newVal) -> {
-        if (distanceThicknessSliderListener != null) {
-            distanceThicknessSliderListener.accept(newVal.doubleValue());
-        }
-    });
-}
     public String getTextInputValue() {
     return textInputDynamic != null ? textInputDynamic.getText() : "";
 }

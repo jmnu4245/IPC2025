@@ -13,12 +13,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 
 public class LineTool implements MapDrawingTool {
- 
-        
+
     private static final double SCROLL_THRESHOLD = 50.0;
-    private static final double SCROLL_SPEED = 0.02;
+    private static final double SCROLL_SPEED = 0.005; // Más lento
 
     private MapStateManager stateManager;
     private Group mapZoomGroup;
@@ -28,17 +28,33 @@ public class LineTool implements MapDrawingTool {
     private Line currentLine;
     private boolean isDrawing = false;
     private Circle startPointCircle;
-private Circle endPointCircle;
+    private Circle endPointCircle;
 
     private Point2D pressStart;
     private boolean dragged = false;
 
+    // Clip para el recorte visual
+    private Rectangle mapClip = null;
+
     @Override
-    public void setDependencies(MapStateManager stateManager, Group mapZoomGroup, SelectionMenuManager menuManager,ScrollPane mapScrollPane) {
+    public void setDependencies(MapStateManager stateManager, Group mapZoomGroup, SelectionMenuManager menuManager, ScrollPane mapScrollPane) {
         this.stateManager = stateManager;
         this.mapZoomGroup = mapZoomGroup;
         this.menuManager = menuManager;
-        this.mapScrollPane=mapScrollPane;
+        this.mapScrollPane = mapScrollPane;
+
+        // Añadir clip del tamaño del zoomGroup si no existe
+        if (mapClip == null) {
+            mapClip = new Rectangle();
+            mapZoomGroup.layoutBoundsProperty().addListener((obs, oldBounds, newBounds) -> {
+                mapClip.setWidth(newBounds.getWidth());
+                mapClip.setHeight(newBounds.getHeight());
+            });
+            Bounds b = mapZoomGroup.getLayoutBounds();
+            mapClip.setWidth(b.getWidth());
+            mapClip.setHeight(b.getHeight());
+            mapZoomGroup.setClip(mapClip);
+        }
     }
 
     @Override
@@ -70,36 +86,38 @@ private Circle endPointCircle;
 
     @Override
     public void onMouseDragged(MouseEvent event, Point2D mapCoords) {
-    if (pressStart == null) {
-        pressStart = mapCoords;
+        if (pressStart == null) {
+            pressStart = mapCoords;
+        }
+        dragged = true;
+
+        handleViewportAutoScroll(event);
+
+        // Comprobar que el cursor está dentro del área del zoomGroup
+        Bounds zoomBounds = mapZoomGroup.getBoundsInLocal();
+        double margin = 0; // Cambia a 20 si quieres margen interno
+        double mouseX = mapCoords.getX();
+        double mouseY = mapCoords.getY();
+
+        if (mouseX < zoomBounds.getMinX() + margin || mouseX > zoomBounds.getMaxX() - margin ||
+            mouseY < zoomBounds.getMinY() + margin || mouseY > zoomBounds.getMaxY() - margin) {
+            return; // No actualiza la línea si el cursor está fuera del zoomGroup
+        }
+
+        if (!isDrawing) {
+            System.out.println("dragged working");
+            currentLine = new Line();
+            currentLine.setStartX(mapCoords.getX());
+            currentLine.setStartY(mapCoords.getY());
+            currentLine.setStroke(menuManager.getColorPickerValue());
+            currentLine.setStrokeWidth(menuManager.getLineThickness());
+            mapZoomGroup.getChildren().add(currentLine);
+            isDrawing = true;
+        }
+
+        currentLine.setEndX(mapCoords.getX());
+        currentLine.setEndY(mapCoords.getY());
     }
-    dragged = true;
-
-    handleViewportAutoScroll(event);
-
-    // Verifica que esté dentro de los límites visibles del panel
-    double x = event.getX();
-    double y = event.getY();
-    if (x < 0 || x > mapScrollPane.getWidth() || y < 0 || y > mapScrollPane.getHeight()) {
-        return; // Salir si el cursor está fuera del panel
-    }
-
-    if (!isDrawing) {
-        System.out.println("dragged working");
-        // Comienza línea si no está en progreso
-        currentLine = new Line();
-        currentLine.setStartX(mapCoords.getX());
-        currentLine.setStartY(mapCoords.getY());
-        currentLine.setStroke(menuManager.getColorPickerValue());
-        currentLine.setStrokeWidth(menuManager.getLineThickness());
-        mapZoomGroup.getChildren().add(currentLine);
-        isDrawing = true;
-    }
-
-    currentLine.setEndX(mapCoords.getX());
-    currentLine.setEndY(mapCoords.getY());
-}
-
 
     @Override
     public void onMouseReleased(MouseEvent event, Point2D mapCoords) {
@@ -117,7 +135,7 @@ private Circle endPointCircle;
 
     @Override
     public void onMouseClick(MouseEvent event, Point2D mapCoords) {
-       
+        // No usado
     }
 
     private void finalizeLine() {
@@ -125,50 +143,50 @@ private Circle endPointCircle;
         isDrawing = false;
         stateManager.setLineStart(null);
     }
-private void handleViewportAutoScroll(MouseEvent event) {
-    // Obtener la posición del ratón en la escena
-    double mouseX = event.getSceneX();
-    double mouseY = event.getSceneY();
 
-    // Obtener los límites del ScrollPane en la escena
-    Bounds scrollPaneBounds = mapZoomGroup.localToScene(mapScrollPane.getBoundsInLocal());
+    private void handleViewportAutoScroll(MouseEvent event) {
+        // Obtener la posición del ratón en la escena
+        double mouseX = event.getSceneX();
+        double mouseY = event.getSceneY();
 
-    // Obtener los límites del viewport (lo que es visible)
-    Bounds viewportBounds = mapScrollPane.getViewportBounds();
+        // Obtener los límites del ScrollPane en la escena
+        Bounds scrollPaneBounds = mapScrollPane.localToScene(mapScrollPane.getBoundsInLocal());
 
-    // Calcular las coordenadas relativas del ratón dentro del viewport
-    // Ajustamos la posición del ratón a las coordenadas internas del viewport para el cálculo de los umbrales
-    double mouseXInViewport = mouseX - scrollPaneBounds.getMinX();
-    double mouseYInViewport = mouseY - scrollPaneBounds.getMinY();
+        // Obtener los límites del viewport (lo que es visible)
+        Bounds viewportBounds = mapScrollPane.getViewportBounds();
 
-    // Determinar la dirección y cantidad de scroll
-    double deltaH = 0;
-    double deltaV = 0;
+        // Calcular las coordenadas relativas del ratón dentro del viewport
+        double mouseXInViewport = mouseX - scrollPaneBounds.getMinX();
+        double mouseYInViewport = mouseY - scrollPaneBounds.getMinY();
 
-    // Scroll horizontal
-    if (mouseXInViewport < SCROLL_THRESHOLD) {
-        deltaH = -SCROLL_SPEED; // Mover a la izquierda
-    } else if (mouseXInViewport > viewportBounds.getWidth() - SCROLL_THRESHOLD) {
-        deltaH = SCROLL_SPEED;  // Mover a la derecha
-    }
+        double deltaH = 0;
+        double deltaV = 0;
 
-    // Scroll vertical
-    if (mouseYInViewport < SCROLL_THRESHOLD) {
-        deltaV = -SCROLL_SPEED; // Mover hacia arriba
-    } else if (mouseYInViewport > viewportBounds.getHeight() - SCROLL_THRESHOLD) {
-        deltaV = SCROLL_SPEED;  // Mover hacia abajo
-    }
+        // Scroll horizontal
+        if (mouseXInViewport < SCROLL_THRESHOLD) {
+            deltaH = -SCROLL_SPEED;
+        } else if (mouseXInViewport > viewportBounds.getWidth() - SCROLL_THRESHOLD) {
+            deltaH = SCROLL_SPEED;
+        }
 
-    // Aplicar el scroll
-    if (deltaH != 0 || deltaV != 0) {
+        // Scroll vertical
+        if (mouseYInViewport < SCROLL_THRESHOLD) {
+            deltaV = -SCROLL_SPEED;
+        } else if (mouseYInViewport > viewportBounds.getHeight() - SCROLL_THRESHOLD) {
+            deltaV = SCROLL_SPEED;
+        }
+
+        // Aplicar el scroll, pero solo si todavía hay espacio para mover el viewport en esa dirección 
         double newHvalue = clamp(mapScrollPane.getHvalue() + deltaH, 0.0, 1.0);
         double newVvalue = clamp(mapScrollPane.getVvalue() + deltaV, 0.0, 1.0);
-
-        mapScrollPane.setHvalue(newHvalue);
-        mapScrollPane.setVvalue(newVvalue);
-
+        if (newHvalue != mapScrollPane.getHvalue()) {
+            mapScrollPane.setHvalue(newHvalue);
+        }
+        if (newVvalue != mapScrollPane.getVvalue()) {
+            mapScrollPane.setVvalue(newVvalue);
+        }
     }
-}
+
     private double clamp(double value, double min, double max) {
         return Math.min(Math.max(value, min), max);
     }
