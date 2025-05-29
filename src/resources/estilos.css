@@ -773,3 +773,189 @@ S17.642,20.762,13.558,20.762z";
     /* Puedes ajustar el padding si lo necesitas */
     /* -fx-padding: 6 0 6 0; */
 }
+/***********************************************
+ * Modern Dark Theme Additions for JavaFX Custom Controls
+ ***********************************************/
+
+/* ======== TOOLBAR OSCURO Y MODERNO ======== */
+.tool-bar, .ToolBar {
+    -fx-background-color: #232935;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #363e4d;
+    -fx-border-width: 1.3;
+    -fx-padding: 7 14 7 14;
+    -fx-spacing: 12;
+    -fx-effect: dropshadow(gaussian, #00000022, 6, 0.13, 0, 2);
+}
+.tool-bar .label, .ToolBar .label {
+    -fx-text-fill: #b7c2d1;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+}
+
+/* ======== COLOR PICKER OSCURO Y MODERNO ======== */
+.color-picker, .ColorPicker {
+    -fx-background-color: #232935;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #363e4d;
+    -fx-border-width: 1.2;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-size: 12px;
+    -fx-text-fill: #eaf1fb;
+    -fx-pref-height: 28;
+}
+.color-picker:focused, .ColorPicker:focused {
+    -fx-border-color: #53b9ff;
+    -fx-effect: dropshadow(gaussian, #53b9ff22, 8, 0.0, 0, 2);
+}
+.color-picker:disabled, .ColorPicker:disabled {
+    -fx-background-color: #232935;
+    -fx-border-color: #2a3140;
+    -fx-text-fill: #6c7a8a;
+}
+
+/* Flecha y botón de despliegue */
+.color-picker > .arrow-button, .ColorPicker > .arrow-button {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #164c7e 0%, #53b9ff 100%);
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 0 8 0 8;
+    -fx-effect: dropshadow(gaussian, #53b9ff33, 8, 0.0, 0, 4);
+    -fx-transition: all 0.2s;
+}
+.color-picker > .arrow-button:hover, .ColorPicker > .arrow-button:hover {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #53b9ff 0%, #164c7e 100%);
+    -fx-effect: dropshadow(gaussian, #53b9ff33, 12, 0.0, 0, 6);
+}
+.color-picker > .arrow-button > .arrow, .ColorPicker > .arrow-button > .arrow {
+    -fx-scale-x: 1.3;
+    -fx-scale-y: 1.3;
+    -fx-background-color: #181a1b;
+}
+
+/* Popup/Panel del ColorPicker */
+.color-picker-popup, .ColorPicker-popup {
+    -fx-background-color: #232935;
+    -fx-border-color: #53b9ff;
+    -fx-border-width: 1;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+}
+.color-palette {
+    -fx-background-color: #232935;
+    -fx-background-radius: 8;
+}
+.color-palette .color-rect {
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-border-color: #363e4d;
+    -fx-border-width: 1;
+}
+.color-palette .color-rect:selected {
+    -fx-border-color: #53b9ff;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, #53b9ff66, 10, 0.19, 0, 3);
+}
+
+/* ======== RADIO BUTTON OSCURO Y MODERNO ======== */
+.radio-button, .RadioButton {
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-size: 13px;
+    -fx-text-fill: #eaf1fb;
+    -fx-padding: 4 0 4 0;
+}
+.radio-button .radio, .RadioButton .radio {
+    -fx-background-color: #181a1b, #232935;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 10, 8;
+    -fx-padding: 0.25em;
+    -fx-border-color: #363e4d;
+    -fx-border-width: 1.2;
+    -fx-border-radius: 10;
+    -fx-pref-width: 16px;
+    -fx-pref-height: 16px;
+}
+.radio-button:selected .radio, .RadioButton:selected .radio {
+    -fx-background-color: #53b9ff, #232935;
+    -fx-border-color: #53b9ff;
+    -fx-effect: dropshadow(gaussian, #53b9ff44, 9, 0.2, 0, 2);
+}
+.radio-button:disabled, .RadioButton:disabled {
+    -fx-text-fill: #6c7a8a;
+}
+.radio-button:disabled .radio, .RadioButton:disabled .radio {
+    -fx-border-color: #2a3140;
+}
+
+/* ======== SLIDER OSCURO Y MODERNO ======== */
+.slider, .Slider {
+    -fx-pref-height: 24;
+    -fx-padding: 10 0 10 0;
+}
+
+.slider .track, .Slider .track {
+    -fx-background-color: #363e4d;
+    -fx-background-radius: 4;
+    -fx-pref-height: 5px;
+}
+
+.slider .thumb, .Slider .thumb {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #164c7e 0%, #53b9ff 100%);
+    -fx-background-radius: 50%;
+    -fx-effect: dropshadow(gaussian, #53b9ff33, 6, 0.2, 0, 1);
+    -fx-pref-width: 20px;
+    -fx-pref-height: 20px;
+    -fx-border-color: #232935;
+    -fx-border-width: 2;
+}
+
+.slider .thumb:hover, .Slider .thumb:hover {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #53b9ff 0%, #164c7e 100%);
+    -fx-effect: dropshadow(gaussian, #53b9ff66, 12, 0.28, 0, 3);
+}
+
+.slider .tick-mark, .Slider .tick-mark {
+    -fx-stroke: #6c7a8a;
+}
+.slider .tick-label, .Slider .tick-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: #b7c2d1;
+}
+
+/* ======== SCROLLPANE OSCURO Y MODERNO ======== */
+.scroll-pane, .ScrollPane {
+    -fx-background-color: #232935;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #363e4d;
+    -fx-border-width: 1.3;
+    -fx-padding: 10;
+}
+.scroll-pane .viewport, .ScrollPane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Scrollbar consistente con TableView */
+.scroll-pane .scroll-bar:vertical, .scroll-pane .scroll-bar:horizontal,
+.ScrollPane .scroll-bar:vertical, .ScrollPane .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10;
+    -fx-pref-height: 10;
+}
+
+.scroll-pane .scroll-bar .thumb, .ScrollPane .scroll-bar .thumb {
+    -fx-background-color: #293047;
+    -fx-background-radius: 6;
+}
+.scroll-pane .scroll-bar .thumb:hover, .ScrollPane .scroll-bar .thumb:hover {
+    -fx-background-color: #53b9ff;
+}
+
+.scroll-pane .scroll-bar .track, .ScrollPane .scroll-bar .track {
+    -fx-background-color: #171b22;
+    -fx-background-radius: 6;
+}
