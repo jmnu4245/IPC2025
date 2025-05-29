@@ -111,13 +111,16 @@ private Consumer<Double> distanceThicknessSliderListener;
                         }
                     }
                 });
+                HBox markerhbox = new HBox(5, markerSizeSliderDynamic, markerSizeInputFieldDynamic);
+                
+                markerhbox.setAlignment(Pos.CENTER);
                 selectionMenu.getChildren().addAll(
                     new Label("Color de relleno:"),
                     sharedColorPicker,
                     new Label("Forma del marcador:"),
                     markerShapeComboBoxDynamic,
                     new Label("Tamaño del marcador:"),
-                    new HBox(5, markerSizeSliderDynamic, markerSizeInputFieldDynamic)
+                    markerhbox
                 );
             }
            case LINE -> {
@@ -147,12 +150,13 @@ private Consumer<Double> distanceThicknessSliderListener;
                         }
                     }
                 });
-
+                HBox lineaHbox = new HBox(5, lineThicknessSliderDynamic, lineThicknessInputFieldDynamic);
+                lineaHbox.setAlignment(Pos.CENTER);
                 selectionMenu.getChildren().addAll(
                     new Label("Color de línea:"),
                     sharedColorPicker,
                     new Label("Grosor:"),
-                    new HBox(5, lineThicknessSliderDynamic, lineThicknessInputFieldDynamic)
+                    lineaHbox
                 );
             }
             case ARC -> {
@@ -199,12 +203,13 @@ private Consumer<Double> distanceThicknessSliderListener;
                         }
                     }
                 });
-
+                HBox ArcoHbox = new HBox(5, lineThicknessSliderDynamic, lineThicknessInputFieldDynamic);
+                ArcoHbox.setAlignment(Pos.CENTER);
                 selectionMenu.getChildren().addAll(
                     new Label("Color del arco:"),
                     sharedColorPicker,
                     new Label("Grosor:"),
-                    new HBox(5, lineThicknessSliderDynamic, lineThicknessInputFieldDynamic),
+                    ArcoHbox,
                     new Label("Radio (px, opcional):"),
                     arcRadiusInputDynamic
                 );
@@ -246,7 +251,7 @@ private Consumer<Double> distanceThicknessSliderListener;
                 });
 
                 HBox fontSizeControl = new HBox(5,fontSizeSliderDynamic, fontSizeInputFieldDynamic);
-                fontSizeControl.setAlignment(Pos.CENTER_LEFT);
+                fontSizeControl.setAlignment(Pos.CENTER);
 
                 selectionMenu.getChildren().addAll(                   
                     new Label("Color:"),

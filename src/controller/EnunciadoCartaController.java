@@ -11,7 +11,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.Font;
 
-
 // Herramientas de dibujo
 import controller.tools.ArcTool;
 import controller.tools.RulerTool;
@@ -26,11 +25,9 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -84,69 +81,39 @@ public class EnunciadoCartaController implements Initializable {
     private User usuario;
     private int numPregunta;
 
-
     // Componentes modulares
     private MapStateManager stateManager;
     private MapInteractionHandler interactionHandler;
     private SelectionManager selectionManager;
     private SelectionMenuManager menuManager;
-<<<<<<< HEAD
-=======
     private Pane rulerBar;
     private MenuController menuController;
->>>>>>> 0d3a584b46278d740af3140888d8f06c60cc9db7
-
 
     // Herramientas de dibujo
     private Map<MapStateManager.Tool, MapDrawingTool> drawingTools;
     private MapDrawingTool activeDrawingTool;
-<<<<<<< HEAD
     private RulerTool RulerTool;
     private ProtractorTool ProtractorTool;
-=======
-    @FXML
-    private ToggleButton selectionBtn;
-    @FXML
-    private ToggleButton puntoBtn;
-    @FXML
-    private ToggleButton lineaBtn;
-    @FXML
-    private ToggleButton arcoBtn;
-    @FXML
-    private ToggleButton textoBtn;
-    @FXML
-    private ToggleButton limpiarBtn;
-    @FXML
-    private ToggleButton transportadorBtn;
-    @FXML
-    private ToggleButton distanciaBtn;
-    @FXML
-    private ToggleButton latitudBtn;
-    @FXML
-    private ColorPicker ColorPicker;
-    @FXML
-    private RadioButton A_answer;
-    @FXML
-    private RadioButton B_answer;
-    @FXML
-    private RadioButton C_answer;
-    @FXML
-    private RadioButton D_answer;
-    @FXML
-    private Label enunciadoCarta;
-    @FXML
-    private Label respuestaA;
-    @FXML
-    private Label respuestaB;
-    @FXML
-    private Label respuestaC;
-    @FXML
-    private Label respuestaD;
-    @FXML
-    private ToggleGroup answers;
-    @FXML
-    private Button entregarButton;
->>>>>>> 0d3a584b46278d740af3140888d8f06c60cc9db7
+
+    @FXML private ToggleButton selectionBtn;
+    @FXML private ToggleButton puntoBtn;
+    @FXML private ToggleButton lineaBtn;
+    @FXML private ToggleButton arcoBtn;
+    @FXML private ToggleButton textoBtn;
+    @FXML private ToggleButton limpiarBtn;
+    @FXML private ToggleButton latitudBtn;
+    @FXML private ColorPicker ColorPicker;
+    @FXML private RadioButton A_answer;
+    @FXML private RadioButton B_answer;
+    @FXML private RadioButton C_answer;
+    @FXML private RadioButton D_answer;
+    @FXML private Label enunciadoCarta;
+    @FXML private Label respuestaA;
+    @FXML private Label respuestaB;
+    @FXML private Label respuestaC;
+    @FXML private Label respuestaD;
+    @FXML private ToggleGroup answers;
+    @FXML private Button entregarButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -155,7 +122,7 @@ public class EnunciadoCartaController implements Initializable {
         contentGroup.getChildren().add(mapZoomGroup);
         mapZoomGroup.getChildren().add(map_scrollpane.getContent());
         map_scrollpane.setContent(contentGroup);
-        
+
         zoom_slider.setMin(0.13);
         zoom_slider.setMax(1.5);
         zoom_slider.valueProperty().addListener((o, oldVal, newVal) -> zoom((Double) newVal));
@@ -163,26 +130,26 @@ public class EnunciadoCartaController implements Initializable {
         zoom_slider.setOnScroll(event -> {
             double deltaY = event.getDeltaY();
             double newValue = zoom_slider.getValue();
-            if (deltaY > 0) {    newValue += 0.1;    } 
-            else {               newValue -= 0.1;    }
+            if (deltaY > 0) { newValue += 0.1; }
+            else { newValue -= 0.1; }
             newValue = Math.max(zoom_slider.getMin(), Math.min(zoom_slider.getMax(), newValue));
             zoom_slider.setValue(newValue);
             event.consume();
         });
-        
-mapZoomGroup.setOnScroll(event -> {
-    double deltaY = event.getDeltaY();
-    double newValue = zoom_slider.getValue();
-    if (deltaY > 0) {    
-        newValue += 0.1;    
-    } else {               
-        newValue -= 0.1;    
-    }
-    newValue = Math.max(zoom_slider.getMin(), Math.min(zoom_slider.getMax(), newValue));
-    zoom_slider.setValue(newValue);
-    event.consume();
-});
-        
+
+        mapZoomGroup.setOnScroll(event -> {
+            double deltaY = event.getDeltaY();
+            double newValue = zoom_slider.getValue();
+            if (deltaY > 0) {
+                newValue += 0.1;
+            } else {
+                newValue -= 0.1;
+            }
+            newValue = Math.max(zoom_slider.getMin(), Math.min(zoom_slider.getMax(), newValue));
+            zoom_slider.setValue(newValue);
+            event.consume();
+        });
+
         // 1. Inicializar manejador de estado
         stateManager = new MapStateManager();
 
@@ -193,7 +160,6 @@ mapZoomGroup.setOnScroll(event -> {
         // 3. Inicializar herramientas de dibujo
         RulerTool = new RulerTool();
         ProtractorTool = new ProtractorTool();
-        //Inicializar el resto
         drawingTools = new HashMap<>();
         drawingTools.put(MapStateManager.Tool.PROTRACTOR, ProtractorTool);
         drawingTools.put(MapStateManager.Tool.MARKER, new MarkerTooL());
@@ -202,10 +168,9 @@ mapZoomGroup.setOnScroll(event -> {
         drawingTools.put(MapStateManager.Tool.TEXT, new TextTool());
         drawingTools.put(MapStateManager.Tool.DISTANCE, RulerTool);
         drawingTools.put(MapStateManager.Tool.LATITUDE, new LatitudeTool());
-       
-        drawingTools.values().forEach(tool -> tool.setDependencies(stateManager, mapZoomGroup, menuManager,map_scrollpane));
 
-        
+        drawingTools.values().forEach(tool -> tool.setDependencies(stateManager, mapZoomGroup, menuManager, map_scrollpane));
+
         // 4. Inicializar manejador de interacción
         interactionHandler = new MapInteractionHandler(
             stateManager, mapZoomGroup, map_scrollpane, rootStackPane, titledPane,
@@ -220,74 +185,76 @@ mapZoomGroup.setOnScroll(event -> {
         // 5. Configurar botones y herramientas
         configureToolSelector();
         manoBtn.setSelected(true);
-          }
+    }
+
     public void setNumEj() {}
+
     private void handleToolClick(MouseEvent event) {
-    Point2D mapCoords = mapZoomGroup.sceneToLocal(event.getSceneX(), event.getSceneY());
-    boolean handled = false;
-    if (activeDrawingTool != null) {
-        activeDrawingTool.onMouseClick(event, mapCoords);
-        handled = true;
-        if (!stateManager.getCurrentTool().equals(MapStateManager.Tool.SELECTION)){
-            selectionManager.deselectCurrentElement();
+        Point2D mapCoords = mapZoomGroup.sceneToLocal(event.getSceneX(), event.getSceneY());
+        boolean handled = false;
+        if (activeDrawingTool != null) {
+            activeDrawingTool.onMouseClick(event, mapCoords);
+            handled = true;
+            if (!stateManager.getCurrentTool().equals(MapStateManager.Tool.SELECTION)){
+                selectionManager.deselectCurrentElement();
+            }
+        } else if (stateManager.getisRuleSel()) {
+            RulerTool.onMouseClick(event, mapCoords);
+            handled = true;
+        } else if (stateManager.getisProtractorSel()) {
+            ProtractorTool.onMouseClick(event, mapCoords);
+            handled = true;
         }
-    } else if (stateManager.getisRuleSel()) {
-        RulerTool.onMouseClick(event, mapCoords);
-        handled = true;
-    } else if (stateManager.getisProtractorSel()) {
-        ProtractorTool.onMouseClick(event, mapCoords);
-        handled = true;
+        if (handled) event.consume();
     }
-    if (handled) event.consume();
-}
 
-private void handleToolDrag(MouseEvent event) {
-    Point2D mapCoords = mapZoomGroup.sceneToLocal(event.getSceneX(), event.getSceneY());
-    boolean handled = false;
-    if (activeDrawingTool != null) {
-        activeDrawingTool.onMouseDragged(event, mapCoords);
-        handled = true;
-    } else if (stateManager.getisRuleSel()) {
-        RulerTool.onMouseDragged(event, mapCoords);
-        handled = true;
-    } else if (stateManager.getisProtractorSel()) {
-        ProtractorTool.onMouseDragged(event, mapCoords);
-        handled = true;
+    private void handleToolDrag(MouseEvent event) {
+        Point2D mapCoords = mapZoomGroup.sceneToLocal(event.getSceneX(), event.getSceneY());
+        boolean handled = false;
+        if (activeDrawingTool != null) {
+            activeDrawingTool.onMouseDragged(event, mapCoords);
+            handled = true;
+        } else if (stateManager.getisRuleSel()) {
+            RulerTool.onMouseDragged(event, mapCoords);
+            handled = true;
+        } else if (stateManager.getisProtractorSel()) {
+            ProtractorTool.onMouseDragged(event, mapCoords);
+            handled = true;
+        }
+        if (handled) event.consume();
     }
-    if (handled) event.consume();
-}
 
-private void handleToolRelease(MouseEvent event) {
-    Point2D mapCoords = mapZoomGroup.sceneToLocal(event.getSceneX(), event.getSceneY());
-    boolean handled = false;
-    if (activeDrawingTool != null) {
-        activeDrawingTool.onMouseReleased(event, mapCoords);
-        handled = true;
-    } else if (stateManager.getisRuleSel()) {
-        RulerTool.onMouseReleased(event, mapCoords);
-        handled = true;
-    } else if (stateManager.getisProtractorSel()) {
-        ProtractorTool.onMouseReleased(event, mapCoords);
-        handled = true;
+    private void handleToolRelease(MouseEvent event) {
+        Point2D mapCoords = mapZoomGroup.sceneToLocal(event.getSceneX(), event.getSceneY());
+        boolean handled = false;
+        if (activeDrawingTool != null) {
+            activeDrawingTool.onMouseReleased(event, mapCoords);
+            handled = true;
+        } else if (stateManager.getisRuleSel()) {
+            RulerTool.onMouseReleased(event, mapCoords);
+            handled = true;
+        } else if (stateManager.getisProtractorSel()) {
+            ProtractorTool.onMouseReleased(event, mapCoords);
+            handled = true;
+        }
+        if (handled) event.consume();
     }
-    if (handled) event.consume();
-}
 
-private void handleToolPressed(MouseEvent event) {
-    Point2D mapCoords = mapZoomGroup.sceneToLocal(event.getSceneX(), event.getSceneY());
-    boolean handled = false;
-    if (activeDrawingTool != null) {
-        activeDrawingTool.onMousePressed(event, mapCoords);
-        handled = true;
-    } else if (stateManager.getisRuleSel()) {
-        RulerTool.onMousePressed(event, mapCoords);
-        handled = true;
-    } else if (stateManager.getisProtractorSel()) {
-        ProtractorTool.onMousePressed(event, mapCoords);
-        handled = true;
+    private void handleToolPressed(MouseEvent event) {
+        Point2D mapCoords = mapZoomGroup.sceneToLocal(event.getSceneX(), event.getSceneY());
+        boolean handled = false;
+        if (activeDrawingTool != null) {
+            activeDrawingTool.onMousePressed(event, mapCoords);
+            handled = true;
+        } else if (stateManager.getisRuleSel()) {
+            RulerTool.onMousePressed(event, mapCoords);
+            handled = true;
+        } else if (stateManager.getisProtractorSel()) {
+            ProtractorTool.onMousePressed(event, mapCoords);
+            handled = true;
+        }
+        if (handled) event.consume();
     }
-    if (handled) event.consume();
-}
 
     private void handleSelection(Node clickedNode) {
         selectionManager.selectElement(clickedNode);
@@ -298,26 +265,25 @@ private void handleToolPressed(MouseEvent event) {
         }
     }
 
-private void configureToolSelector() {
-    transportadorBtn.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
-    if (isSelected) {
-        stateManager.setisProtractorSel(true);
-        drawingTools.get(MapStateManager.Tool.PROTRACTOR).activate();
-    } else {
-        stateManager.setisProtractorSel(false);
-        drawingTools.get(MapStateManager.Tool.PROTRACTOR).deactivate();
-        
-    }
-}); 
-    distanciaBtn.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
-    if (isSelected) {
-        stateManager.setisRuleSel(true);
-        drawingTools.get(MapStateManager.Tool.DISTANCE).activate();
-    } else {
-        stateManager.setisRuleSel(false);
-        drawingTools.get(MapStateManager.Tool.DISTANCE).deactivate();
-    }
-});     
+    private void configureToolSelector() {
+        transportadorBtn.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
+            if (isSelected) {
+                stateManager.setisProtractorSel(true);
+                drawingTools.get(MapStateManager.Tool.PROTRACTOR).activate();
+            } else {
+                stateManager.setisProtractorSel(false);
+                drawingTools.get(MapStateManager.Tool.PROTRACTOR).deactivate();
+            }
+        });
+        distanciaBtn.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
+            if (isSelected) {
+                stateManager.setisRuleSel(true);
+                drawingTools.get(MapStateManager.Tool.DISTANCE).activate();
+            } else {
+                stateManager.setisRuleSel(false);
+                drawingTools.get(MapStateManager.Tool.DISTANCE).deactivate();
+            }
+        });
         options.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
             if (activeDrawingTool != null) {
                 activeDrawingTool.deactivate();
@@ -335,17 +301,19 @@ private void configureToolSelector() {
                     case "textoBtn": newTool = MapStateManager.Tool.TEXT; break;
                     case "limpiarBtn": newTool = MapStateManager.Tool.DELETE; break;
                     case "latitudBtn": newTool = MapStateManager.Tool.LATITUDE; break;
-                    case "distanciaBtn": newTool = MapStateManager.Tool.NONE_SELECTED;break;
-                    case "transportadorBtn":newTool = MapStateManager.Tool.NONE_SELECTED;break;
+                    case "distanciaBtn": newTool = MapStateManager.Tool.NONE_SELECTED; break;
+                    case "transportadorBtn": newTool = MapStateManager.Tool.NONE_SELECTED; break;
                     default: newTool = MapStateManager.Tool.NONE_SELECTED; break;
                 }
                 stateManager.setCurrentTool(newTool);
                 updateCursorAndMenu(newTool);
-                if (newTool != MapStateManager.Tool.DELETE || newTool != MapStateManager.Tool.NONE_SELECTED){
+                if (newTool != MapStateManager.Tool.DELETE && newTool != MapStateManager.Tool.NONE_SELECTED){
                     activeDrawingTool = drawingTools.get(newTool);
                     if (activeDrawingTool != null) {
                         activeDrawingTool.activate();
                     }
+                } else {
+                    activeDrawingTool = null;
                 }
             } else {
                 stateManager.setCurrentTool(MapStateManager.Tool.NONE_SELECTED);
@@ -354,7 +322,8 @@ private void configureToolSelector() {
             }
         });
     }
-    private void updateCursorAndMenu(MapStateManager.Tool tool) {        
+
+    private void updateCursorAndMenu(MapStateManager.Tool tool) {
         switch (tool) {
             case SELECTION: rootStackPane.setCursor(Cursor.DEFAULT); break;
             case HAND: rootStackPane.setCursor(Cursor.OPEN_HAND); break;
@@ -370,6 +339,7 @@ private void configureToolSelector() {
         }
         menuManager.updateMenuForTool();
     }
+
     private void zoom(double scaleValue) {
         double scrollH = map_scrollpane.getHvalue();
         double scrollV = map_scrollpane.getVvalue();
@@ -378,26 +348,23 @@ private void configureToolSelector() {
         map_scrollpane.setHvalue(scrollH);
         map_scrollpane.setVvalue(scrollV);
     }
+
     @FXML
     private void zoomIn() {
         double sliderVal = zoom_slider.getValue();
         zoom_slider.setValue(sliderVal + 0.1);
     }
+
     @FXML
     private void zoomOut() {
         double sliderVal = zoom_slider.getValue();
         zoom_slider.setValue(sliderVal - 0.1);
     }
-<<<<<<< HEAD
-=======
 
-    return ruler;
-}
-    
     public void setMapData(User usuario, int numPregunta) {
         this.usuario = usuario;
         this.numPregunta = numPregunta;
-        
+
         try {
             Problem problema = Navigation.getInstance().getProblems().get(numPregunta - 1); // -1 porque el índice empieza en 0
             enunciadoCarta.setText(problema.getText());
@@ -417,17 +384,17 @@ private void configureToolSelector() {
             D_answer.setUserData(respuestas.get(3));
             entregarButton.setDisable(true);
             answers.selectedToggleProperty().addListener((obs, oldVal, newVal) -> {
-            entregarButton.setDisable(newVal == null);
-        });
+                entregarButton.setDisable(newVal == null);
+            });
         } catch (NavDAOException | IndexOutOfBoundsException e) {
             enunciadoCarta.setText("Error al cargar el problema.");
             e.printStackTrace();
-    }
+        }
     }
 
     @FXML
     private void entregarAction(ActionEvent event) {
-            RadioButton selected = (RadioButton) answers.getSelectedToggle();
+        RadioButton selected = (RadioButton) answers.getSelectedToggle();
 
         if (selected != null) {
             Answer selectedAnswer = (Answer) selected.getUserData();
@@ -445,19 +412,17 @@ private void configureToolSelector() {
 
             entregarButton.setDisable(true);
 
-            
             boolean acierto = selectedAnswer.getValidity();
             if (menuController != null) {
                 menuController.setResultados(acierto);
             }
 
-
             answers.getToggles().forEach(t -> ((ToggleButton) t).setDisable(true));
             entregarButton.setDisable(true);
         }
     }
+
     public void setMenuController(MenuController controller) {
         this.menuController = controller;
     }
->>>>>>> 0d3a584b46278d740af3140888d8f06c60cc9db7
 }

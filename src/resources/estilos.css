@@ -267,7 +267,7 @@ S17.642,20.762,13.558,20.762z";
 
 
 /* ======== BOTONES ========= */
-.button:not(.rule-button) {
+.button{
     -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #164c7e 0%, #53b9ff 100%);
     -fx-background-radius: 8;
     -fx-text-fill: #f9fafc;
@@ -281,10 +281,10 @@ S17.642,20.762,13.558,20.762z";
     -fx-pref-width: 75px;
     -fx-pref-height: 35px;
 }
-.button:pressed:not(.rule-button) {
+.button:pressed {
     -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #12375a 0%, #3595d7 100%);
 }
-.button:hover:not(.rule-button){
+.button:hover{
     -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #53b9ff 0%, #164c7e 100%);
     -fx-effect: dropshadow(gaussian, #53b9ff33, 8, 0.0, 0, 4);
 }

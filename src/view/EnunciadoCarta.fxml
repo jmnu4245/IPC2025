@@ -21,111 +21,125 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EnunciadoCartaController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../resources/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EnunciadoCartaController">
    <children>
-      <ToolBar fx:id="options_toolbar" orientation="VERTICAL" HBox.hgrow="NEVER">
+      <ToolBar fx:id="options_toolbar" orientation="VERTICAL" prefHeight="800.0" prefWidth="173.0" HBox.hgrow="NEVER">
          <items>
-<<<<<<< HEAD
-            <Region minHeight="0.0" minWidth="0.0" />
-            <VBox alignment="CENTER" prefHeight="418.0" prefWidth="120.0" spacing="10.0">
-=======
-            <Region minHeight="0.0" minWidth="0.0" prefHeight="12.0" prefWidth="331.0" />
-            <VBox alignment="CENTER" prefHeight="418.0" prefWidth="331.0" spacing="10.0">
->>>>>>> 0d3a584b46278d740af3140888d8f06c60cc9db7
+            <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <ToggleButton fx:id="selectionBtn" lineSpacing="2.0" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="0.0" text="Seleccionar" textAlignment="CENTER">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="options" />
-                     </toggleGroup>
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                     </padding>
-                  </ToggleButton>
-                  <ToggleButton fx:id="puntoBtn" lineSpacing="2.0" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" prefWidth="0.0" text="Punto" textAlignment="CENTER" toggleGroup="$options">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                     </padding></ToggleButton>
-                  <ToggleButton fx:id="lineaBtn" lineSpacing="2.0" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" prefWidth="0.0" text="Linea" textAlignment="CENTER" toggleGroup="$options">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                     </padding></ToggleButton>
-                  <ToggleButton fx:id="arcoBtn" lineSpacing="2.0" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" prefWidth="0.0" text="Arco" textAlignment="CENTER" toggleGroup="$options">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                     </padding></ToggleButton>
-                  <ToggleButton fx:id="textoBtn" lineSpacing="2.0" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" prefWidth="0.0" text="Texto" textAlignment="CENTER" toggleGroup="$options">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                     </padding></ToggleButton>
-                  <ToggleButton fx:id="limpiarBtn" lineSpacing="2.0" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="0.0" text="Limpiar" textAlignment="CENTER" toggleGroup="$options">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                     </padding></ToggleButton>
-                  <ToggleButton fx:id="transportadorBtn" lineSpacing="2.0" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" prefWidth="0.0" text="Transportador" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                     </padding>
-                     <toggleGroup>
-                        <ToggleGroup fx:id="imageoptions" />
-                     </toggleGroup></ToggleButton>
-                  <ToggleButton fx:id="distanciaBtn" lineSpacing="2.0" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" prefWidth="0.0" text="Distancia" textAlignment="CENTER" toggleGroup="$imageoptions">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                     </padding></ToggleButton>
-                  <ToggleButton fx:id="latitudBtn" lineSpacing="2.0" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" text="Latitud" textAlignment="CENTER" toggleGroup="$options">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                     </padding></ToggleButton>
-                  <ToggleButton fx:id="manoBtn" lineSpacing="2.0" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" prefWidth="0.0" text="Mano" textAlignment="CENTER" toggleGroup="$options">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                     </padding></ToggleButton>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="169.0" text="Escala:" />
                   <HBox alignment="CENTER" prefHeight="27.0" prefWidth="120.0" spacing="10.0">
                      <children>
-                        <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" mnemonicParsing="false" onAction="#zoomIn" text="+">
+                        <Slider fx:id="zoom_slider" prefHeight="41.0" prefWidth="126.0" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" maxHeight="20.0" mnemonicParsing="false" onAction="#zoomIn" text="+">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
                         </Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" mnemonicParsing="false" onAction="#zoomOut" text="-" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" maxHeight="20.0" mnemonicParsing="false" onAction="#zoomOut" text="-" />
                      </children>
                   </HBox>
-                  <Slider fx:id="zoom_slider" prefHeight="14.0" prefWidth="315.0" />
+                  <HBox prefHeight="464.0" prefWidth="331.0">
+                     <children>
+                        <VBox alignment="CENTER" minHeight="300.0" prefHeight="600.0" prefWidth="167.0" spacing="10.0">
+                           <children>
+                              <ToggleButton fx:id="selectionBtn" lineSpacing="2.0" maxHeight="35.0" minHeight="0.0" minWidth="100.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="0.0" text="Seleccionar" textAlignment="CENTER">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="options" />
+                                 </toggleGroup>
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                 </padding>
+                              </ToggleButton>
+                              <ToggleButton fx:id="puntoBtn" lineSpacing="2.0" maxHeight="35.0" minHeight="0.0" minWidth="100.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="0.0" text="Punto" textAlignment="CENTER" toggleGroup="$options">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                 </padding>
+                              </ToggleButton>
+                              <ToggleButton fx:id="lineaBtn" lineSpacing="2.0" maxHeight="35.0" minHeight="0.0" minWidth="100.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="0.0" text="Linea" textAlignment="CENTER" toggleGroup="$options">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                 </padding>
+                              </ToggleButton>
+                              <ToggleButton fx:id="arcoBtn" lineSpacing="2.0" maxHeight="35.0" minHeight="0.0" minWidth="100.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="0.0" text="Arco" textAlignment="CENTER" toggleGroup="$options">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                 </padding>
+                              </ToggleButton>
+                              <ToggleButton fx:id="textoBtn" lineSpacing="2.0" maxHeight="35.0" minHeight="0.0" minWidth="100.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="0.0" text="Texto" textAlignment="CENTER" toggleGroup="$options">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                 </padding>
+                              </ToggleButton>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="193.0" prefWidth="166.0" spacing="10.0">
+                           <children>
+                              <ToggleButton fx:id="limpiarBtn" lineSpacing="2.0" maxHeight="35.0" minHeight="0.0" minWidth="100.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="0.0" text="Limpiar" textAlignment="CENTER" toggleGroup="$options">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                 </padding>
+                              </ToggleButton>
+                              <ToggleButton fx:id="transportadorBtn" lineSpacing="2.0" maxHeight="35.0" minHeight="0.0" minWidth="100.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="0.0" text="Transportador" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                 </padding>
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="options1" />
+                                 </toggleGroup>
+                              </ToggleButton>
+                              <ToggleButton fx:id="distanciaBtn" lineSpacing="2.0" maxHeight="35.0" minHeight="0.0" minWidth="100.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="0.0" text="Distancia" textAlignment="CENTER" toggleGroup="$options1">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                 </padding>
+                              </ToggleButton>
+                              <ToggleButton fx:id="latitudBtn" lineSpacing="2.0" maxHeight="35.0" minHeight="0.0" minWidth="100.0" mnemonicParsing="false" prefHeight="25.0" text="Latitud" textAlignment="CENTER" toggleGroup="$options">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                 </padding>
+                              </ToggleButton>
+                              <ToggleButton fx:id="manoBtn" lineSpacing="2.0" maxHeight="35.0" minHeight="0.0" minWidth="100.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="0.0" text="Mano" textAlignment="CENTER" toggleGroup="$options">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                 </padding>
+                              </ToggleButton>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
             <Separator prefHeight="8.0" prefWidth="6.0" />
-            <VBox fx:id="selectionMenu" alignment="CENTER" prefHeight="165.0" prefWidth="168.0">
+            <VBox fx:id="selectionMenu" alignment="CENTER" minHeight="250.0" prefHeight="190.0" prefWidth="30.0">
                <children>
                   <ColorPicker fx:id="ColorPicker" />
                </children>
@@ -164,12 +178,16 @@
                         </RadioButton>
                      </children>
                   </HBox>
-                  <Button fx:id="entregarButton" alignment="CENTER" contentDisplay="CENTER" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" onAction="#entregarAction" prefHeight="33.0" prefWidth="100.0" text="Entregar" />
+                  <HBox alignment="CENTER" prefHeight="36.0" prefWidth="302.0" spacing="70.0">
+                     <children>
+                        <Button fx:id="entregarButton" alignment="CENTER" contentDisplay="CENTER" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" onAction="#entregarAction" prefHeight="33.0" prefWidth="100.0" text="Menu" />
+                        <Button fx:id="entregarButton1" alignment="CENTER" contentDisplay="CENTER" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" onAction="#entregarAction" prefHeight="33.0" prefWidth="100.0" text="Entregar" />
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </items>
       </ToolBar>
-      <Separator orientation="VERTICAL" />
       <StackPane fx:id="rootStackPane" focusTraversable="true" HBox.hgrow="ALWAYS">
          <children>
             <ScrollPane fx:id="map_scrollpane" prefHeight="200.0" prefWidth="200.0">
@@ -185,23 +203,12 @@
                </StackPane.margin>
             </ScrollPane>
 
-<<<<<<< HEAD
-            <HBox fillHeight="false" focusTraversable="true" prefHeight="800.0" prefWidth="1011.0" spacing="10.0">
-               <children>
-                  <TitledPane fx:id="titledPane" alignment="CENTER" animated="false" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" minWidth="400.0" prefHeight="104.0" prefWidth="962.0" text="Enunciado" HBox.hgrow="ALWAYS">
-=======
             <HBox fillHeight="false" focusTraversable="true" prefHeight="800.0" prefWidth="1002.0">
                <children>
                   <TitledPane fx:id="titledPane" alignment="CENTER" animated="false" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" minWidth="400.0" prefHeight="104.0" prefWidth="932.0" text="Enunciado" HBox.hgrow="ALWAYS">
->>>>>>> 0d3a584b46278d740af3140888d8f06c60cc9db7
                      <content>
-                        <AnchorPane minWidth="100.0" prefHeight="78.0" prefWidth="946.0">
+                        <AnchorPane minWidth="100.0" prefHeight="96.0" prefWidth="1018.0">
                            <children>
-<<<<<<< HEAD
-                              <VBox fillWidth="false" layoutX="-17.6" layoutY="15.2" minWidth="400.0" prefHeight="58.0" prefWidth="938.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="10.0">
-                                 <children>
-                                    <Text fx:id="enunciadoCarta" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Cuanta distancia hay ?" wrappingWidth="938.1366806030273" />
-=======
                               <VBox layoutY="9.6" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="5.0">
                                  <children>
                                     <Label fx:id="enunciadoCarta" maxWidth="-Infinity" prefWidth="1200.0" styleClass="label-field" text="Enunciado del problema" wrapText="true">
@@ -223,7 +230,6 @@
                                           <Insets left="20.0" />
                                        </VBox.margin>
                                     </HBox>
->>>>>>> 0d3a584b46278d740af3140888d8f06c60cc9db7
                                  </children>
                               </VBox>
                            </children>
@@ -233,11 +239,7 @@
                         </AnchorPane>
                      </content>
                      <HBox.margin>
-<<<<<<< HEAD
-                        <Insets top="2.0" />
-=======
                         <Insets />
->>>>>>> 0d3a584b46278d740af3140888d8f06c60cc9db7
                      </HBox.margin>
                   </TitledPane>
                </children>
