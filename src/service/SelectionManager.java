@@ -1,5 +1,6 @@
 package service;
 
+import utils.utils;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.shape.Circle;
@@ -26,7 +27,7 @@ public class SelectionManager {
         }
 
         // Apply new selection
-        if (element != null && !isMapBackground(element)) {
+        if (element != null && !utils.isMapBackground(element)) {
             selectedElement = element;
             createSelectionHalo(element);
         }
@@ -108,17 +109,25 @@ public class SelectionManager {
         }
     }
 }
-
-
-    private boolean isMapBackground(Node element) {
-        // Check if element is the map background image
-        return element.getId() != null && element.getId().equals("mapImageView");
-    }
-
     public void deselectCurrentElement() {
         if (selectedElement != null) {
             selectionHalo.getChildren().clear();
             selectedElement = null;
         }
+        
     }
+    public Node getSelectedElement() {
+    return selectedElement;
+}
+    public void removeSelectedElement() {
+        if (selectedElement != null) {
+            // Elimina el elemento del grupo principal
+            mapZoomGroup.getChildren().remove(selectedElement);
+            // Limpia el halo de selección
+            selectionHalo.getChildren().clear();
+            // Limpia la referencia del elemento seleccionado
+            selectedElement = null;
+        }
+    }
+    
 }

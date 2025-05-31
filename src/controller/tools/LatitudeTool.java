@@ -1,7 +1,7 @@
 package controller.tools;
 
-import model.MapDrawingTool;
-import model.MapStateManager;
+import drawmodel.MapDrawingTool;
+import drawmodel.MapStateManager;
 import controller.SelectionMenuManager;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
@@ -14,15 +14,13 @@ import javafx.scene.shape.Line;
 
 public class LatitudeTool implements MapDrawingTool {
     private ScrollPane mapScrollPane;
-    private MapStateManager stateManager;
     private Group mapZoomGroup;
     private SelectionMenuManager menuManager;
     private Bounds contentBounds;
     
     @Override
-    public void setDependencies(MapStateManager stateManager, Group mapZoomGroup, 
+    public void setDependencies(Group mapZoomGroup, 
                                SelectionMenuManager menuManager, ScrollPane mapScrollPane) {
-        this.stateManager = stateManager;
         this.mapZoomGroup = mapZoomGroup;
         this.menuManager = menuManager;
         this.mapScrollPane = mapScrollPane;
@@ -30,7 +28,6 @@ public class LatitudeTool implements MapDrawingTool {
     
     @Override
     public void activate() {
-        stateManager.resetDrawingStates();
     }
     
     @Override
@@ -40,12 +37,11 @@ public class LatitudeTool implements MapDrawingTool {
     
     @Override
     public void onMouseClick(MouseEvent event, Point2D mapCoords) {
-        double lat = mapCoords.getY(); // Assuming Y is latitude
-        double lon = mapCoords.getX(); // Assuming X is longitude
+        double lat = mapCoords.getY();
+        double lon = mapCoords.getX();
         
         // Obtener los límites del contenido del mapa
         contentBounds = mapZoomGroup.getBoundsInLocal();
-        System.out.println(contentBounds.getMinX()+","+contentBounds.getMaxX()+","+contentBounds.getMaxY()+","+contentBounds.getMinY());
         // Crear línea horizontal (latitud) que recorre toda la imagen
         Line horizontalLine = new Line();
         horizontalLine.setStartX(contentBounds.getMinX()+10);
@@ -53,8 +49,7 @@ public class LatitudeTool implements MapDrawingTool {
         horizontalLine.setEndX(contentBounds.getMaxX()-10);
         horizontalLine.setEndY(mapCoords.getY());
         horizontalLine.setStroke(Color.RED);
-        horizontalLine.setStrokeWidth(3);
-        
+        horizontalLine.setStrokeWidth(3);       
         // Crear línea vertical (longitud) que recorre toda la imagen
         Line verticalLine = new Line();
         verticalLine.setStartX(mapCoords.getX());
@@ -63,9 +58,6 @@ public class LatitudeTool implements MapDrawingTool {
         verticalLine.setEndY(contentBounds.getMaxY()-10);
         verticalLine.setStroke(Color.BLUE);
         verticalLine.setStrokeWidth(3);
-        
-        // Crear texto con las coordenadas
-
         
         // Agregar las líneas y el texto al grupo
         mapZoomGroup.getChildren().addAll(horizontalLine, verticalLine);

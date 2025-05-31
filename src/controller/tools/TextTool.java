@@ -1,7 +1,7 @@
 package controller.tools;
 
-import model.MapDrawingTool;
-import model.MapStateManager;
+import drawmodel.MapDrawingTool;
+import drawmodel.MapStateManager;
 import controller.SelectionMenuManager;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,8 +22,6 @@ import java.util.Optional;
 import javafx.scene.control.ScrollPane;
 
 public class TextTool implements MapDrawingTool {
-    public enum Tool {SELECTION, HAND, MARKER, LINE, ARC, TEXT, DELETE, PROTRACTOR, DISTANCE, LATITUDE, NONE_SELECTED }
-    private MapStateManager stateManager;
     private Group mapZoomGroup;
     private SelectionMenuManager menuManager;
     private Bounds contentBounds;
@@ -31,8 +29,7 @@ public class TextTool implements MapDrawingTool {
 
 
     @Override
-    public void setDependencies(MapStateManager stateManager, Group mapZoomGroup, SelectionMenuManager menuManager,ScrollPane mapScrollPane) {
-        this.stateManager = stateManager;
+    public void setDependencies( Group mapZoomGroup, SelectionMenuManager menuManager,ScrollPane mapScrollPane) {
         this.mapZoomGroup = mapZoomGroup;
         this.menuManager = menuManager;
         this.mapScrollPane=mapScrollPane;
@@ -41,7 +38,6 @@ public class TextTool implements MapDrawingTool {
 
     @Override
     public void activate() {
-        stateManager.resetDrawingStates();
     }
 
     @Override

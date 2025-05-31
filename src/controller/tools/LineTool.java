@@ -1,7 +1,8 @@
 package controller.tools;
 
-import model.MapDrawingTool;
-import model.MapStateManager;
+import drawmodel.MapDrawingTool;
+import drawmodel.MapStateManager;
+import utils.utils;
 import controller.SelectionMenuManager;
 import java.util.Map;
 import javafx.geometry.Bounds;
@@ -20,7 +21,6 @@ public class LineTool implements MapDrawingTool {
     private static final double SCROLL_THRESHOLD = 50.0;
     private static final double SCROLL_SPEED = 0.005; // Más lento
 
-    private MapStateManager stateManager;
     private Group mapZoomGroup;
     private SelectionMenuManager menuManager;
     private ScrollPane mapScrollPane;
@@ -37,8 +37,7 @@ public class LineTool implements MapDrawingTool {
     private Rectangle mapClip = null;
 
     @Override
-    public void setDependencies(MapStateManager stateManager, Group mapZoomGroup, SelectionMenuManager menuManager, ScrollPane mapScrollPane) {
-        this.stateManager = stateManager;
+    public void setDependencies(Group mapZoomGroup, SelectionMenuManager menuManager, ScrollPane mapScrollPane) {
         this.mapZoomGroup = mapZoomGroup;
         this.menuManager = menuManager;
         this.mapScrollPane = mapScrollPane;
@@ -59,8 +58,6 @@ public class LineTool implements MapDrawingTool {
 
     @Override
     public void activate() {
-        stateManager.resetDrawingStates();
-        stateManager.setLineStart(null);
         isDrawing = false;
     }
 
@@ -70,7 +67,6 @@ public class LineTool implements MapDrawingTool {
             mapZoomGroup.getChildren().remove(currentLine);
             currentLine = null;
         }
-        stateManager.setLineStart(null);
         isDrawing = false;
     }
 
@@ -141,7 +137,6 @@ public class LineTool implements MapDrawingTool {
     private void finalizeLine() {
         currentLine = null;
         isDrawing = false;
-        stateManager.setLineStart(null);
     }
 
     private void handleViewportAutoScroll(MouseEvent event) {
@@ -177,8 +172,8 @@ public class LineTool implements MapDrawingTool {
         }
 
         // Aplicar el scroll, pero solo si todavía hay espacio para mover el viewport en esa dirección 
-        double newHvalue = clamp(mapScrollPane.getHvalue() + deltaH, 0.0, 1.0);
-        double newVvalue = clamp(mapScrollPane.getVvalue() + deltaV, 0.0, 1.0);
+        double newHvalue = utils.clamp(mapScrollPane.getHvalue() + deltaH, 0.0, 1.0);
+        double newVvalue = utils.clamp(mapScrollPane.getVvalue() + deltaV, 0.0, 1.0);
         if (newHvalue != mapScrollPane.getHvalue()) {
             mapScrollPane.setHvalue(newHvalue);
         }
@@ -187,7 +182,4 @@ public class LineTool implements MapDrawingTool {
         }
     }
 
-    private double clamp(double value, double min, double max) {
-        return Math.min(Math.max(value, min), max);
-    }
 }

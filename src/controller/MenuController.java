@@ -155,7 +155,6 @@ public class MenuController implements Initializable {
             e.printStackTrace();
         }
     }
-
     @FXML
     private void resultAction(ActionEvent event) {
         try {

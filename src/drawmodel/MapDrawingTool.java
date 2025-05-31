@@ -1,4 +1,4 @@
-package model;
+package drawmodel;
 
 import controller.SelectionMenuManager;
 import javafx.geometry.Point2D;
@@ -21,5 +21,5 @@ public interface MapDrawingTool {
     void onMouseReleased(MouseEvent event, Point2D mapCoords);
 
     // Method to pass references needed by tools
-    void setDependencies(MapStateManager stateManager, Group mapZoomGroup,SelectionMenuManager menuManager,ScrollPane mapScrollPane);
+    void setDependencies(Group mapZoomGroup,SelectionMenuManager menuManager,ScrollPane mapScrollPane);
 }

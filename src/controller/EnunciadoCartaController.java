@@ -1,15 +1,9 @@
 package controller;
 
 import service.SelectionManager;
-import model.MapStateManager;
+import drawmodel.MapStateManager;
 import service.MapInteractionHandler;
-import model.MapDrawingTool;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.layout.HBox;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
-import javafx.scene.text.Font;
+import drawmodel.MapDrawingTool;
 
 import controller.tools.ArcTool;
 import controller.tools.RulerTool;
@@ -27,12 +21,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
@@ -45,14 +37,12 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ToolBar;
+import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Line;
-import javafx.scene.paint.Color;
-import javafx.scene.transform.Scale;
 import model.User;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -60,11 +50,6 @@ import model.Problem;
 import model.Navigation;
 import model.NavDAOException;
 import model.Answer;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import java.io.IOException;
 
 public class EnunciadoCartaController implements Initializable {
 
@@ -72,7 +57,6 @@ public class EnunciadoCartaController implements Initializable {
     @FXML private ScrollPane map_scrollpane;
     @FXML private TitledPane titledPane;
     @FXML private ImageView mapImageView;
-    @FXML private ToolBar options_toolbar;
     @FXML private ToggleGroup options;
     @FXML private Slider zoom_slider;
     @FXML private StackPane rootStackPane;
@@ -153,7 +137,7 @@ public class EnunciadoCartaController implements Initializable {
 
         stateManager = new MapStateManager();
         selectionManager = new SelectionManager(mapZoomGroup);
-        menuManager = new SelectionMenuManager(stateManager, selectionMenu, mapZoomGroup);
+        menuManager = new SelectionMenuManager(stateManager, selectionMenu, mapZoomGroup,selectionManager);
 
         RulerTool = new RulerTool();
         ProtractorTool = new ProtractorTool();
@@ -166,7 +150,7 @@ public class EnunciadoCartaController implements Initializable {
         drawingTools.put(MapStateManager.Tool.DISTANCE, RulerTool);
         drawingTools.put(MapStateManager.Tool.LATITUDE, new LatitudeTool());
 
-        drawingTools.values().forEach(tool -> tool.setDependencies(stateManager, mapZoomGroup, menuManager, map_scrollpane));
+        drawingTools.values().forEach(tool -> tool.setDependencies(mapZoomGroup, menuManager, map_scrollpane));
 
         interactionHandler = new MapInteractionHandler(
             stateManager, mapZoomGroup, map_scrollpane, rootStackPane, titledPane,
@@ -180,8 +164,6 @@ public class EnunciadoCartaController implements Initializable {
         configureToolSelector();
         manoBtn.setSelected(true);
     }
-
-    public void setNumEj() {}
 
     private void handleToolClick(MouseEvent event) {
         Point2D mapCoords = mapZoomGroup.sceneToLocal(event.getSceneX(), event.getSceneY());
@@ -251,9 +233,10 @@ public class EnunciadoCartaController implements Initializable {
     }
 
     private void handleSelection(Node clickedNode) {
-        selectionManager.selectElement(clickedNode);
+        System.out.println(clickedNode);
         if (clickedNode != null && clickedNode != mapImageView) {
-            menuManager.showOptionsForSelectedNode(clickedNode);
+            selectionManager.selectElement(clickedNode);
+            menuManager.showOptionsForSelectedNode();
         } else {
             menuManager.updateMenuForTool();
         }

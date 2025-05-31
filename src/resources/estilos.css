@@ -517,10 +517,6 @@ S17.642,20.762,13.558,20.762z";
     -fx-opacity: 0;
 }
 
-
-
-
-
 /* --- Hover --- */
 .toggle-button:hover {
     -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #53b9ff 0%, #164c7e 100%);
@@ -773,9 +769,6 @@ S17.642,20.762,13.558,20.762z";
     /* Puedes ajustar el padding si lo necesitas */
     /* -fx-padding: 6 0 6 0; */
 }
-/***********************************************
- * Modern Dark Theme Additions for JavaFX Custom Controls
- ***********************************************/
 
 /* ======== TOOLBAR OSCURO Y MODERNO ======== */
 .tool-bar, .ToolBar {
@@ -959,3 +952,9 @@ S17.642,20.762,13.558,20.762z";
     -fx-background-color: #171b22;
     -fx-background-radius: 6;
 }
+.text-enunciado {
+    -fx-font-size: 15px;
+    -fx-font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    -fx-font-weight: 600;
+    -fx-text-fill: #000000;
+    -fx-padding: 8 16 4 16;}

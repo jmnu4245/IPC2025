@@ -139,11 +139,17 @@ public class IniciarSesionController implements Initializable {
             e.printStackTrace();
         }
     }
-
     @FXML
     private void verAction(ActionEvent event) {
         passVisible = !passVisible;
-        passField.setVisible(passVisible);
+        passField.setVisible(!passVisible);
+        if (passVisible) {
+            plainPassField.requestFocus();
+            plainPassField.positionCaret(plainPassField.getText().length());
+        } else {
+            passField.requestFocus();
+            passField.positionCaret(passField.getText().length());
+        }
     }
     
 }

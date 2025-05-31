@@ -1,7 +1,7 @@
 package controller.tools;
 
-import model.MapDrawingTool;
-import model.MapStateManager;
+import drawmodel.MapDrawingTool;
+import drawmodel.MapStateManager;
 import controller.SelectionMenuManager;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
@@ -19,15 +19,13 @@ import javafx.scene.input.MouseButton;
 
 public class MarkerTooL implements MapDrawingTool {
 
-    private MapStateManager stateManager;
     private Group mapZoomGroup;
     private SelectionMenuManager menuManager; // To get current point color
     private ScrollPane mapScrollPane;
 
    
     @Override
-    public void setDependencies(MapStateManager stateManager, Group mapZoomGroup, SelectionMenuManager menuManager,ScrollPane mapScrollPane) {
-        this.stateManager = stateManager;
+    public void setDependencies(Group mapZoomGroup, SelectionMenuManager menuManager,ScrollPane mapScrollPane) {
         this.mapZoomGroup = mapZoomGroup;
         this.menuManager = menuManager;
         this.mapScrollPane=mapScrollPane;
@@ -36,20 +34,13 @@ public class MarkerTooL implements MapDrawingTool {
 
     @Override
     public void activate() {
-        stateManager.resetDrawingStates();
-        // You might set a specific cursor here if it wasn't already set by MapInteractionHandler
     }
-
     @Override
     public void deactivate() {
-        // Nothing specific to clean up for point tool on deactivate
     }
-
     @Override
     public void onMouseClick(MouseEvent event, Point2D mapCoords) {
-       
     }
-
     @Override
     public void onMousePressed(MouseEvent event, Point2D mapCoords) {
         if (event.getButton() == MouseButton.PRIMARY) {

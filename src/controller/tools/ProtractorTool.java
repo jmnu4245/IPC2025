@@ -8,13 +8,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
-import model.MapDrawingTool;
-import model.MapStateManager;
+import drawmodel.MapDrawingTool;
+import drawmodel.MapStateManager;
 import controller.SelectionMenuManager;
 
 public class ProtractorTool implements MapDrawingTool {
 
-    private MapStateManager stateManager;
     private Group mapZoomGroup;
     private SelectionMenuManager menuManager;
     private ScrollPane mapScrollPane;
@@ -132,9 +131,8 @@ public class ProtractorTool implements MapDrawingTool {
     }
 
     @Override
-    public void setDependencies(MapStateManager stateManager, Group mapZoomGroup,
+    public void setDependencies(Group mapZoomGroup,
                                 SelectionMenuManager menuManager, ScrollPane mapScrollPane) {
-        this.stateManager = stateManager;
         this.mapZoomGroup = mapZoomGroup;
         this.menuManager = menuManager;
         this.mapScrollPane = mapScrollPane;

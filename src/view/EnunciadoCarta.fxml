@@ -211,7 +211,7 @@
                            <children>
                               <VBox layoutY="9.6" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="5.0">
                                  <children>
-                                    <Label fx:id="enunciadoCarta" maxWidth="-Infinity" prefWidth="1200.0" styleClass="label-field" text="Enunciado del problema" wrapText="true">
+                                    <Label fx:id="enunciadoCarta" maxWidth="-Infinity" prefWidth="1200.0" styleClass="text-enunciado" text="Enunciado del problema" wrapText="true">
                                        <padding>
                                           <Insets left="20.0" right="60.0" />
                                        </padding>

@@ -3,7 +3,8 @@ package controller;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
-import model.MapStateManager;
+import drawmodel.MapStateManager;
+import service.SelectionManager;
 import javafx.scene.image.ImageView;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -29,6 +30,7 @@ import javafx.scene.Group;
 import javafx.scene.control.ComboBox;
 import javafx.scene.shape.Rectangle; 
 import javafx.scene.shape.Polygon;   
+
 
 import java.util.stream.Collectors;
 
@@ -59,15 +61,19 @@ private Consumer<Double> distanceThicknessSliderListener;
     
     private Slider distanceThicknessSliderDynamic;
     
+    private SelectionManager selectionManager;
+    
     private final Group mapZoomGroup;
-    public SelectionMenuManager(MapStateManager stateManager, VBox selectionMenu, Group mapZoomGroup) {
+    public SelectionMenuManager(MapStateManager stateManager, VBox selectionMenu, Group mapZoomGroup, SelectionManager selectionManager) {
         this.stateManager = stateManager;
         this.selectionMenu = selectionMenu;
         this.mapZoomGroup = mapZoomGroup;
+        this.selectionManager = selectionManager;
 
         this.sharedColorPicker = new ColorPicker();
         this.sharedColorPicker.setVisible(false);
         this.sharedColorPicker.setManaged(false);
+        
         selectionMenu.setSpacing(10);
     }
 
@@ -274,7 +280,7 @@ private Consumer<Double> distanceThicknessSliderListener;
         selectionMenu.setManaged(true);
     }
 
-    public void showOptionsForSelectedNode(Node node) {
+    public void showOptionsForSelectedNode() {
     selectionMenu.getChildren().clear();
     resetDynamicControls();
     sharedColorPicker.setVisible(false);
@@ -283,10 +289,11 @@ private Consumer<Double> distanceThicknessSliderListener;
 
     Button deleteButton = new Button("Eliminar");
     deleteButton.setOnAction(e -> {
-       mapZoomGroup.getChildren().remove(node);
-        selectionMenu.getChildren().clear();
+       selectionManager.removeSelectedElement();
+       selectionMenu.getChildren().clear();
     });
-    switch (node) {
+    Node SelectedNode =selectionManager.getSelectedElement();
+    switch (SelectedNode) {
         case Circle circle -> {
             System.out.println("Círculo (marcador) seleccionado");
             sharedColorPicker.setValue((Color) circle.getFill());
@@ -395,6 +402,7 @@ private Consumer<Double> distanceThicknessSliderListener;
             try {
                 return Double.parseDouble(arcRadiusInputDynamic.getText());
             } catch (NumberFormatException e) {
+                System.out.println("nonumero");
                 return null;
             }
         }

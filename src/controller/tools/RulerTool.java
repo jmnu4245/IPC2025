@@ -8,13 +8,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
-import model.MapDrawingTool;
-import model.MapStateManager;
+import drawmodel.MapDrawingTool;
+import drawmodel.MapStateManager;
 import controller.SelectionMenuManager;
 
 public class RulerTool implements MapDrawingTool {
 
-    private MapStateManager stateManager;
     private Group mapZoomGroup;
     private SelectionMenuManager menuManager;
     private ScrollPane mapScrollPane;
@@ -37,8 +36,8 @@ public class RulerTool implements MapDrawingTool {
             rulerImageView.setPreserveRatio(true);
             rulerImageView.setFitWidth(3000);
             rulerImageView.setFitHeight(400);
-            rulerImageView.setLayoutX(100);
-            rulerImageView.setLayoutY(100);
+            rulerImageView.setLayoutX(1000);
+            rulerImageView.setLayoutY(1000);
             rulerImageView.setPickOnBounds(true);
             mapZoomGroup.getChildren().add(rulerImageView);
         } else {
@@ -137,9 +136,8 @@ public class RulerTool implements MapDrawingTool {
     }
 
     @Override
-    public void setDependencies(MapStateManager stateManager, Group mapZoomGroup,
+    public void setDependencies(Group mapZoomGroup,
                                 SelectionMenuManager menuManager, ScrollPane mapScrollPane) {
-        this.stateManager = stateManager;
         this.mapZoomGroup = mapZoomGroup;
         this.menuManager = menuManager;
         this.mapScrollPane = mapScrollPane;

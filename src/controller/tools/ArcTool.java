@@ -1,7 +1,8 @@
 package controller.tools;
 
-import model.MapDrawingTool;
-import model.MapStateManager;
+import drawmodel.MapDrawingTool;
+import drawmodel.MapStateManager;
+import utils.utils;
 import controller.SelectionMenuManager;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
@@ -10,54 +11,60 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
-import javafx.scene.shape.Line;
-import java.util.Arrays;
-import javafx.scene.text.Text;  
-import javafx.scene.shape.Rectangle;
-import javafx.geometry.Point2D;
-import javafx.scene.transform.Rotate;
-import javafx.scene.effect.DropShadow;
+import javafx.scene.shape.Line;  
 import javafx.scene.shape.Circle;
+import java.util.Arrays;
+import javafx.scene.text.Text;
+import javafx.scene.shape.Rectangle;
 import javafx.geometry.Bounds;
 import javafx.scene.control.ScrollPane;
 
 public class ArcTool implements MapDrawingTool {
     private ScrollPane mapScrollPane;
-    
-    private MapStateManager stateManager;
     private Group mapZoomGroup;
     private SelectionMenuManager menuManager;
-
-    private Point2D centerPoint;        
-    private Circle tempCenterCircle;    
-
-    private Line previewRadiusLine;     
-    private Text radiusValueText;       
-    private Arc previewArc;             
-
-    private boolean definingRadius = false; 
-    private boolean definingAngle = false;  
-
-    private static final Double[] BASE_DASH_PATTERN_DOTTED = {1.0, 3.0}; 
-    private static final Double[] BASE_DASH_PATTERN_DASHED = {5.0, 5.0}; 
-    private double currentRadius = 0;
     
+    private Point2D arcStart;
+    private Point2D centerPoint;
+    private Circle tempCenterCircle;
+    private Line previewRadiusLine;
+    private Text radiusValueText;
+    private Arc previewArc;
+
+    private boolean definingRadius = false;
+    private boolean definingAngle = false;
+
+    private static final Double[] BASE_DASH_PATTERN_DOTTED = {1.0, 3.0};
+    private static final Double[] BASE_DASH_PATTERN_DASHED = {5.0, 5.0};
+    private double currentRadius = 0;
+
     private Rectangle clip;
 
+    // Scroll config
+    private static final double SCROLL_THRESHOLD = 50.0;
+    private static final double SCROLL_SPEED = 0.005; // más lento
+    
+    private Double predefinedRadius;
+
     @Override
-    public void setDependencies(MapStateManager stateManager,   Group mapZoomGroup, SelectionMenuManager menuManager,ScrollPane mapScrollPane) {
-        this.stateManager = stateManager;
+    public void setDependencies(Group mapZoomGroup, SelectionMenuManager menuManager, ScrollPane mapScrollPane) {
         this.mapZoomGroup = mapZoomGroup;
         this.menuManager = menuManager;
-        this.mapScrollPane=mapScrollPane;
-        
+        this.mapScrollPane = mapScrollPane;
+
+        double w = mapZoomGroup.getBoundsInLocal().getWidth();
+        double h = mapZoomGroup.getBoundsInLocal().getHeight();
+        if (clip == null) {
+            clip = new Rectangle(10, 10, w, h);
+            mapZoomGroup.setClip(clip);
+        } else {
+            clip.setWidth(w);
+            clip.setHeight(h);
+        }
     }
 
     @Override
     public void activate() {
-        stateManager.resetDrawingStates();
-        stateManager.setArcStart(null); 
-
         if (tempCenterCircle != null) mapZoomGroup.getChildren().remove(tempCenterCircle);
         if (previewRadiusLine != null) mapZoomGroup.getChildren().remove(previewRadiusLine);
         if (radiusValueText != null) mapZoomGroup.getChildren().remove(radiusValueText);
@@ -70,7 +77,7 @@ public class ArcTool implements MapDrawingTool {
         centerPoint = null;
         definingRadius = false;
         definingAngle = false;
-        
+
         double w = mapZoomGroup.getBoundsInLocal().getWidth();
         double h = mapZoomGroup.getBoundsInLocal().getHeight();
         if (clip == null) {
@@ -80,12 +87,14 @@ public class ArcTool implements MapDrawingTool {
             clip.setWidth(w);
             clip.setHeight(h);
         }
+        arcStart = null;
     }
+
     @Override
     public void deactivate() {
         if (tempCenterCircle != null) mapZoomGroup.getChildren().remove(tempCenterCircle);
-        if (previewRadiusLine != null) mapZoomGroup.getChildren().remove(previewRadiusLine); 
-        if (radiusValueText != null) mapZoomGroup.getChildren().remove(radiusValueText);     
+        if (previewRadiusLine != null) mapZoomGroup.getChildren().remove(previewRadiusLine);
+        if (radiusValueText != null) mapZoomGroup.getChildren().remove(radiusValueText);
         if (previewArc != null) mapZoomGroup.getChildren().remove(previewArc);
 
         tempCenterCircle = null;
@@ -95,20 +104,22 @@ public class ArcTool implements MapDrawingTool {
         centerPoint = null;
         definingRadius = false;
         definingAngle = false;
-        stateManager.setArcStart(null);
+        arcStart = null;
     }
 
-   @Override
+    @Override
     public void onMousePressed(MouseEvent event, Point2D mapCoords) {
         if (event.getButton() == MouseButton.PRIMARY) {
             if (centerPoint == null) {
                 centerPoint = mapCoords;
                 tempCenterCircle = new Circle(centerPoint.getX(), centerPoint.getY(), 3, Color.ORANGE);
+                tempCenterCircle.setStrokeWidth(menuManager.getLineThickness());
                 mapZoomGroup.getChildren().add(tempCenterCircle);
-                Double predefinedRadius = menuManager.getArcRadius();
-                if (predefinedRadius != null && predefinedRadius > 0) {
+                predefinedRadius = menuManager.getArcRadius();
+                if (predefinedRadius != null && predefinedRadius > 0){
                     currentRadius = predefinedRadius;
                     definingAngle = true;
+                    
                     previewArc = new Arc(centerPoint.getX(), centerPoint.getY(), currentRadius, currentRadius, 0, 0);
                     previewArc.setType(menuManager.getArcType());
                     previewArc.setFill(Color.TRANSPARENT);
@@ -118,7 +129,7 @@ public class ArcTool implements MapDrawingTool {
                     previewRadiusLine = new Line(centerPoint.getX(), centerPoint.getY(), mapCoords.getX(), mapCoords.getY());
                     previewRadiusLine.setStroke(menuManager.getColorPickerValue());
                     previewRadiusLine.setStrokeWidth(menuManager.getLineThickness());
-                    previewRadiusLine.getStrokeDashArray().setAll(getScaledDashPattern(BASE_DASH_PATTERN_DASHED, menuManager.getLineThickness())); // O DOTTED
+                    previewRadiusLine.getStrokeDashArray().setAll(getScaledDashPattern(BASE_DASH_PATTERN_DASHED, menuManager.getLineThickness()));
                     mapZoomGroup.getChildren().add(previewRadiusLine);
 
                     radiusValueText = new Text(mapCoords.getX(), mapCoords.getY(), String.format("%.1f px", currentRadius));
@@ -132,7 +143,7 @@ public class ArcTool implements MapDrawingTool {
                     previewRadiusLine = new Line(centerPoint.getX(), centerPoint.getY(), mapCoords.getX(), mapCoords.getY());
                     previewRadiusLine.setStroke(menuManager.getColorPickerValue());
                     previewRadiusLine.setStrokeWidth(menuManager.getLineThickness());
-                    previewRadiusLine.getStrokeDashArray().setAll(getScaledDashPattern(BASE_DASH_PATTERN_DASHED, menuManager.getLineThickness())); // O DOTTED
+                    previewRadiusLine.getStrokeDashArray().setAll(getScaledDashPattern(BASE_DASH_PATTERN_DASHED, menuManager.getLineThickness()));
                     mapZoomGroup.getChildren().add(previewRadiusLine);
 
                     radiusValueText = new Text(mapCoords.getX(), mapCoords.getY(), "0.0");
@@ -147,10 +158,23 @@ public class ArcTool implements MapDrawingTool {
             }
         }
     }
+boolean reached = false;
     @Override
     public void onMouseDragged(MouseEvent event, Point2D mapCoords) {
         if (event.getButton() == MouseButton.PRIMARY) {
             if (definingRadius) {
+                handleViewportAutoScroll(event); // AUTOSCROLL habilitado durante radio
+
+                // Límite: No dejar que el cursor salga del zoomGroup (puedes ajustar el margen si quieres)
+                Bounds zoomBounds = mapZoomGroup.getBoundsInLocal();
+                double margin = 0; // o 20 si quieres margen interno
+                double mouseX = mapCoords.getX();
+                double mouseY = mapCoords.getY();
+                if (mouseX < zoomBounds.getMinX() + margin || mouseX > zoomBounds.getMaxX() - margin ||
+                    mouseY < zoomBounds.getMinY() + margin || mouseY > zoomBounds.getMaxY() - margin) {
+                    return;
+                }
+                //
                 double proposedRadius = centerPoint.distance(mapCoords);
                 previewRadiusLine.setEndX(mapCoords.getX());
                 previewRadiusLine.setEndY(mapCoords.getY());
@@ -161,34 +185,43 @@ public class ArcTool implements MapDrawingTool {
                 radiusValueText.setFont(new javafx.scene.text.Font(4 * menuManager.getLineThickness()));
                 radiusValueText.setFill(menuManager.getColorPickerValue());
                 event.consume();
-            } 
-            else if (definingAngle) {
-    Bounds zoomBounds = mapZoomGroup.getBoundsInLocal();
+            } else if (definingAngle) {
+                double dx = mapCoords.getX() - centerPoint.getX();
+            double dy = mapCoords.getY() - centerPoint.getY();
+            double distance = Math.sqrt(dx * dx + dy * dy);
+                if( predefinedRadius != null && !reached){
+                    
+                    if(distance > 0.1*predefinedRadius ){
+                       arcStart = mapCoords;
+                        reached = true;
+                    }}
+                if(arcStart!=null){
+                Bounds zoomBounds = mapZoomGroup.getBoundsInLocal();
+                double minX = zoomBounds.getMinX() + 20;
+                double maxX = zoomBounds.getMaxX() - 20;
+                double minY = zoomBounds.getMinY() + 20;
+                double maxY = zoomBounds.getMaxY() - 20;
 
-    double minX = zoomBounds.getMinX() + 20;
-    double maxX = zoomBounds.getMaxX() - 20;
-    double minY = zoomBounds.getMinY() + 20;
-    double maxY = zoomBounds.getMaxY() - 20;
+                double mouseX = mapCoords.getX();
+                double mouseY = mapCoords.getY();
 
-    double mouseX = mapCoords.getX();
-    double mouseY = mapCoords.getY();
+                if (mouseX < minX || mouseX > maxX || mouseY < minY || mouseY > maxY) {
+                    return;
+                }
 
-    if (mouseX < minX || mouseX > maxX || mouseY < minY || mouseY > maxY) {
-        return;
-    }
+                double currentMouseAngle = utils.calculateAngle(centerPoint, mapCoords);
+                double initialArcStartAngle = utils.calculateAngle(centerPoint, arcStart);
+                double sweep = currentMouseAngle - initialArcStartAngle;
+                if (sweep > 180) sweep -= 360;
+                else if (sweep < -180) sweep += 360;
 
-    double currentMouseAngle = calculateAngle(centerPoint, mapCoords);
-    double initialArcStartAngle = calculateAngle(centerPoint, stateManager.getArcStart());
-    double sweep = currentMouseAngle - initialArcStartAngle;
-    if (sweep > 180) sweep -= 360;
-    else if (sweep < -180) sweep += 360;
-
-    previewArc.setStartAngle((initialArcStartAngle + 180) % 360);
-    previewArc.setLength(sweep);
-    previewArc.setStroke(menuManager.getColorPickerValue());
-    previewArc.setStrokeWidth(menuManager.getLineThickness());
-    event.consume();
-}
+                previewArc.setStartAngle((initialArcStartAngle + 180) % 360);
+                previewArc.setLength(sweep);
+                previewArc.setStroke(menuManager.getColorPickerValue());
+                previewArc.setStrokeWidth(menuManager.getLineThickness());
+                event.consume();
+                }
+            }
         }
     }
     @Override
@@ -205,9 +238,9 @@ public class ArcTool implements MapDrawingTool {
                     previewArc.setStrokeWidth(menuManager.getLineThickness());
                     mapZoomGroup.getChildren().add(previewArc);
                 }
-                stateManager.setArcStart(mapCoords);
-                previewArc.setStartAngle(calculateAngle(centerPoint, mapCoords));
-                previewArc.setLength(0); 
+                arcStart=mapCoords;
+                previewArc.setStartAngle(utils.calculateAngle(centerPoint, mapCoords));
+                previewArc.setLength(0);
                 event.consume();
             } else if (definingAngle) {
                 Arc finalArc = new Arc(
@@ -233,17 +266,17 @@ public class ArcTool implements MapDrawingTool {
                 radiusValueText = null;
                 centerPoint = null;
                 definingAngle = false;
-                stateManager.setArcStart(null);
+                arcStart=null;
+                reached = false;
                 event.consume();
             }
         }
     }
     @Override
-   public void onMouseClick(MouseEvent event, Point2D mapCoords) {}
-   private double calculateAngle(Point2D center, Point2D p) {
-    double angle = Math.toDegrees(Math.atan2(-center.getY()+ p.getY(), center.getX() - p.getX() ));
-    return angle;
-}
+    public void onMouseClick(MouseEvent event, Point2D mapCoords) {}
+
+    
+
     private Double[] getScaledDashPattern(Double[] basePattern, double scaleFactor) {
         if (basePattern == null) {
             return null;
@@ -253,5 +286,46 @@ public class ArcTool implements MapDrawingTool {
             scaledPattern[i] = basePattern[i] * scaleFactor;
         }
         return scaledPattern;
+    }
+
+    // AUTOSCROLL igual que en LineTool
+    private void handleViewportAutoScroll(MouseEvent event) {
+        double mouseX = event.getSceneX();
+        double mouseY = event.getSceneY();
+
+        Bounds scrollPaneBounds = mapScrollPane.localToScene(mapScrollPane.getBoundsInLocal());
+        Bounds viewportBounds = mapScrollPane.getViewportBounds();
+
+        double mouseXInViewport = mouseX - scrollPaneBounds.getMinX();
+        double mouseYInViewport = mouseY - scrollPaneBounds.getMinY();
+
+        double deltaH = 0;
+        double deltaV = 0;
+
+        if (mouseXInViewport < SCROLL_THRESHOLD) {
+            deltaH = -SCROLL_SPEED;
+        } else if (mouseXInViewport > viewportBounds.getWidth() - SCROLL_THRESHOLD) {
+            deltaH = SCROLL_SPEED;
+        }
+
+        if (mouseYInViewport < SCROLL_THRESHOLD) {
+            deltaV = -SCROLL_SPEED;
+        } else if (mouseYInViewport > viewportBounds.getHeight() - SCROLL_THRESHOLD) {
+            deltaV = SCROLL_SPEED;
+        }
+
+        double newHvalue = clamp(mapScrollPane.getHvalue() + deltaH, 0.0, 1.0);
+        double newVvalue = clamp(mapScrollPane.getVvalue() + deltaV, 0.0, 1.0);
+
+        if (newHvalue != mapScrollPane.getHvalue()) {
+            mapScrollPane.setHvalue(newHvalue);
+        }
+        if (newVvalue != mapScrollPane.getVvalue()) {
+            mapScrollPane.setVvalue(newVvalue);
+        }
+    }
+
+    private double clamp(double value, double min, double max) {
+        return Math.min(Math.max(value, min), max);
     }
 }
